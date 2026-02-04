@@ -5,95 +5,110 @@
 <title>AI Response Comparator</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<style>
-:root {
-  --bg: #020617;
-  --panel: #020617;
-  --card: #020617;
-  --border: #1e293b;
-  --text: #e5e7eb;
-  --muted: #94a3b8;
-  --accent: #2563eb;
+
+
+<script>
+const AI_ENGINES = [
+  { name: "ChatGPT", mode: "balanced" },
+  { name: "Gemini", mode: "factual" },
+  { name: "Claude", mode: "explanatory" },
+  { name: "Perplexity", mode: "research" },
+  { name: "Copilot", mode: "practical" },
+  { name: "Grok", mode: "witty" },
+  { name: "Mistral", mode: "concise" },
+  { name: "LLaMA", mode: "academic" },
+  { name: "DeepSeek", mode: "stepwise" },
+  { name: "Experimental AI", mode: "creative" }
+];
+
+const grid = document.getElementById("grid");
+grid.innerHTML = "";
+
+AI_ENGINES.forEach(ai => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h3>${ai.name}</h3>
+    <div class="status">Idle</div>
+    <div class="output"></div>
+  `;
+  grid.appendChild(card);
+  ai.el = card;
+});
+
+function askAll() {
+  const prompt = document.getElementById("prompt").value.trim();
+  if (!prompt) return;
+
+  AI_ENGINES.forEach(ai => {
+    const status = ai.el.querySelector(".status");
+    const output = ai.el.querySelector(".output");
+
+    status.textContent = "Thinking…";
+    output.textContent = "";
+
+    const response = generateAIResponse(prompt, ai.mode);
+    typeText(output, response, () => status.textContent = "Done");
+  });
 }
 
-* { box-sizing: border-box; }
+/* ===========================
+   AI RESPONSE ENGINE (CORE)
+   =========================== */
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+function generateAIResponse(prompt, mode) {
+  switch (mode) {
+
+    case "balanced":
+      return `Here’s a clear and balanced explanation:\n\n${prompt}\n\nThis topic can be understood by breaking it into key ideas, avoiding unnecessary complexity while keeping accuracy intact.`;
+
+    case "factual":
+      return `Facts-focused response:\n\n• Definition\n• Core mechanism\n• Known data\n\n${prompt} is best explained using verified information and observable evidence.`;
+
+    case "explanatory":
+      return `Let me explain this carefully:\n\nFirst, we define the concept.\nSecond, we explore how it works.\nFinally, we look at why it matters.\n\nThis approach ensures full understanding.`;
+
+    case "research":
+      return `Research-style overview:\n\n• Background context\n• Current understanding\n• Open questions\n\nMultiple sources suggest this topic is still actively studied.`;
+
+    case "practical":
+      return `Practical explanation:\n\nWhat you need to know:\n1. What it does\n2. When to use it\n3. Why it matters in real situations`;
+
+    case "witty":
+      return `Alright, let’s break this down without the boring bits 😄\n\nImagine explaining this to a friend over chai — that’s the easiest way to understand it.`;
+
+    case "concise":
+      return `Short answer:\n\n${prompt}\n\nKey idea → One core principle explains most of it.`;
+
+    case "academic":
+      return `Academic framing:\n\nThis concept can be formally defined, analyzed through established theory, and contextualized within existing literature.`;
+
+    case "stepwise":
+      return `Step-by-step reasoning:\n\n1️⃣ Identify the concept\n2️⃣ Understand the mechanism\n3️⃣ Apply the logic\n4️⃣ Draw conclusions`;
+
+    case "creative":
+      return `Creative perspective:\n\nThink of this concept as a story — with a beginning, conflict, and resolution. That narrative helps make sense of it.`;
+
+    default:
+      return `Response generated for: ${prompt}`;
+  }
 }
 
-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding: 12px;
-  border-bottom: 1px solid var(--border);
-  background: var(--panel);
-}
+/* ===========================
+   TYPING EFFECT
+   =========================== */
 
-textarea {
-  width: 100%;
-  min-height: 70px;
-  resize: vertical;
-  padding: 10px;
-  background: #020617;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  font-size: 14px;
+function typeText(el, text, done) {
+  let i = 0;
+  const timer = setInterval(() => {
+    el.textContent += text[i++];
+    if (i >= text.length) {
+      clearInterval(timer);
+      done && done();
+    }
+  }, 10);
 }
-
-button {
-  margin-top: 8px;
-  padding: 10px 16px;
-  background: var(--accent);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 10px;
-  padding: 10px;
-}
-
-.card {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px;
-  background: #020617;
-  display: flex;
-  flex-direction: column;
-}
-
-.card h3 {
-  margin: 0 0 6px;
-  font-size: 14px;
-}
-
-.status {
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-
-.output {
-  font-size: 13px;
-  line-height: 1.4;
-  white-space: pre-wrap;
-  overflow-y: auto;
-  flex: 1;
-  border-top: 1px dashed var(--border);
-  padding-top: 6px;
-}
-</style>
+</script>
 </head>
 
 <body>
