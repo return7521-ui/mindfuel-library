@@ -1,60 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Shorts Loop Tester</title>
-  <style>
+<meta charset="UTF-8">
+<title>Multi-Tab URL Launcher</title>
+<style>
     body {
-      background: #0f0f0f;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-      gap: 10px;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e5e7eb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
     }
     .box {
-      background: #1e1e1e;
-      height: 280px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      font-size: 14px;
-      text-align: center;
+        background: #020617;
+        padding: 25px;
+        border-radius: 12px;
+        width: 360px;
+        box-shadow: 0 0 25px rgba(0,0,0,0.6);
     }
-  </style>
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    label {
+        font-size: 14px;
+        display: block;
+        margin-top: 10px;
+    }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 6px;
+        border: none;
+        outline: none;
+    }
+    button {
+        margin-top: 18px;
+        width: 100%;
+        padding: 10px;
+        background: #2563eb;
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+    button:hover {
+        background: #1d4ed8;
+    }
+    p {
+        font-size: 12px;
+        opacity: 0.8;
+        margin-top: 12px;
+        text-align: center;
+    }
+</style>
 </head>
 <body>
 
-<h2>Shorts 9s Loop – Test Simulator</h2>
-<p>Running tabs: <span id="count">0</span></p>
+<div class="box">
+    <h2>Multi-Tab Opener</h2>
 
-<div class="grid" id="grid"></div>
+    <label>Target URL</label>
+    <input type="text" id="url" placeholder="https://example.com">
+
+    <label>Number of Tabs</label>
+    <input type="number" id="tabs" value="10" min="1">
+
+    <label>Reload Interval (seconds)</label>
+    <input type="number" id="interval" value="30" min="1">
+
+    <button onclick="start()">START</button>
+
+    <p>Allow pop-ups for this site when prompted</p>
+</div>
 
 <script>
-  const TOTAL = 100;      // simulate 100 tabs
-  const DURATION = 9000; // 9 seconds
+let openedTabs = [];
 
-  const grid = document.getElementById("grid");
-  const count = document.getElementById("count");
+function start() {
+    const url = document.getElementById("url").value.trim();
+    const tabsCount = parseInt(document.getElementById("tabs").value);
+    const intervalSec = parseInt(document.getElementById("interval").value);
 
-  for (let i = 1; i <= TOTAL; i++) {
-    const box = document.createElement("div");
-    box.className = "box";
-    box.innerHTML = `Simulated Short<br>Tab #${i}<br><span>Playing…</span>`;
-    grid.appendChild(box);
+    if (!url || tabsCount < 1 || intervalSec < 1) {
+        alert("Please enter valid values");
+        return;
+    }
 
+    // Open tabs
+    openedTabs = [];
+    for (let i = 0; i < tabsCount; i++) {
+        let w = window.open(url, "_blank");
+        if (w) openedTabs.push(w);
+    }
+
+    // Reload tabs repeatedly
     setInterval(() => {
-      box.querySelector("span").textContent = "Restarting…";
-      setTimeout(() => {
-        box.querySelector("span").textContent = "Playing…";
-      }, 300);
-    }, DURATION);
-  }
-
-  count.textContent = TOTAL;
+        openedTabs.forEach(tab => {
+            try {
+                tab.location.href = url;
+            } catch (e) {}
+        });
+    }, intervalSec * 1000);
+}
 </script>
 
 </body>
