@@ -36,19 +36,21 @@ AI_ENGINES.forEach(ai => {
   ai.el = card;
 });
 
-function askAll() {
+async function askAll() {
   const prompt = document.getElementById("prompt").value.trim();
   if (!prompt) return;
 
+  const r = await fetch("https://YOUR_BACKEND_URL/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt })
+  });
+
+  const data = await r.json();
+
   AI_ENGINES.forEach(ai => {
-    const status = ai.el.querySelector(".status");
     const output = ai.el.querySelector(".output");
-
-    status.textContent = "Thinking…";
-    output.textContent = "";
-
-    const response = generateAIResponse(prompt, ai.mode);
-    typeText(output, response, () => status.textContent = "Done");
+    output.textContent = data[ai.name] || "No response";
   });
 }
 
