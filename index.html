@@ -1,208 +1,247 @@
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>AI Response Comparator</title>
+<title>AI Fiesta — Real AI Comparison Arena</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-
-<script>
-const AI_ENGINES = [
-  { name: "ChatGPT", mode: "balanced" },
-  { name: "Gemini", mode: "factual" },
-  { name: "Claude", mode: "explanatory" },
-  { name: "Perplexity", mode: "research" },
-  { name: "Copilot", mode: "practical" },
-  { name: "Grok", mode: "witty" },
-  { name: "Mistral", mode: "concise" },
-  { name: "LLaMA", mode: "academic" },
-  { name: "DeepSeek", mode: "stepwise" },
-  { name: "Experimental AI", mode: "creative" }
-];
-
-const grid = document.getElementById("grid");
-grid.innerHTML = "";
-
-AI_ENGINES.forEach(ai => {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <h3>${ai.name}</h3>
-    <div class="status">Idle</div>
-    <div class="output"></div>
-  `;
-  grid.appendChild(card);
-  ai.el = card;
-});
-
-async function askAll() {
-  const prompt = document.getElementById("prompt").value.trim();
-  if (!prompt) return;
-
-  const r = await fetch("https://ai-fiesta-backend-1.onrender.com/ask", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ prompt })
-  });
-
-  const data = await r.json();
-
-  AI_ENGINES.forEach(ai => {
-    const output = ai.el.querySelector(".output");
-    output.textContent = data[ai.name] || "No response";
-  });
+<style>
+/* =====================
+   THEME VARIABLES
+   ===================== */
+:root {
+  --bg: #020617;
+  --panel: rgba(2,6,23,0.85);
+  --card: rgba(2,6,23,0.9);
+  --border: #1e293b;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #2563eb;
+  --success: #22c55e;
+  --warning: #facc15;
 }
 
-/* ===========================
-   AI RESPONSE ENGINE (CORE)
-   =========================== */
-
-function generateAIResponse(prompt, mode) {
-  switch (mode) {
-
-    case "balanced":
-      return `Here’s a clear and balanced explanation:\n\n${prompt}\n\nThis topic can be understood by breaking it into key ideas, avoiding unnecessary complexity while keeping accuracy intact.`;
-
-    case "factual":
-      return `Facts-focused response:\n\n• Definition\n• Core mechanism\n• Known data\n\n${prompt} is best explained using verified information and observable evidence.`;
-
-    case "explanatory":
-      return `Let me explain this carefully:\n\nFirst, we define the concept.\nSecond, we explore how it works.\nFinally, we look at why it matters.\n\nThis approach ensures full understanding.`;
-
-    case "research":
-      return `Research-style overview:\n\n• Background context\n• Current understanding\n• Open questions\n\nMultiple sources suggest this topic is still actively studied.`;
-
-    case "practical":
-      return `Practical explanation:\n\nWhat you need to know:\n1. What it does\n2. When to use it\n3. Why it matters in real situations`;
-
-    case "witty":
-      return `Alright, let’s break this down without the boring bits 😄\n\nImagine explaining this to a friend over chai — that’s the easiest way to understand it.`;
-
-    case "concise":
-      return `Short answer:\n\n${prompt}\n\nKey idea → One core principle explains most of it.`;
-
-    case "academic":
-      return `Academic framing:\n\nThis concept can be formally defined, analyzed through established theory, and contextualized within existing literature.`;
-
-    case "stepwise":
-      return `Step-by-step reasoning:\n\n1️⃣ Identify the concept\n2️⃣ Understand the mechanism\n3️⃣ Apply the logic\n4️⃣ Draw conclusions`;
-
-    case "creative":
-      return `Creative perspective:\n\nThink of this concept as a story — with a beginning, conflict, and resolution. That narrative helps make sense of it.`;
-
-    default:
-      return `Response generated for: ${prompt}`;
-  }
+/* =====================
+   BASE RESET
+   ===================== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #020617, #000);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-/* ===========================
-   TYPING EFFECT
-   =========================== */
-
-function typeText(el, text, done) {
-  let i = 0;
-  const timer = setInterval(() => {
-    el.textContent += text[i++];
-    if (i >= text.length) {
-      clearInterval(timer);
-      done && done();
-    }
-  }, 10);
+/* =====================
+   HEADER / COMMAND BAR
+   ===================== */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--panel);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px;
 }
-</script>
+
+header h1 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+header p {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+textarea {
+  width: 100%;
+  min-height: 80px;
+  resize: vertical;
+  padding: 12px;
+  background: #020617;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 12px;
+  width: 100%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+button:active { transform: scale(0.98); }
+
+/* =====================
+   GRID
+   ===================== */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 14px;
+  padding: 14px;
+}
+
+/* =====================
+   AI CARD
+   ===================== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.badge {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #020617;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.badge.loading { color: var(--warning); }
+.badge.done { color: var(--success); }
+
+.output {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--border);
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* =====================
+   FOOTER
+   ===================== */
+footer {
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+  padding: 10px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <textarea id="prompt" placeholder="Type your question here..."></textarea>
-  <button onclick="askAll()">ASK ALL AIs</button>
+  <h1>AI Fiesta — Comparison Arena</h1>
+  <p>Ask once. Compare real responses from multiple AI models.</p>
+  <textarea id="prompt" placeholder="Ask anything…"></textarea>
+  <button onclick="askAll()">Ask All AIs</button>
 </header>
 
 <div id="grid" class="grid"></div>
 
-<script>
-/* ===========================
-   AI DEFINITIONS (PLUGGABLE)
-   =========================== */
+<footer>
+  Powered by Render backend • Real APIs • No fake responses
+</footer>
 
-const AI_ENGINES = [
-  { name: "ChatGPT", style: "concise, balanced, structured" },
-  { name: "Gemini", style: "factual, technical, neutral" },
-  { name: "Claude", style: "polite, explanatory, verbose" },
-  { name: "Perplexity", style: "search-based, citation-like" },
-  { name: "Copilot", style: "developer-focused, practical" },
-  { name: "Grok", style: "casual, witty, bold" },
-  { name: "Mistral", style: "efficient, direct" },
-  { name: "LLaMA", style: "academic, neutral" },
-  { name: "DeepSeek", style: "analytical, step-by-step" },
-  { name: "Custom AI", style: "experimental" }
+<script>
+/* =====================
+   CONFIG
+   ===================== */
+const BACKEND_URL = "https://ai-fiesta-backend-1.onrender.com/ask";
+
+const AI_LIST = [
+  "ChatGPT",
+  "Gemini",
+  "Claude"
 ];
 
-/* ===========================
-   INITIAL UI BUILD
-   =========================== */
-
+/* =====================
+   BUILD UI
+   ===================== */
 const grid = document.getElementById("grid");
+const cards = {};
 
-AI_ENGINES.forEach(ai => {
+AI_LIST.forEach(name => {
   const card = document.createElement("div");
   card.className = "card";
   card.innerHTML = `
-    <h3>${ai.name}</h3>
-    <div class="status">Idle</div>
+    <div class="card-header">
+      <h3>${name}</h3>
+      <span class="badge">Idle</span>
+    </div>
     <div class="output"></div>
   `;
   grid.appendChild(card);
-  ai.el = card;
+  cards[name] = card;
 });
 
-/* ===========================
+/* =====================
    CORE LOGIC
-   =========================== */
-
-function askAll() {
+   ===================== */
+async function askAll() {
   const prompt = document.getElementById("prompt").value.trim();
   if (!prompt) return;
 
-  AI_ENGINES.forEach(ai => {
-    const status = ai.el.querySelector(".status");
-    const output = ai.el.querySelector(".output");
-
-    status.textContent = "Thinking...";
-    output.textContent = "";
-
-    // DEMO RESPONSE GENERATOR
-    const response = generateDemoResponse(prompt, ai.style, ai.name);
-    typeText(output, response, () => {
-      status.textContent = "Done";
-    });
+  Object.values(cards).forEach(card => {
+    card.querySelector(".badge").textContent = "Thinking…";
+    card.querySelector(".badge").className = "badge loading";
+    card.querySelector(".output").textContent = "";
   });
-}
 
-/* ===========================
-   DEMO RESPONSE ENGINE
-   =========================== */
+  try {
+    const res = await fetch(BACKEND_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt })
+    });
 
-function generateDemoResponse(prompt, style, name) {
-  return `[${name} – ${style}]\n\nPrompt: "${prompt}"\n\nResponse:\nThis is a simulated answer written in a ${style} tone. Replace this engine with a real API adapter to fetch live AI responses.`;
-}
+    const data = await res.json();
 
-/* ===========================
-   TYPING ANIMATION
-   =========================== */
+    AI_LIST.forEach(name => {
+      const card = cards[name];
+      card.querySelector(".output").textContent =
+        data[name] || "No response received.";
+      card.querySelector(".badge").textContent = "Done";
+      card.querySelector(".badge").className = "badge done";
+    });
 
-function typeText(el, text, done) {
-  let i = 0;
-  const speed = 12;
-  const timer = setInterval(() => {
-    el.textContent += text[i++];
-    if (i >= text.length) {
-      clearInterval(timer);
-      done && done();
-    }
-  }, speed);
+  } catch (err) {
+    AI_LIST.forEach(name => {
+      const card = cards[name];
+      card.querySelector(".output").textContent =
+        "Error contacting backend.";
+      card.querySelector(".badge").textContent = "Error";
+    });
+  }
 }
 </script>
 
