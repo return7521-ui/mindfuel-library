@@ -1,129 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-Frame Opener</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        #controls {
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        input, button {
-            padding: 10px;
-            margin: 5px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #frames-container {
-            flex-grow: 1;
-            display: grid;
-            /* Creates a grid that tries to fit many items */
-            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-            grid-auto-rows: minmax(80px, 1fr);
-            gap: 5px;
-            padding: 5px;
-            overflow: auto;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #ddd;
-            background: #fff;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>AI Response Comparator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+:root {
+  --bg: #020617;
+  --panel: #020617;
+  --card: #020617;
+  --border: #1e293b;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --accent: #2563eb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--panel);
+}
+
+textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: vertical;
+  padding: 10px;
+  background: #020617;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+button {
+  margin-top: 8px;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px;
+  background: #020617;
+  display: flex;
+  flex-direction: column;
+}
+
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.status {
+  font-size: 11px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.output {
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-y: auto;
+  flex: 1;
+  border-top: 1px dashed var(--border);
+  padding-top: 6px;
+}
+</style>
 </head>
+
 <body>
-    <div id="controls">
-        <h2>Multi-Frame Link Opener</h2>
-        <div>
-            <label for="url-input">URL (must allow embedding):</label>
-            <input type="url" id="url-input" placeholder="https://example.com" required>
-        </div>
-        <div>
-            <label for="count-input">Number of Frames:</label>
-            <input type="number" id="count-input" placeholder="e.g., 100" min="1" value="10">
-        </div>
-        <div>
-            <label for="reload-input">Reload Interval (seconds):</label>
-            <input type="number" id="reload-input" placeholder="e.g., 60" min="1" value="60">
-        </div>
-        <button id="start-btn">Start</button>
-        <button id="stop-btn" style="background-color: #dc3545;">Stop</button>
-    </div>
-    <div id="frames-container"></div>
 
-    <script>
-        const urlInput = document.getElementById('url-input');
-        const countInput = document.getElementById('count-input');
-        const reloadInput = document.getElementById('reload-input');
-        const startBtn = document.getElementById('start-btn');
-        const stopBtn = document.getElementById('stop-btn');
-        const framesContainer = document.getElementById('frames-container');
+<header>
+  <textarea id="prompt" placeholder="Type your question here..."></textarea>
+  <button onclick="askAll()">ASK ALL AIs</button>
+</header>
 
-        let reloadIntervalId = null;
+<div id="grid" class="grid"></div>
 
-        function createFrames() {
-            const url = urlInput.value;
-            const count = parseInt(countInput.value);
+<script>
+/* ===========================
+   AI DEFINITIONS (PLUGGABLE)
+   =========================== */
 
-            if (!url) {
-                alert('Please enter a valid URL.');
-                return;
-            }
+const AI_ENGINES = [
+  { name: "ChatGPT", style: "concise, balanced, structured" },
+  { name: "Gemini", style: "factual, technical, neutral" },
+  { name: "Claude", style: "polite, explanatory, verbose" },
+  { name: "Perplexity", style: "search-based, citation-like" },
+  { name: "Copilot", style: "developer-focused, practical" },
+  { name: "Grok", style: "casual, witty, bold" },
+  { name: "Mistral", style: "efficient, direct" },
+  { name: "LLaMA", style: "academic, neutral" },
+  { name: "DeepSeek", style: "analytical, step-by-step" },
+  { name: "Custom AI", style: "experimental" }
+];
 
-            framesContainer.innerHTML = ''; // Clear existing frames
+/* ===========================
+   INITIAL UI BUILD
+   =========================== */
 
-            for (let i = 0; i < count; i++) {
-                const iframe = document.createElement('iframe');
-                iframe.src = url;
-                // The 'sandbox' attribute is omitted to allow scripts and other features to run.
-                // This still won't bypass security headers sent by the embedded site.
-                framesContainer.appendChild(iframe);
-            }
-        }
+const grid = document.getElementById("grid");
 
-        startBtn.addEventListener('click', () => {
-            if (reloadIntervalId) clearInterval(reloadIntervalId);
-            createFrames();
+AI_ENGINES.forEach(ai => {
+  const card = document.createElement("div");
+  card.className = "card";
+  card.innerHTML = `
+    <h3>${ai.name}</h3>
+    <div class="status">Idle</div>
+    <div class="output"></div>
+  `;
+  grid.appendChild(card);
+  ai.el = card;
+});
 
-            const intervalSeconds = parseInt(reloadInput.value);
-            if (intervalSeconds > 0) {
-                reloadIntervalId = setInterval(() => {
-                    console.log('Reloading frames...');
-                    createFrames();
-                }, intervalSeconds * 1000);
-                startBtn.disabled = true;
-                stopBtn.disabled = false;
-            }
-        });
+/* ===========================
+   CORE LOGIC
+   =========================== */
 
-        stopBtn.addEventListener('click', () => {
-            if (reloadIntervalId) {
-                clearInterval(reloadIntervalId);
-                reloadIntervalId = null;
-                console.log('Reloading stopped.');
-            }
-            startBtn.disabled = false;
-            stopBtn.disabled = true;
-        });
-    </script>
+function askAll() {
+  const prompt = document.getElementById("prompt").value.trim();
+  if (!prompt) return;
+
+  AI_ENGINES.forEach(ai => {
+    const status = ai.el.querySelector(".status");
+    const output = ai.el.querySelector(".output");
+
+    status.textContent = "Thinking...";
+    output.textContent = "";
+
+    // DEMO RESPONSE GENERATOR
+    const response = generateDemoResponse(prompt, ai.style, ai.name);
+    typeText(output, response, () => {
+      status.textContent = "Done";
+    });
+  });
+}
+
+/* ===========================
+   DEMO RESPONSE ENGINE
+   =========================== */
+
+function generateDemoResponse(prompt, style, name) {
+  return `[${name} – ${style}]\n\nPrompt: "${prompt}"\n\nResponse:\nThis is a simulated answer written in a ${style} tone. Replace this engine with a real API adapter to fetch live AI responses.`;
+}
+
+/* ===========================
+   TYPING ANIMATION
+   =========================== */
+
+function typeText(el, text, done) {
+  let i = 0;
+  const speed = 12;
+  const timer = setInterval(() => {
+    el.textContent += text[i++];
+    if (i >= text.length) {
+      clearInterval(timer);
+      done && done();
+    }
+  }, speed);
+}
+</script>
+
 </body>
 </html>
