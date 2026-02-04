@@ -40,7 +40,7 @@ async function askAll() {
   const prompt = document.getElementById("prompt").value.trim();
   if (!prompt) return;
 
-  const r = await fetch("https://YOUR_BACKEND_URL/ask", {
+  const r = await fetch("https://ai-fiesta-backend-1.onrender.com/ask", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ prompt })
