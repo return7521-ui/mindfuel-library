@@ -1,26 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- TODO: Set the document title to the name of your application -->
-    <title>Lovable App</title>
-    <meta name="description" content="Lovable Generated Project" />
-    <meta name="author" content="Lovable" />
+<head>
+  <meta charset="UTF-8">
+  <title>Shorts Loop Tester</title>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 10px;
+    }
+    .box {
+      background: #1e1e1e;
+      height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
 
-    <!-- TODO: Update og:title to match your application name -->
-    <meta property="og:title" content="Lovable App" />
-    <meta property="og:description" content="Lovable Generated Project" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+<h2>Shorts 9s Loop – Test Simulator</h2>
+<p>Running tabs: <span id="count">0</span></p>
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@Lovable" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+<div class="grid" id="grid"></div>
 
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<script>
+  const TOTAL = 100;      // simulate 100 tabs
+  const DURATION = 9000; // 9 seconds
+
+  const grid = document.getElementById("grid");
+  const count = document.getElementById("count");
+
+  for (let i = 1; i <= TOTAL; i++) {
+    const box = document.createElement("div");
+    box.className = "box";
+    box.innerHTML = `Simulated Short<br>Tab #${i}<br><span>Playing…</span>`;
+    grid.appendChild(box);
+
+    setInterval(() => {
+      box.querySelector("span").textContent = "Restarting…";
+      setTimeout(() => {
+        box.querySelector("span").textContent = "Playing…";
+      }, 300);
+    }, DURATION);
+  }
+
+  count.textContent = TOTAL;
+</script>
+
+</body>
 </html>
