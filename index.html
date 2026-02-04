@@ -1,110 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YT Breach</title>
-    <style>
-        body { background-color: #000; color: #0f0; font-family: 'Courier New', Courier, monospace; margin: 0; padding: 10px; display: flex; flex-direction: column; align-items: center; }
-        .control-panel { background-color: #111; border: 1px solid #0f0; padding: 15px; margin-bottom: 10px; width: 95%; max-width: 900px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: center; }
-        .control-panel label { font-weight: bold; color: #0f0; }
-        .control-panel input { flex-grow: 1; padding: 8px; border: 1px solid #0f0; background-color: #222; color: #0f0; border-radius: 3px; }
-        .control-panel button { padding: 10px 20px; border: 1px solid #0f0; background-color: #0f0; color: #000; border-radius: 3px; cursor: pointer; font-weight: bold; transition: all 0.2s; }
-        .control-panel button:hover { background-color: #0a0; box-shadow: 0 0 10px #0f0; }
-        .control-panel button.stop { background-color: #f00; border-color: #f00; color: #fff; }
-        .control-panel button.stop:hover { background-color: #c00; box-shadow: 0 0 10px #f00; }
-        .tab-container { width: 100%; max-width: 1800px; aspect-ratio: 20 / 9; background-color: #111; border: 1px solid #0f0; overflow: hidden; display: grid; gap: 1px; padding: 1px; }
-        .tab { border: none; background-color: #000; width: 100%; height: 100%; }
-        #status { margin-top: 10px; color: #0f0; }
-    </style>
+<meta charset="UTF-8">
+<title>Multi‑Video Grid</title>
+<style>
+body{margin:0;background:#111;color:#fff;font-family:sans-serif}
+.container{display:flex;flex-wrap:wrap;gap:2px}
+iframe{aspect-ratio:20/9;width:calc(100vw/20);height:auto;border:none}
+form{padding:6px}
+</style>
 </head>
 <body>
-    <div class="control-panel">
-        <label for="urlInput">URL:</label>
-        <input type="text" id="urlInput" placeholder="https://www.youtube.com/watch?v=..." value="">
-        <label for="tabCountInput">Tabs:</label>
-        <input type="number" id="tabCountInput" placeholder="101" value="101" min="1">
-        <label for="reloadIntervalInput">Reload (s):</label>
-        <input type="number" id="reloadIntervalInput" placeholder="0" value="0" min="0">
-        <button id="launchButton">LAUNCH</button>
-        <button id="stopButton" class="stop">STOP</button>
-    </div>
-    <div id="tabContainer" class="tab-container"></div>
-    <p id="status">Ready.</p>
-    <script>
-        let reloadIntervalId = null;
-        function processUrl(url) {
-            if (!url) return '';
-            let u = url.trim();
-            const videoId = u.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&?#n]+)/);
-            if (videoId && videoId[1]) {
-                const id = videoId[1];
-                const baseUrl = 'https://www.youtube-nocookie.com/embed/';
-                const params = new URLSearchParams({
-                    autoplay: '1',
-                    mute: '1',
-                    loop: '1',
-                    playlist: id,
-                    controls: '0',
-                    showinfo: '0',
-                    rel: '0',
-                    iv_load_policy: '3',
-                    modestbranding: '1',
-                    fs: '0',
-                    disablekb: '1',
-                    cc_load_policy: '0',
-                    hl: 'en',
-                    html5: '1'
-                });
-                return `${baseUrl}${id}?${params.toString()}`;
-            }
-            return u;
-        }
-        function clearExistingTabs() { const container = document.getElementById('tabContainer'); container.innerHTML = ''; }
-        function reloadAllTabs(url) {
-            const iframes = document.querySelectorAll('.tab');
-            iframes.forEach(iframe => {
-                try { iframe.src = url; } catch (e) { console.error('Failed to reload iframe:', e); }
-            });
-        }
-        document.getElementById('launchButton').addEventListener('click', function() {
-            const urlInput = document.getElementById('urlInput').value;
-            const tabCount = parseInt(document.getElementById('tabCountInput').value, 10);
-            const reloadSeconds = parseInt(document.getElementById('reloadIntervalInput').value, 10);
-            const container = document.getElementById('tabContainer');
-            const status = document.getElementById('status');
-            if (!urlInput || !tabCount || tabCount < 1) { status.textContent = 'Invalid input.'; return; }
-            clearExistingTabs();
-            if (reloadIntervalId) { clearInterval(reloadIntervalId); reloadIntervalId = null; }
-            let processedUrl = processUrl(urlInput);
-            status.textContent = `Launching ${tabCount} tabs...`;
-            const columns = Math.ceil(Math.sqrt(tabCount * (20 / 9)));
-            container.style.gridTemplateColumns = `repeat(${columns}, 1fr)`;
-            for (let i = 0; i < tabCount; i++) {
-                const iframe = document.createElement('iframe');
-                iframe.src = processedUrl;
-                iframe.className = 'tab';
-                iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; 'unsafe-inline' 'unsafe-eval'";
-                iframe.allowFullscreen = true;
-                iframe.referrerPolicy = "no-referrer";
-                iframe.sandbox = "allow-same-origin allow-scripts allow-popups allow-forms allow-top-navigation";
-                container.appendChild(iframe);
-            }
-            if (reloadSeconds > 0) {
-                status.textContent += ` | Reloading every ${reloadSeconds}s.`;
-                reloadIntervalId = setInterval(() => { reloadAllTabs(processedUrl); }, reloadSeconds * 1000);
-            } else { status.textContent += ' | No reload.'; }
-        });
-        document.getElementById('stopButton').addEventListener('click', function() {
-            if (reloadIntervalId) {
-                clearInterval(reloadIntervalId);
-                reloadIntervalId = null;
-                document.getElementById('status').textContent = 'Reloading stopped.';
-            } else {
-                clearExistingTabs();
-                document.getElementById('status').textContent = 'Tabs cleared.';
-            }
-        });
-    </script>
+<form id="form">
+<input id="videoId" placeholder="YouTube video ID (e.g. dQw4w9WgXcQ)" required>
+<input id="count" type="number" value="100" min="1" max="150">
+<input id="interval" type="number" value="10" min="1"> sec 
+<button>Load</button>
+</form>
+<div class="container" id="container"></div>
+
+<script>
+const form=document.getElementById('form'),c=document.getElementById('container');
+form.onsubmit=e=>{
+ e.preventDefault();
+ let id=form.videoId.value.trim(),n=+form.count.value,t=+form.interval.value*1000;
+ c.innerHTML='';
+ for(let i=0;i<n;i++){
+   let f=document.createElement('iframe');
+   f.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=1&enablejsapi=1`;
+   c.appendChild(f);
+   setInterval(()=>f.src=`https://www.youtube.com/embed/${id}?autoplay=1&mute=1`,t);
+ }
+};
+</script>
 </body>
+</html>
 </html>
