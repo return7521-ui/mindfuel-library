@@ -2,112 +2,103 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Locked Multi-Tab Website Opener</title>
+<title>Internal Multi-View Loader</title>
 
 <style>
 body {
     margin: 0;
-    height: 100vh;
     background: #020617;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: Arial, sans-serif;
     color: #e5e7eb;
+    font-family: Arial, sans-serif;
 }
-.container {
-    width: 380px;
-    background: #0f172a;
-    padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 0 30px rgba(0,0,0,.6);
+
+.controls {
+    padding: 15px;
+    background: #020617;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
-h2 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-label {
-    display: block;
-    margin-top: 12px;
-    font-size: 14px;
-}
-input {
-    width: 100%;
+
+input, button {
     padding: 8px;
-    margin-top: 6px;
+    margin: 5px;
     border-radius: 6px;
     border: none;
-    outline: none;
 }
+
 button {
-    width: 100%;
-    margin-top: 18px;
-    padding: 10px;
     background: #2563eb;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
+    color: white;
     cursor: pointer;
 }
-button:hover {
-    background: #1d4ed8;
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 10px;
+    padding: 10px;
 }
-.note {
-    margin-top: 12px;
-    font-size: 12px;
-    opacity: 0.8;
-    text-align: center;
+
+iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    background: black;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-    <h2>Website-Locked Tab Opener</h2>
-
-    <label>Website URL (only this site will open)</label>
+<div class="controls">
+    URL:
     <input id="url" placeholder="https://example.com">
-
-    <label>Number of Tabs</label>
+    Views:
     <input id="count" type="number" value="10" min="1">
-
-    <label>Reload Interval (seconds)</label>
-    <input id="reload" type="number" value="30" min="1">
-
+    Reload (seconds):
+    <input id="interval" type="number" value="30" min="1">
     <button onclick="start()">START</button>
-
-    <div class="note">
-        Allow pop-ups for this site when browser asks
-    </div>
 </div>
 
+<div id="container" class="grid"></div>
+
 <script>
-let tabs = [];
-let lockedURL = "";
-let lockedOrigin = "";
+let reloadTimer;
 
 function start() {
-    lockedURL = document.getElementById("url").value.trim();
-    const tabCount = parseInt(document.getElementById("count").value);
-    const reloadSec = parseInt(document.getElementById("reload").value);
+    const url = document.getElementById("url").value.trim();
+    const count = parseInt(document.getElementById("count").value);
+    const interval = parseInt(document.getElementById("interval").value) * 1000;
+    const container = document.getElementById("container");
 
-    if (!lockedURL || tabCount < 1 || reloadSec < 1) {
-        alert("Enter valid values");
+    if (!url || count < 1) {
+        alert("Invalid input");
         return;
     }
 
-    try {
-        lockedOrigin = new URL(lockedURL).origin;
-    } catch {
-        alert("Invalid URL");
-        return;
+    container.innerHTML = "";
+    clearInterval(reloadTimer);
+
+    for (let i = 0; i < count; i++) {
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+        iframe.loading = "lazy";
+        iframe.referrerPolicy = "no-referrer";
+        container.appendChild(iframe);
     }
 
-    tabs = [];
+    reloadTimer = setInterval(() => {
+        document.querySelectorAll("iframe").forEach(f => {
+            f.src = url;
+        });
+    }, interval);
+}
+</script>
 
-    // Open locked tabs
+</body>
+</html>    // Open locked tabs
     for (let i = 0; i < tabCount; i++) {
         const t = window.open(lockedURL, "_blank");
         if (t) tabs.push(t);
