@@ -1,104 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Multi Tab Opener</title>
-<style>
-body { background: #111; color: #fff; font-family: sans-serif;}
-.container { display:flex; flex-wrap:wrap;}
-iframe { width:calc(100vw/20); height:calc((100vw/20)*9/20); border:none;}
-</style>
+    <title>Multi Tab Opener</title>
+    <style>
+        body { background: #111; color: #fff; font-family: sans-serif; }
+        .container { display: flex; flex-wrap: wrap; gap: 2px; }
+        iframe { width: calc(100vw / 20); height: calc(100vh / 5); border: none; }
+    </style>
 </head>
 <body>
-<h3 style="margin-bottom:.3em;">Multi Tab Opener</h3>
-<form id="form">
-<input type="text" id="url" placeholder="Enter URL (must start with https://)" required />
-<input type="number" id="count" value="100" min="1" max="200"/>
-<input type="number" id="interval" value="10" min="3"/> seconds <button type="submit">Open Tabs</button>
-</form>
-<div class="container"></div>
+    <h1>Multi Tab Opener</h1>
+    <form id="form">
+        <input type="text" id="url" placeholder="Enter URL" required />
+        <input type="number" id="count" value="100" min="1" max="200" />
+        <input type="number" id="interval" value="10" min="1" /> seconds
+        <button type="submit">Open Tabs</button>
+    </form>
+    <div class="container"></div>
 
-<script>
-const form=document.getElementById('form');
-const container=document.querySelector('.container');
+    <script>
+        const form = document.getElementById('form');
+        const container = document.querySelector('.container');
 
-form.onsubmit=e=>{
-   e.preventDefault();
-   const url=form.url.value;
-   const count= +form.count.value;
-   const interval= +form.interval.value*1000;
-   container.innerHTML='';
-   for(let i=0;i<count;i++){
-     const iframe=document.createElement('iframe');
-     iframe.src=url;
-     container.appendChild(iframe);
-     setInterval(()=>{iframe.src=url},interval)
-   }
-};
-</script>
-</body>
-</html>
-        iframe.allow =
-            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
-        iframe.allowFullscreen = true;
-        iframe.referrerPolicy = "no-referrer";
-        iframe.src = buildUrl(finalUrl);
+        form.onsubmit = e => {
+            e.preventDefault();
 
-        wrap.appendChild(iframe);
-        container.appendChild(wrap);
-    }
+            const url = form.url.value;
+            const count = +form.count.value;
+            const interval = +form.interval.value * 1000;
 
-    reloadTimer = setInterval(() => {
-        document.querySelectorAll("iframe").forEach(f => {
-            f.src = buildUrl(finalUrl);
-        });
-    }, interval);
-}
+            container.innerHTML = '';
 
-/* 🔁 Convert YouTube links to embed */
-function normalizeUrl(url) {
-    try {
-        const u = new URL(url);
+            for (let i=0; i<count; i++) {
+                const iframe = document.createElement('iframe');
+                iframe.src = url;
+                container.appendChild(iframe);
 
-        // youtube.com/watch?v=ID
-        if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
-            return "https://www.youtube.com/embed/" + u.searchParams.get("v");
-        }
-
-        // youtu.be/ID
-        if (u.hostname.includes("youtu.be")) {
-            return "https://www.youtube.com/embed" + u.pathname;
-        }
-
-        return url;
-    } catch {
-        return url;
-    }
-}
-
-/* 🔄 Force reload */
-function buildUrl(url) {
-    const sep = url.includes("?") ? "&" : "?";
-    return url + sep + "reload=" + Date.now();
-}
-</script>
-
-</body>
-</html>            try {
-                if (tab.closed) return;
-                const currentOrigin = new URL(tab.location.href).origin;
-                if (currentOrigin !== lockedOrigin) {
-                    tab.location.href = lockedURL;
-                } else {
-                    tab.location.reload();
-                }
-            } catch {
-                // Cross-origin error → force back to locked URL
-                try { tab.location.href = lockedURL; } catch {}
+                setInterval(() => {
+                    iframe.src = url;
+                }, interval);
             }
-        });
-    }, reloadSec * 1000);
-}
-</script>
+        };
+    </script>
 
 </body>
 </html>
