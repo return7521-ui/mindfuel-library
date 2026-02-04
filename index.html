@@ -99,31 +99,56 @@ function start() {
     container.innerHTML = "";
     clearInterval(reloadTimer);
 
-    // create micro tabs
+    const finalUrl = normalizeUrl(baseUrl);
+
     for (let i = 0; i < count; i++) {
         const wrap = document.createElement("div");
         wrap.className = "micro";
 
         const iframe = document.createElement("iframe");
         iframe.loading = "lazy";
+        iframe.allow =
+            "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+        iframe.allowFullscreen = true;
         iframe.referrerPolicy = "no-referrer";
-        iframe.src = buildUrl();
+        iframe.src = buildUrl(finalUrl);
 
         wrap.appendChild(iframe);
         container.appendChild(wrap);
     }
 
-    // forced reload (cache-busted)
     reloadTimer = setInterval(() => {
         document.querySelectorAll("iframe").forEach(f => {
-            f.src = buildUrl();
+            f.src = buildUrl(finalUrl);
         });
     }, interval);
 }
 
-function buildUrl() {
-    const sep = baseUrl.includes("?") ? "&" : "?";
-    return baseUrl + sep + "reload=" + Date.now();
+/* 🔁 Convert YouTube links to embed */
+function normalizeUrl(url) {
+    try {
+        const u = new URL(url);
+
+        // youtube.com/watch?v=ID
+        if (u.hostname.includes("youtube.com") && u.searchParams.get("v")) {
+            return "https://www.youtube.com/embed/" + u.searchParams.get("v");
+        }
+
+        // youtu.be/ID
+        if (u.hostname.includes("youtu.be")) {
+            return "https://www.youtube.com/embed" + u.pathname;
+        }
+
+        return url;
+    } catch {
+        return url;
+    }
+}
+
+/* 🔄 Force reload */
+function buildUrl(url) {
+    const sep = url.includes("?") ? "&" : "?";
+    return url + sep + "reload=" + Date.now();
 }
 </script>
 
