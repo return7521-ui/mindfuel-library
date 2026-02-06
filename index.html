@@ -1,249 +1,1198 @@
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>AI Fiesta — Real AI Comparison Arena</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>My Forever Valentine | An Interactive Love Story</title>
+    <meta name="description" content="A digital tribute to our journey, memories, and future together. Happy Valentine's Day.">
+    <meta property="og:title" content="Happy Valentine's Day">
+    <meta property="og:description" content="A special surprise just for you.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1518199266791-5375a83190b7?fit=crop&w=1200&h=630">
+    <meta name="theme-color" content="#ff4d6d">
 
-<style>
-/* =====================
-   THEME VARIABLES
-   ===================== */
-:root {
-  --bg: #020617;
-  --panel: rgba(2,6,23,0.85);
-  --card: rgba(2,6,23,0.9);
-  --border: #1e293b;
-  --text: #e5e7eb;
-  --muted: #94a3b8;
-  --accent: #2563eb;
-  --success: #22c55e;
-  --warning: #facc15;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Parisienne&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-/* =====================
-   BASE RESET
-   ===================== */
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  background: radial-gradient(circle at top, #020617, #000);
-  color: var(--text);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
-/* =====================
-   HEADER / COMMAND BAR
-   ===================== */
-header {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  background: var(--panel);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--border);
-  padding: 14px;
-}
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-header h1 {
-  margin: 0 0 8px;
-  font-size: 18px;
-  font-weight: 700;
-}
+    <style>
+        /* ==========================================================================
+           1. CSS VARIABLES & THEME CONFIGURATION
+           ========================================================================== */
+        :root {
+            /* Color Palette - The "Romantic Dusk" Theme */
+            --primary-hue: 345;
+            --primary-color: hsl(var(--primary-hue), 100%, 65%); /* Hot Pink */
+            --primary-dark: hsl(var(--primary-hue), 100%, 45%);  /* Deep Red */
+            --primary-light: hsl(var(--primary-hue), 100%, 85%); /* Soft Pink */
+            
+            --accent-gold: #d4af37;
+            --accent-gold-shine: #f9e5a8;
+            
+            --text-main: #2d3436;
+            --text-muted: #636e72;
+            --text-light: #ffffff;
 
-header p {
-  margin: 0 0 10px;
-  font-size: 12px;
-  color: var(--muted);
-}
+            --bg-body: #fff0f3;
+            --bg-glass: rgba(255, 255, 255, 0.75);
+            --bg-glass-dark: rgba(20, 0, 5, 0.85);
+            
+            /* Spacing System */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 8rem;
 
-textarea {
-  width: 100%;
-  min-height: 80px;
-  resize: vertical;
-  padding: 12px;
-  background: #020617;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  font-size: 14px;
-}
+            /* Typography */
+            --font-script: 'Great Vibes', cursive;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+            --font-deco: 'Cinzel Decorative', cursive;
 
-button {
-  margin-top: 10px;
-  padding: 12px;
-  width: 100%;
-  background: linear-gradient(135deg, #2563eb, #1d4ed8);
-  color: white;
-  border: none;
-  border-radius: 10px;
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-}
+            /* Effects */
+            --shadow-soft: 0 10px 30px -10px rgba(255, 77, 109, 0.3);
+            --shadow-hard: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+            --shadow-glow: 0 0 20px rgba(255, 77, 109, 0.6);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.4);
+            --backdrop-blur: blur(12px);
+            --transition-fast: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
 
-button:active { transform: scale(0.98); }
+        /* ==========================================================================
+           2. GLOBAL RESET & UTILITIES
+           ========================================================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* =====================
-   GRID
-   ===================== */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
-  padding: 14px;
-}
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
 
-/* =====================
-   AI CARD
-   ===================== */
-.card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  min-height: 220px;
-}
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-body);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 183, 197, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(255, 77, 109, 0.2) 0%, transparent 40%);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-.card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 6px;
-}
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #ffe6ea;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 5px;
+            border: 2px solid #ffe6ea;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-dark);
+        }
 
-.card-header h3 {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-}
+        /* Utility Classes */
+        .text-gradient {
+            background: linear-gradient(45deg, var(--primary-dark), var(--primary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-.badge {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: #020617;
-  border: 1px solid var(--border);
-  color: var(--muted);
-}
+        .gold-accent {
+            color: var(--accent-gold);
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
 
-.badge.loading { color: var(--warning); }
-.badge.done { color: var(--success); }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
 
-.output {
-  margin-top: 6px;
-  padding-top: 6px;
-  border-top: 1px dashed var(--border);
-  font-size: 13px;
-  line-height: 1.5;
-  white-space: pre-wrap;
-  overflow-y: auto;
-  flex: 1;
-}
+        .section-padding {
+            padding: var(--spacing-xl) 0;
+        }
 
-/* =====================
-   FOOTER
-   ===================== */
-footer {
-  text-align: center;
-  font-size: 11px;
-  color: var(--muted);
-  padding: 10px;
-}
-</style>
+        /* ==========================================================================
+           3. PRELOADER STYLES (The Beating Heart)
+           ========================================================================== */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #fff;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+
+        .heart-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .heart-shape {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            transform: rotate(45deg);
+            box-shadow: var(--shadow-glow);
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .heart-shape::before,
+        .heart-shape::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart-shape::before {
+            left: -50%;
+        }
+
+        .heart-shape::after {
+            top: -50%;
+        }
+
+        .loader-text {
+            margin-top: 3rem;
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--primary-dark);
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeIn 2s forwards 0.5s;
+        }
+
+        /* ==========================================================================
+           4. NAVIGATION BAR (Glassmorphism)
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+            transition: var(--transition-fast);
+        }
+
+        .navbar.scrolled {
+            background: var(--bg-glass);
+            backdrop-filter: var(--backdrop-blur);
+            -webkit-backdrop-filter: var(--backdrop-blur);
+            padding: 0.8rem 0;
+            box-shadow: var(--shadow-soft);
+            border-bottom: var(--glass-border);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            text-decoration: none;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.8rem;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-fast);
+            border: 2px solid transparent;
+        }
+
+        .nav-btn:hover {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Mobile Menu Toggle */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            transition: all 0.3s ease-in-out;
+            background-color: var(--text-main);
+        }
+
+        /* ==========================================================================
+           5. HERO SECTION STYLES (Parallax & Video Background Setup)
+           ========================================================================== */
+        .hero {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            perspective: 1px; /* Enable Parallax */
+        }
+
+        .hero-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2;
+            object-fit: cover;
+            opacity: 0.3; /* Subtle background movement */
+            filter: grayscale(30%) sepia(20%);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,240,243,0.9) 100%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 10;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(5px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 77, 109, 0.3);
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+        
+        .hero-title span {
+            display: block;
+            font-family: var(--font-script);
+            color: var(--primary-color);
+            font-size: 6rem;
+            margin-top: -10px;
+            text-shadow: 2px 2px 0px rgba(255,255,255,1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            z-index: 10;
+            animation: bounce 2s infinite;
+        }
+
+        .mouse {
+            width: 30px;
+            height: 50px;
+            border: 2px solid var(--primary-dark);
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .wheel {
+            width: 4px;
+            height: 8px;
+            background: var(--primary-dark);
+            border-radius: 2px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: scrollWheel 1.5s infinite;
+        }
+
+        /* ... Styles Continued in Part 2 ... */
+       /* ... Continued from Part 1 Styles ... */
+
+        /* ==========================================================================
+           6. CSS KEYFRAMES & ANIMATIONS
+           ========================================================================== */
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(0.8); }
+            5% { transform: rotate(45deg) scale(0.9); }
+            10% { transform: rotate(45deg) scale(0.8); }
+            15% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(45deg) scale(0.8); }
+            100% { transform: rotate(45deg) scale(0.8); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes scrollWheel {
+            0% { top: 10px; opacity: 1; height: 8px; }
+            100% { top: 30px; opacity: 0; height: 4px; }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        @keyframes equalizer {
+            0% { height: 5px; }
+            50% { height: 20px; }
+            100% { height: 5px; }
+        }
+
+        @keyframes gradient-text {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* ==========================================================================
+           7. COMPONENT: VERTICAL LOVE TIMELINE
+           ========================================================================== */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: rgba(255, 77, 109, 0.3);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            perspective: 1000px;
+        }
+
+        .timeline-item.left { left: 0; }
+        .timeline-item.right { left: 50%; }
+
+        /* The Heart Dot on the Timeline */
+        .timeline-item::after {
+            content: '\f004'; /* FontAwesome Heart */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            right: -20px;
+            background-color: #fff;
+            border: 4px solid var(--primary-color);
+            top: 20px;
+            border-radius: 50%;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            box-shadow: 0 0 0 5px rgba(255, 77, 109, 0.2);
+            transition: var(--transition-fast);
+        }
+
+        .timeline-item.right::after { left: -20px; }
+
+        .timeline-item:hover::after {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.2);
+        }
+
+        .timeline-content {
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            position: relative;
+            box-shadow: var(--shadow-soft);
+            transition: var(--transition-smooth);
+            border-bottom: 3px solid var(--primary-light);
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px) rotateX(2deg);
+            box-shadow: var(--shadow-deep);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* ==========================================================================
+           8. COMPONENT: 3D REASONS CARDS
+           ========================================================================== */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .card-3d {
+            background-color: transparent;
+            height: 350px;
+            perspective: 1000px;
+            cursor: pointer;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .card-3d:hover .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .card-front {
+            background: white;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .card-icon-circle {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-body);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .card-3d:hover .card-icon-circle {
+            transform: scale(1.1);
+            background: var(--primary-light);
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        /* ==========================================================================
+           9. COMPONENT: MASONRY GALLERY & LIGHTBOX OVERLAY
+           ========================================================================== */
+        .gallery-container {
+            column-count: 3;
+            column-gap: 20px;
+        }
+
+        .gallery-item {
+            margin-bottom: 20px;
+            break-inside: avoid;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            cursor: zoom-in;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.8s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-caption {
+            color: white;
+            transform: translateY(20px);
+            transition: transform 0.4s ease;
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        /* ==========================================================================
+           10. COMPONENT: MUSIC PLAYER UI
+           ========================================================================== */
+        .music-player-wrapper {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 900;
+        }
+
+        .music-disc {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: var(--shadow-hard);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            animation: spin 5s linear infinite paused;
+            position: relative;
+        }
+        
+        .music-disc.playing {
+            animation-play-state: running;
+        }
+
+        .music-disc::after {
+            content: '';
+            width: 15px;
+            height: 15px;
+            background: var(--bg-body);
+            border-radius: 50%;
+            border: 2px solid #ddd;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        /* ==========================================================================
+           11. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+        @media screen and (max-width: 900px) {
+            .hero-title { font-size: 3.5rem; }
+            .hero-title span { font-size: 4.5rem; }
+            .gallery-container { column-count: 2; }
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline::after { left: 31px; }
+            .timeline-item { width: 100%; padding-left: 70px; padding-right: 25px; }
+            .timeline-item::after { left: 15px; }
+            .timeline-item.right { left: 0%; }
+            .timeline-item.right::after { left: 15px; }
+            
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: white;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: 0.4s ease;
+                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            }
+            .nav-menu.active { right: 0; }
+            .hamburger { display: block; }
+            
+            .hero-title { font-size: 2.5rem; }
+            .hero-title span { font-size: 3.5rem; }
+            .gallery-container { column-count: 1; }
+        }
+    </style>
 </head>
 
 <body>
 
-<header>
-  <h1>AI Fiesta — Comparison Arena</h1>
-  <p>Ask once. Compare real responses from multiple AI models.</p>
-  <textarea id="prompt" placeholder="Ask anything…"></textarea>
-  <button onclick="askAll()">Ask All AIs</button>
-</header>
-
-<div id="grid" class="grid"></div>
-
-<footer>
-  Powered by Render backend • Real APIs • No fake responses
-</footer>
-
-<script>
-/* =====================
-   CONFIG
-   ===================== */
-const BACKEND_URL = "https://ai-fiesta-backend-1.onrender.com/ask";
-
-const AI_LIST = [
-  "ChatGPT",
-  "Gemini",
-  "Claude"
-];
-
-/* =====================
-   BUILD UI
-   ===================== */
-const grid = document.getElementById("grid");
-const cards = {};
-
-AI_LIST.forEach(name => {
-  const card = document.createElement("div");
-  card.className = "card";
-  card.innerHTML = `
-    <div class="card-header">
-      <h3>${name}</h3>
-      <span class="badge">Idle</span>
+    <div id="preloader">
+        <div class="heart-wrapper">
+            <div class="heart-shape"></div>
+        </div>
+        <div class="loader-text">Loading Love...</div>
     </div>
-    <div class="output"></div>
-  `;
-  grid.appendChild(card);
-  cards[name] = card;
-});
 
-/* =====================
-   CORE LOGIC
-   ===================== */
-async function askAll() {
-  const prompt = document.getElementById("prompt").value.trim();
-  if (!prompt) return;
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="nav-logo">LoveStory</a>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#countdown" class="nav-link">Countdown</a></li>
+                <li><a href="#timeline" class="nav-link">Our Story</a></li>
+                <li><a href="#reasons" class="nav-link">Reasons</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#message" class="nav-btn">Write to Me</a></li>
+            </ul>
 
-  Object.values(cards).forEach(card => {
-    card.querySelector(".badge").textContent = "Thinking…";
-    card.querySelector(".badge").className = "badge loading";
-    card.querySelector(".output").textContent = "";
-  });
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+    <header id="home" class="hero">
+        <video class="hero-bg-video" autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1518199266791-5375a83190b7?fit=crop&w=1920&q=80">
+           </video>
+        
+        <div class="hero-overlay"></div>
 
-  try {
-    const res = await fetch(BACKEND_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt })
-    });
+        <div class="hero-content" data-aos="fade-up" data-aos-duration="1500">
+            <span class="hero-badge">February 14th, 2024</span>
+            <h1 class="hero-title">
+                Happy Valentine's
+                <span>Day, My Love</span>
+            </h1>
+            <p class="hero-subtitle">
+                To the person who holds my heart in their hands. Every moment with you is a memory I cherish forever.
+            </p>
+            
+            <div style="margin-top: 2rem;">
+                <a href="#timeline" class="nav-btn" style="padding: 1rem 2.5rem; font-size: 1.1rem;">
+                    Explore Our Journey
+                </a>
+            </div>
+        </div>
 
-    const data = await res.json();
+        <div class="scroll-indicator" onclick="document.getElementById('countdown').scrollIntoView()">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span style="font-size: 0.8rem; color: var(--primary-dark); letter-spacing: 1px;">SCROLL</span>
+        </div>
+    </header>
 
-    AI_LIST.forEach(name => {
-      const card = cards[name];
-      card.querySelector(".output").textContent =
-        data[name] || "No response received.";
-      card.querySelector(".badge").textContent = "Done";
-      card.querySelector(".badge").className = "badge done";
-    });
+    <section id="countdown" class="section-padding" style="background: white;">
+        <div class="container">
+            <div class="text-center" style="text-align: center; margin-bottom: 3rem;" data-aos="fade-up">
+                <h2 style="font-family: var(--font-display); font-size: 2.5rem; color: var(--text-main);">
+                    Counting Every Second
+                </h2>
+                <div style="width: 60px; height: 3px; background: var(--primary-color); margin: 15px auto;"></div>
+                <p style="color: var(--text-muted);">Until we celebrate our love again.</p>
+            </div>
 
-  } catch (err) {
-    AI_LIST.forEach(name => {
-      const card = cards[name];
-      card.querySelector(".output").textContent =
-        "Error contacting backend.";
-      card.querySelector(".badge").textContent = "Error";
-    });
-  }
-}
-</script>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2rem;" id="timer-display">
+                <div class="time-box" style="background:var(--bg-body); padding:2rem; border-radius:15px; min-width:140px; text-align:center; box-shadow:var(--shadow-soft);">
+                    <span id="days" style="display:block; font-size:3rem; font-weight:700; color:var(--primary-color); font-family:var(--font-display);">00</span>
+                    <label style="color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">Days</label>
+                </div>
+                <div class="time-box" style="background:var(--bg-body); padding:2rem; border-radius:15px; min-width:140px; text-align:center; box-shadow:var(--shadow-soft);">
+                    <span id="hours" style="display:block; font-size:3rem; font-weight:700; color:var(--primary-color); font-family:var(--font-display);">00</span>
+                    <label style="color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">Hours</label>
+                </div>
+                <div class="time-box" style="background:var(--bg-body); padding:2rem; border-radius:15px; min-width:140px; text-align:center; box-shadow:var(--shadow-soft);">
+                    <span id="minutes" style="display:block; font-size:3rem; font-weight:700; color:var(--primary-color); font-family:var(--font-display);">00</span>
+                    <label style="color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">Minutes</label>
+                </div>
+                <div class="time-box" style="background:var(--bg-body); padding:2rem; border-radius:15px; min-width:140px; text-align:center; box-shadow:var(--shadow-soft);">
+                    <span id="seconds" style="display:block; font-size:3rem; font-weight:700; color:var(--primary-color); font-family:var(--font-display);">00</span>
+                    <label style="color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; font-size:0.8rem;">Seconds</label>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section id="timeline" class="section-padding" style="background-color: var(--bg-body);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;" data-aos="fade-up">
+                <h2 style="font-family: var(--font-display); font-size: 3rem;">Our Love Story</h2>
+                <p style="color: var(--text-muted);">How it all began and where we are going.</p>
+            </div>
+
+            <div class="timeline">
+                
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <span class="date-badge">February 14, 2018</span>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem;">First Glance</h3>
+                        <p style="color: var(--text-muted);">
+                            I saw you across the room, and time seemed to stop. That was the moment I knew my life was about to change forever.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <span class="date-badge">March 20, 2018</span>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem;">The First Date</h3>
+                        <p style="color: var(--text-muted);">
+                            Coffee turned into dinner, dinner turned into a walk under the stars. We talked about everything and nothing.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item left" data-aos="fade-right">
+                    <div class="timeline-content">
+                        <span class="date-badge">August 10, 2019</span>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem;">Our First Trip</h3>
+                        <p style="color: var(--text-muted);">
+                            Getting lost in a new city with you wasn't scary; it was an adventure. Best weekend of my life.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="timeline-item right" data-aos="fade-left">
+                    <div class="timeline-content">
+                        <span class="date-badge">Today & Forever</span>
+                        <h3 style="font-family: var(--font-display); font-size: 1.5rem; margin-bottom: 0.5rem;">The Journey Continues</h3>
+                        <p style="color: var(--text-muted);">
+                            Every day is a new page in our book. I can't wait to see what the next chapter holds for us.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="reasons" class="section-padding" style="background: white;">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;" data-aos="zoom-in">
+                <h2 style="font-family: var(--font-display); font-size: 3rem;">Why You?</h2>
+                <p style="color: var(--text-muted);">Just a few of the infinite reasons.</p>
+            </div>
+
+            <div class="reasons-grid">
+                <div class="card-3d" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-icon-circle">
+                                <i class="fa-regular fa-face-smile-beam"></i>
+                            </div>
+                            <h3 style="font-family:var(--font-display); font-size:1.5rem;">Your Smile</h3>
+                            <p style="color:#888; margin-top:10px;">Hover to see why...</p>
+                        </div>
+                        <div class="card-back">
+                            <h3 style="font-family:var(--font-script); font-size:2rem; margin-bottom:1rem;">Radiance</h3>
+                            <p>Your smile is the sunrise that starts my day and the sunset that calms my soul.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-3d" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-icon-circle">
+                                <i class="fa-solid fa-hands-holding-circle"></i>
+                            </div>
+                            <h3 style="font-family:var(--font-display); font-size:1.5rem;">Your Support</h3>
+                            <p style="color:#888; margin-top:10px;">Hover to see why...</p>
+                        </div>
+                        <div class="card-back">
+                            <h3 style="font-family:var(--font-script); font-size:2rem; margin-bottom:1rem;">Strength</h3>
+                            <p>You believe in me even when I doubt myself. You are my rock.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-3d" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="card-icon-circle">
+                                <i class="fa-solid fa-infinity"></i>
+                            </div>
+                            <h3 style="font-family:var(--font-display); font-size:1.5rem;">Our Future</h3>
+                            <p style="color:#888; margin-top:10px;">Hover to see why...</p>
+                        </div>
+                        <div class="card-back">
+                            <h3 style="font-family:var(--font-script); font-size:2rem; margin-bottom:1rem;">Destiny</h3>
+                            <p>I don't know what tomorrow brings, but I know I want you there with me.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+   <section id="gallery" class="section-padding" style="background-color: var(--bg-body);">
+        <div class="container">
+            <div style="text-align: center; margin-bottom: 4rem;" data-aos="fade-down">
+                <h2 style="font-family: var(--font-display); font-size: 3rem;">Captured Moments</h2>
+                <p style="color: var(--text-muted);">Snapshots of our happiness.</p>
+            </div>
+            
+            <div class="gallery-container">
+                <div class="gallery-item" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&q=80&w=600" alt="Love Image">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4 style="font-family:var(--font-display);">Adventure</h4>
+                            <p style="font-size:0.8rem;">To the mountains</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&q=80&w=600" alt="Love Image">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4 style="font-family:var(--font-display);">Laughter</h4>
+                            <p style="font-size:0.8rem;">Always smiling</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1474552226712-ac0f0961a954?auto=format&fit=crop&q=80&w=600" alt="Love Image">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4 style="font-family:var(--font-display);">Quiet Moments</h4>
+                            <p style="font-size:0.8rem;">Just us</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="fade-up">
+                    <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&q=80&w=600" alt="Love Image">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4 style="font-family:var(--font-display);">Forever</h4>
+                            <p style="font-size:0.8rem;">Holding hands</p>
+                        </div>
+                    </div>
+                </div>
+                 <div class="gallery-item" data-aos="fade-up" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=600" alt="Love Image">
+                    <div class="gallery-overlay">
+                        <div class="gallery-caption">
+                            <h4 style="font-family:var(--font-display);">Celebration</h4>
+                            <p style="font-size:0.8rem;">Party time</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="message" class="section-padding" style="background: white;">
+        <div class="container">
+            <div style="display: flex; flex-wrap: wrap; gap: 4rem;">
+                
+                <div style="flex: 1; min-width: 300px;" data-aos="fade-right">
+                    <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 1rem;">Love Calculator</h2>
+                    <p style="margin-bottom: 2rem; color: var(--text-muted);">Let the algorithm of love decide!</p>
+                    
+                    <div style="background: var(--bg-body); padding: 2rem; border-radius: 20px; box-shadow: var(--shadow-soft);">
+                        <input type="text" id="name1" placeholder="Your Name" style="width: 100%; padding: 15px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 10px;">
+                        <input type="text" id="name2" placeholder="My Name" style="width: 100%; padding: 15px; margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px;">
+                        <button onclick="calculateLove()" class="nav-btn" style="width: 100%; border: none; cursor: pointer;">Calculate Compatibility</button>
+                        <div id="calc-result" style="margin-top: 20px; font-size: 1.5rem; font-weight: bold; color: var(--primary-color); text-align: center; min-height: 50px;"></div>
+                    </div>
+                </div>
+
+                <div style="flex: 1; min-width: 300px;" data-aos="fade-left">
+                    <h2 style="font-family: var(--font-display); font-size: 2rem; margin-bottom: 1rem;">Write to Me</h2>
+                    <p style="margin-bottom: 2rem; color: var(--text-muted);">Send me a secret note.</p>
+                    
+                    <form onsubmit="event.preventDefault(); alert('Message sent to my heart! (This is a demo)');">
+                        <textarea placeholder="Write your message here..." style="width: 100%; height: 150px; padding: 15px; border: 1px solid #ddd; border-radius: 20px; resize: none; margin-bottom: 20px; font-family: var(--font-body);"></textarea>
+                        <button type="submit" class="nav-btn" style="border: none; cursor: pointer;">Send Love Letter</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #2d3436; color: white; padding: 4rem 0; text-align: center;">
+        <div class="container">
+            <h2 style="font-family: var(--font-script); font-size: 3rem; margin-bottom: 1rem;">Forever & Always</h2>
+            <div style="margin: 2rem 0; font-size: 1.5rem;">
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" style="color: white; margin: 0 10px;"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <p style="color: #636e72;">Made with <i class="fa-solid fa-heart" style="color: var(--primary-color);"></i> for Valentine's Day 2024</p>
+        </div>
+    </footer>
+
+    <div class="music-player-wrapper">
+        <div class="music-disc" id="music-disc" onclick="toggleMusic()">
+            <i class="fa-solid fa-music" style="color: var(--primary-color);"></i>
+        </div>
+        <audio id="bg-music" loop>
+            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        // 1. INITIALIZE AOS (Animate On Scroll)
+        AOS.init({
+            duration: 1000, // Animation duration
+            once: true,     // Whether animation should happen only once
+            offset: 100     // Offset (in px) from the original trigger point
+        });
+
+        // 2. PRELOADER LOGIC
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            // Fade out
+            preloader.style.opacity = '0';
+            // Remove from DOM after fade
+            setTimeout(() => {
+                preloader.style.display = 'none';
+                document.body.style.overflow = 'auto'; // Allow scrolling
+            }, 800);
+        });
+
+        // 3. NAVBAR SCROLL EFFECT & MOBILE MENU
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            hamburger.classList.toggle('active'); // Add animation to burger if needed
+        });
+
+        // Close mobile menu when a link is clicked
+        document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+        }));
+
+        // 4. COUNTDOWN TIMER LOGIC
+        const countdownDate = new Date("Feb 14, 2026 00:00:00").getTime(); // Set your target date
+
+        const timerInterval = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            if (distance < 0) {
+                clearInterval(timerInterval);
+                document.getElementById("timer-display").innerHTML = "<h2 class='text-gradient'>Happy Valentine's Day!</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+        }, 1000);
+
+        // 5. MUSIC PLAYER LOGIC
+        const musicDisc = document.getElementById('music-disc');
+        const audio = document.getElementById('bg-music');
+        let isPlaying = false;
+
+        function toggleMusic() {
+            if (isPlaying) {
+                audio.pause();
+                musicDisc.classList.remove('playing');
+                musicDisc.innerHTML = '<i class="fa-solid fa-music" style="color: var(--primary-color);"></i>';
+            } else {
+                audio.play().catch(error => {
+                    console.log("Audio playback failed (interaction required):", error);
+                    alert("Please interact with the document first to play audio.");
+                });
+                musicDisc.classList.add('playing');
+                musicDisc.innerHTML = '<i class="fa-solid fa-pause" style="color: var(--primary-color);"></i>';
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // 6. LOVE CALCULATOR LOGIC
+        function calculateLove() {
+            const name1 = document.getElementById('name1').value.trim();
+            const name2 = document.getElementById('name2').value.trim();
+            const resultDiv = document.getElementById('calc-result');
+
+            if(name1 === '' || name2 === '') {
+                resultDiv.innerText = "Please enter both names!";
+                resultDiv.style.color = "red";
+                return;
+            }
+
+            resultDiv.style.color = "var(--primary-color)";
+            resultDiv.innerText = "Calculating...";
+
+            // Simulation of calculation
+            setTimeout(() => {
+                // Generate a random number between 85 and 100 (Love is always high!)
+                const percentage = Math.floor(Math.random() * (100 - 85 + 1) + 85);
+                resultDiv.innerHTML = `<span style="font-size:2.5rem">${percentage}%</span><br><span style="font-size:1rem; color:#555">Perfect Match!</span>`;
+            }, 1500);
+        }
+    </script>
 </body>
-</html>
+           </html>
+           
