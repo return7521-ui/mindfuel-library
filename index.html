@@ -4,208 +4,218 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>HOLI 2026 | The Ultimate Color Matrix</title>
-    <meta name="description" content="Experience Holi like never before. The legends, the madness, the colors.">
+    <title>Holi 2026: The Great Indian Color Festival</title>
+    <meta name="description" content="Dive into the mythology, the madness, and the magic of Holi. Discover why we celebrate and how to survive it.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Fredoka+One&family=Outfit:wght@300;500;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
     <style>
         /* ==========================================================================
-           1. THE AGGRESSIVE NEON ENGINE (CSS VARIABLES)
+           1. THE HOLI 2026 COLOR PALETTE (CSS VARIABLES)
            ========================================================================== */
         :root {
-            /* Hyper-Neon Holi Palette */
-            --neon-magenta: #FF0055;
-            --neon-cyan: #00F0FF;
-            --neon-lime: #39FF14;
-            --neon-yellow: #FFE600;
-            --neon-orange: #FF5E00;
-            --neon-violet: #B200FF;
+            /* The "Gulal" (Dry Color) Neons */
+            --gulal-pink: #FF007A;
+            --gulal-yellow: #FFD600;
+            --gulal-cyan: #00F0FF;
+            --gulal-green: #00FF66;
+            --gulal-purple: #B200FF;
+            --gulal-orange: #FF5E00;
 
-            /* Deep Backgrounds for Maximum Contrast */
-            --bg-void: #050505;
-            --bg-surface: #111111;
-            --text-main: #FFFFFF;
-            --text-muted: #888888;
+            /* Base Theme Colors */
+            --bg-pure-white: #F8F9FA; /* Off-white so colors pop */
+            --bg-deep-dark: #0A0A0A;  /* For contrast sections */
+            --text-main: #2D3436;
+            --text-light: #F5F6FA;
 
-            /* Dynamic Effects */
-            --glass-bg: rgba(15, 15, 15, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --blur-fx: blur(25px);
-            
+            /* Glassmorphism Variables */
+            --glass-bg-light: rgba(255, 255, 255, 0.7);
+            --glass-bg-dark: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --blur-heavy: blur(20px);
+            --blur-light: blur(10px);
+
+            /* Shadows & Glows */
+            --glow-pink: 0 0 20px rgba(255, 0, 122, 0.6);
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.6);
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+
             /* Typography */
-            --font-mega: 'Black Ops One', cursive; /* For massive, aggressive headers */
-            --font-playful: 'Fredoka One', cursive; /* For fun squad/mythology titles */
-            --font-body: 'Outfit', sans-serif; /* For ultra-clean readability */
-
-            /* Glows */
-            --glow-magenta: 0 0 20px rgba(255,0,85,0.7), 0 0 40px rgba(255,0,85,0.4);
-            --glow-cyan: 0 0 20px rgba(0,240,255,0.7), 0 0 40px rgba(0,240,255,0.4);
+            --font-heading: 'Carter One', cursive;
+            --font-body: 'Poppins', sans-serif;
         }
 
         /* ==========================================================================
-           2. GLOBAL RESET & DYNAMIC SCROLLBAR
+           2. GLOBAL RESET & RESPONSIVE TYPOGRAPHY
            ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            /* Custom Target Cursor */
-            cursor: crosshair; 
+            /* A custom cursor hinting at interactivity */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FF007A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>') 12 12, auto;
         }
 
         html {
             scroll-behavior: smooth;
-            font-size: 16px;
+            /* Fluid typography for perfect scaling on all devices */
+            font-size: clamp(14px, 1.5vw, 18px); 
             overflow-x: hidden;
-            background-color: var(--bg-void);
         }
 
         body {
             font-family: var(--font-body);
+            background-color: var(--bg-pure-white);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* The Aggressive Color-Shifting Scrollbar */
-        ::-webkit-scrollbar { width: 14px; }
-        ::-webkit-scrollbar-track { background: var(--bg-void); }
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--neon-magenta), var(--neon-cyan), var(--neon-yellow));
-            border-radius: 10px;
-            border: 3px solid var(--bg-void);
+        /* Custom Paint Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--neon-lime), var(--neon-violet), var(--neon-orange));
+        ::-webkit-scrollbar-track {
+            background: #e0e0e0;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--gulal-pink), var(--gulal-orange), var(--gulal-yellow), var(--gulal-green), var(--gulal-cyan));
+            border-radius: 10px;
         }
 
-        /* Layout Utilities */
+        /* Utility Classes */
         .container {
             width: 90%;
-            max-width: 1400px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-            z-index: 10;
+            padding: 0 1rem;
         }
 
-        .section-padding { padding: 100px 0; }
+        .section-pad {
+            padding: 6rem 0;
+        }
 
-        /* Kinetic Text Gradients */
-        .kinetic-text {
-            background: linear-gradient(90deg, var(--neon-magenta), var(--neon-yellow), var(--neon-cyan), var(--neon-magenta));
-            background-size: 300% auto;
+        .text-center {
+            text-align: center;
+        }
+
+        .color-text-gradient {
+            background: linear-gradient(90deg, var(--gulal-pink), var(--gulal-orange), var(--gulal-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: kineticFlow 4s linear infinite;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
         }
 
-        @keyframes kineticFlow {
-            0% { background-position: 0% center; }
-            100% { background-position: 300% center; }
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
 
         /* ==========================================================================
-           3. THE "GATEWAY" PRELOADER (AUDIO INITIALIZER)
+           3. THE "DRIPPING PAINT" PRELOADER
            ========================================================================== */
-        /* Browsers block auto-playing audio. We use a massive "Enter" button to fix this */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: var(--bg-void);
-            z-index: 999999;
+            background: var(--bg-pure-white);
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 1s cubic-bezier(0.87, 0, 0.13, 1);
+            transition: opacity 0.8s ease-in-out;
         }
 
-        .enter-btn {
-            background: transparent;
-            border: 4px solid var(--neon-cyan);
-            color: var(--neon-cyan);
-            font-family: var(--font-mega);
-            font-size: 3rem;
-            padding: 20px 50px;
-            text-transform: uppercase;
-            cursor: pointer;
+        .paint-drop-container {
             position: relative;
-            overflow: hidden;
-            box-shadow: var(--glow-cyan);
-            transition: all 0.3s ease;
-            animation: pulse-border 2s infinite;
+            width: 100px;
+            height: 100px;
         }
 
-        .enter-btn::before {
-            content: '';
+        .drop {
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: var(--neon-cyan);
-            transition: left 0.4s cubic-bezier(0.87, 0, 0.13, 1);
-            z-index: -1;
+            width: 20px;
+            height: 20px;
+            background: var(--gulal-pink);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: drip 1.5s infinite ease-in-out;
         }
 
-        .enter-btn:hover {
-            color: var(--bg-void);
-            transform: scale(1.1);
+        .drop:nth-child(2) { background: var(--gulal-cyan); animation-delay: 0.5s; }
+        .drop:nth-child(3) { background: var(--gulal-yellow); animation-delay: 1s; }
+
+        @keyframes drip {
+            0% { transform: translate(-50%, -100px) scale(0.5) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; transform: translate(-50%, 0) scale(1) rotate(45deg); border-radius: 0 50% 50% 50%; }
+            100% { transform: translate(-50%, 100px) scale(0) rotate(45deg); opacity: 0; }
         }
 
-        .enter-btn:hover::before { left: 0; }
-
-        .preloader-warning {
-            margin-top: 30px;
-            font-family: var(--font-body);
-            color: var(--text-muted);
-            font-size: 1rem;
+        .preloader-text {
+            margin-top: 2rem;
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            color: var(--text-main);
             letter-spacing: 2px;
-            text-transform: uppercase;
-            text-align: center;
-            animation: flashText 1.5s infinite;
         }
 
-        @keyframes pulse-border {
-            0%, 100% { box-shadow: 0 0 20px rgba(0,240,255,0.4); }
-            50% { box-shadow: 0 0 50px rgba(0,240,255,1); }
+        /* Add a splat under the drops */
+        .splat-base {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            animation: pulse-splat 1.5s infinite ease-in-out;
         }
 
-        @keyframes flashText {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; color: var(--neon-magenta); }
+        @keyframes pulse-splat {
+            0%, 100% { transform: translateX(-50%) scale(0.8); opacity: 0.3; }
+            50% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
         }
         /* ... continued in Part 2 ... */
         /* ==========================================================================
-           4. AUDIO CONTROL NAVBAR (FROSTED NEON GLASS)
+           4. NAVIGATION BAR (GLASSMORPHISM & PAINT HOVERS)
            ========================================================================== */
-        .cyber-nav {
+        .holi-navbar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 20px 0;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-            border-bottom: 1px solid transparent;
+            padding: 1.5rem 0;
+            transition: all 0.4s ease;
+            border-bottom: 2px solid transparent;
         }
 
-        .cyber-nav.scrolled {
-            background: var(--glass-bg);
-            backdrop-filter: var(--blur-fx);
-            -webkit-backdrop-filter: var(--blur-fx);
-            padding: 10px 0;
-            border-bottom: 1px solid var(--neon-magenta);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        .holi-navbar.scrolled {
+            background: var(--glass-bg-light);
+            backdrop-filter: var(--blur-heavy);
+            -webkit-backdrop-filter: var(--blur-heavy);
+            padding: 0.8rem 0;
+            border-bottom: 2px solid var(--gulal-pink);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Dark mode exception for the navbar when scrolling past certain sections */
+        .holi-navbar.scrolled.dark-mode {
+            background: var(--glass-bg-dark);
+            border-bottom-color: var(--gulal-cyan);
         }
 
         .nav-wrapper {
@@ -215,104 +225,95 @@
         }
 
         .nav-logo {
-            font-family: var(--font-mega);
+            font-family: var(--font-heading);
             font-size: 2.5rem;
             color: var(--text-main);
             text-decoration: none;
-            text-shadow: 3px 3px 0px var(--neon-cyan), -2px -2px 0px var(--neon-magenta);
-            letter-spacing: 2px;
+            position: relative;
+            display: inline-block;
             transition: transform 0.3s;
         }
 
+        /* A little paint drip on the logo */
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background: var(--gulal-cyan);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(45deg);
+        }
+
         .nav-logo:hover {
-            transform: scale(1.05) skewX(-5deg);
+            transform: scale(1.05) rotate(-3deg);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 40px;
+            gap: 2.5rem;
             align-items: center;
         }
 
         .nav-item a {
-            font-family: var(--font-playful);
+            font-family: var(--font-heading);
             font-size: 1.2rem;
             color: var(--text-main);
             text-decoration: none;
             position: relative;
-            padding: 5px 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            padding: 0.5rem;
             transition: color 0.3s;
+            letter-spacing: 1px;
         }
 
-        .nav-item a::after {
+        /* Paint stroke hover effect */
+        .nav-item a::before {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: 0;
             left: 0;
             width: 100%;
-            height: 3px;
-            background: var(--neon-lime);
+            height: 4px;
+            background: var(--gulal-yellow);
             transform: scaleX(0);
             transform-origin: right;
-            transition: transform 0.4s cubic-bezier(0.87, 0, 0.13, 1);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 2px;
         }
 
-        .nav-item a:hover { color: var(--neon-lime); text-shadow: 0 0 10px var(--neon-lime); }
-        .nav-item a:hover::after { transform: scaleX(1); transform-origin: left; }
+        .nav-item a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
 
-        /* Audio Visualizer Button */
-        .audio-toggle {
-            background: transparent;
-            border: 2px solid var(--neon-yellow);
-            color: var(--neon-yellow);
-            padding: 8px 15px;
-            border-radius: 30px;
-            font-family: var(--font-body);
-            font-weight: 800;
+        /* Nav link specific hover colors */
+        .nav-item:nth-child(1) a:hover { color: var(--gulal-pink); }
+        .nav-item:nth-child(1) a::before { background: var(--gulal-pink); }
+        .nav-item:nth-child(2) a:hover { color: var(--gulal-cyan); }
+        .nav-item:nth-child(2) a::before { background: var(--gulal-cyan); }
+        .nav-item:nth-child(3) a:hover { color: var(--gulal-orange); }
+        .nav-item:nth-child(3) a::before { background: var(--gulal-orange); }
+
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 0 10px rgba(255, 230, 0, 0.2);
-            transition: all 0.3s;
+            z-index: 1001;
         }
-
-        .audio-toggle:hover {
-            background: var(--neon-yellow);
-            color: var(--bg-void);
-            box-shadow: 0 0 20px rgba(255, 230, 0, 0.8);
-        }
-
-        .bars {
-            display: flex;
-            align-items: flex-end;
-            height: 15px;
-            gap: 3px;
-        }
-
-        .bar {
-            width: 3px;
-            background-color: currentColor;
-            animation: sound-beat 0.5s infinite alternate;
-        }
-
-        .bar:nth-child(1) { height: 5px; animation-delay: 0.1s; }
-        .bar:nth-child(2) { height: 10px; animation-delay: 0.2s; }
-        .bar:nth-child(3) { height: 15px; animation-delay: 0.3s; }
-        .bar:nth-child(4) { height: 8px; animation-delay: 0.4s; }
-
-        .audio-toggle.muted .bar { animation: none; height: 3px; }
-
-        @keyframes sound-beat {
-            0% { height: 3px; }
-            100% { height: 15px; }
+        .hamburger .line {
+            width: 30px;
+            height: 4px;
+            background-color: var(--text-main);
+            margin: 6px 0;
+            border-radius: 2px;
+            transition: 0.4s;
         }
 
         /* ==========================================================================
-           5. ULTRA-HERO SECTION (KINETIC TYPOGRAPHY & DYNAMIC BG)
+           5. HERO SECTION (THE COLOR EXPLOSION)
            ========================================================================== */
         .hero {
             position: relative;
@@ -321,504 +322,519 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: var(--bg-void);
+            background: #ffffff;
+            /* A subtle dotted pattern to look like a blank canvas */
+            background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        /* Aggressive Background Orbs acting as flying color powder */
-        .hero-orb {
+        /* Giant abstract color shapes floating in the background */
+        .abstract-blob {
             position: absolute;
-            border-radius: 50%;
             filter: blur(80px);
-            mix-blend-mode: screen;
+            z-index: 0;
             opacity: 0.6;
-            animation: aggressive-float 10s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
+            animation: float-blob 20s infinite alternate ease-in-out;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
         }
 
-        .orb-magenta { width: 60vw; height: 60vw; background: var(--neon-magenta); top: -20%; left: -10%; animation-duration: 12s; }
-        .orb-cyan { width: 50vw; height: 50vw; background: var(--neon-cyan); bottom: -10%; right: -10%; animation-duration: 15s; animation-delay: -5s; }
-        .orb-lime { width: 40vw; height: 40vw; background: var(--neon-lime); top: 30%; left: 40%; animation-duration: 18s; animation-delay: -10s; }
+        .blob-1 { width: 600px; height: 600px; background: var(--gulal-pink); top: -100px; left: -100px; animation-duration: 25s; }
+        .blob-2 { width: 500px; height: 500px; background: var(--gulal-cyan); bottom: -100px; right: -50px; animation-duration: 22s; animation-delay: -5s; }
+        .blob-3 { width: 400px; height: 400px; background: var(--gulal-yellow); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 30s; animation-delay: -10s; }
 
-        @keyframes aggressive-float {
-            0% { transform: translate(0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate(10vw, -10vh) scale(1.2) rotate(45deg); opacity: 0.8; }
-            66% { transform: translate(-10vw, 15vh) scale(0.9) rotate(90deg); opacity: 0.5; }
-            100% { transform: translate(5vw, 5vh) scale(1.3) rotate(180deg); opacity: 0.9; }
+        @keyframes float-blob {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            33% { transform: translate(50px, -50px) scale(1.1) rotate(90deg); border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; }
+            66% { transform: translate(-50px, 50px) scale(0.9) rotate(180deg); border-radius: 30% 70% 60% 40% / 60% 40% 50% 60%; }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
         }
 
-        /* Hero Content & Typography */
         .hero-content {
             position: relative;
             z-index: 10;
             text-align: center;
-            width: 100%;
+            max-width: 900px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow-soft);
         }
 
-        .glitch-wrapper {
-            position: relative;
+        .hero-badge {
             display: inline-block;
+            background: var(--text-main);
+            color: var(--bg-pure-white);
+            font-family: var(--font-body);
+            font-weight: 800;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            transform: rotate(-2deg);
+            box-shadow: 4px 4px 0px var(--gulal-yellow);
         }
 
         .hero-title {
-            font-family: var(--font-mega);
-            font-size: clamp(4rem, 12vw, 12rem);
-            line-height: 0.85;
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
             color: var(--text-main);
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            text-shadow: 
-                5px 5px 0px var(--neon-magenta),
-                -5px -5px 0px var(--neon-cyan);
-            position: relative;
+            font-family: var(--font-heading);
+            text-shadow: 3px 3px 0px #fff;
         }
 
         .hero-subtitle {
-            font-family: var(--font-playful);
-            font-size: clamp(1.5rem, 3vw, 2.5rem);
-            color: var(--text-muted);
-            margin-bottom: 40px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            color: #4a4a4a;
         }
 
-        /* The Main Trigger Button */
-        .btn-deploy {
-            background: transparent;
-            color: var(--text-main);
-            font-family: var(--font-mega);
-            font-size: 2rem;
-            padding: 20px 60px;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 5px;
+        /* Interactive "Throw Color" Button */
+        .btn-splatter {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 1rem 3rem;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: #fff;
+            background: var(--text-main);
+            border: none;
+            border-radius: 50px;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .btn-deploy::before {
+        .btn-splatter::before {
             content: '';
             position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(45deg, var(--neon-magenta), var(--neon-orange), var(--neon-yellow));
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.3s;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: var(--gulal-pink);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+            z-index: 0;
         }
 
-        .btn-deploy:hover {
-            border-color: transparent;
-            transform: scale(1.05) translateY(-5px);
-            box-shadow: 0 15px 30px rgba(255, 94, 0, 0.4);
-            letter-spacing: 2px;
+        .btn-splatter:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
-        .btn-deploy:hover::before { opacity: 1; }
+        .btn-splatter:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(255, 0, 122, 0.3);
+        }
 
-        /* Grid Overlay for Texture */
-        .grid-overlay {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
+        .btn-splatter span, .btn-splatter i {
+            position: relative;
             z-index: 1;
-            pointer-events: none;
+        }
+
+        /* Scroll Down Arrow */
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--text-main);
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        /* Mobile adjustments for nav */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                flex-direction: column;
+                background: var(--glass-bg-light);
+                backdrop-filter: var(--blur-heavy);
+                width: 70%;
+                height: 100vh;
+                justify-content: center;
+                transition: 0.4s ease-in-out;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.active { right: 0; }
+            .hamburger { display: block; }
+            .hamburger.active .line:nth-child(1) { transform: rotate(-45deg) translate(-6px, 6px); }
+            .hamburger.active .line:nth-child(2) { opacity: 0; }
+            .hamburger.active .line:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
         }
     </style>
 </head>
 
 <body>
 
-    <audio id="bg-music" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="splat-sound">
-        <source src="https://actions.google.com/sounds/v1/water/water_splash.ogg" type="audio/ogg"> 
-    </audio>
-
     <div id="preloader">
-        <h2 style="font-family: var(--font-mega); font-size: 5rem; color: var(--text-main); margin-bottom: 20px; text-shadow: var(--glow-magenta);">SYSTEM READY</h2>
-        <button class="enter-btn" id="enter-experience">INITIALIZE FESTIVAL</button>
-        <p class="preloader-warning">Warning: Contains flashing colors & loud audio. Turn up your volume.</p>
+        <div class="paint-drop-container">
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="splat-base"></div>
+        </div>
+        <div class="preloader-text">Mixing Colors...</div>
     </div>
 
-    <nav class="cyber-nav" id="navbar">
+    <nav class="holi-navbar" id="navbar">
         <div class="container nav-wrapper">
-            <a href="#" class="nav-logo">H26</a>
+            <a href="#" class="nav-logo">Holi '26</a>
             
-            <ul class="nav-links">
-                <li class="nav-item"><a href="#lore">The Lore</a></li>
-                <li class="nav-item"><a href="#squad">Squad Matrix</a></li>
-                <li class="nav-item"><a href="#survival">Protocol</a></li>
-                <li>
-                    <button class="audio-toggle" id="audio-btn">
-                        <div class="bars">
-                            <div class="bar"></div><div class="bar"></div><div class="bar"></div><div class="bar"></div>
-                        </div>
-                        <span>AUDIO ON</span>
-                    </button>
-                </li>
+            <ul class="nav-links" id="nav-links">
+                <li class="nav-item"><a href="#mythology">The Legend</a></li>
+                <li class="nav-item"><a href="#types">Holi Personalities</a></li>
+                <li class="nav-item"><a href="#survival">Survival Guide</a></li>
+                <li class="nav-item"><a href="#squad" class="color-text-gradient" style="font-weight: 800;">Tag Your Squad</a></li>
             </ul>
+
+            <div class="hamburger" id="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
         </div>
     </nav>
 
     <header id="hero" class="hero">
-        <div class="hero-orb orb-magenta"></div>
-        <div class="hero-orb orb-cyan"></div>
-        <div class="hero-orb orb-lime"></div>
-        <div class="grid-overlay"></div>
+        <div class="abstract-blob blob-1"></div>
+        <div class="abstract-blob blob-2"></div>
+        <div class="abstract-blob blob-3"></div>
 
-        <div class="container">
-            <div class="hero-content animate__animated animate__fadeInUp animate__delay-1s">
-                <h2 class="hero-subtitle">Prepare for the ultimate color overdrive</h2>
-                <div class="glitch-wrapper">
-                    <h1 class="hero-title kinetic-text">HOLI<br>2026</h1>
-                </div>
-                <p style="font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px auto; color: var(--text-muted);">
-                    Ancient traditions meets hyper-modern chaos. Equip your arsenal, hydrate, and prepare to be painted.
+        <div class="container" style="position: relative;">
+            <div class="hero-content animate__animated animate__zoomIn">
+                <div class="hero-badge">Warning: White Clothes Prohibited</div>
+                <h1 class="hero-title">
+                    The Festival of <span class="color-text-gradient">Colors & Chaos</span>
+                </h1>
+                <p class="hero-subtitle">
+                    From the ancient fires of Holika to the modern-day neighborhood water balloon ambush. Welcome to the maddest, most beautiful festival on Earth.
                 </p>
-                <button class="btn-deploy" id="global-strike-btn">
-                    DEPLOY COLORS <i class="fa-solid fa-bomb" style="margin-left: 10px;"></i>
+                
+                <button class="btn-splatter" id="trigger-splatter">
+                    <span>Initiate Color Bomb</span>
+                    <i class="fa-solid fa-burst"></i>
                 </button>
             </div>
         </div>
+
+        <a href="#mythology" class="scroll-down">
+            <i class="fa-solid fa-arrow-down"></i>
+        </a>
     </header>
     <style>
         /* ==========================================================================
-           6. THE LORE (AGGRESSIVE NEON MYTHOLOGY)
+           6. MYTHOLOGY SECTION (THE LEGEND)
            ========================================================================== */
-        .lore-section {
-            background-color: var(--bg-surface);
+        .mythology-section {
+            background-color: var(--bg-deep-dark);
+            color: var(--text-light);
             position: relative;
-            z-index: 5;
-            border-top: 4px solid var(--neon-magenta);
-            border-bottom: 4px solid var(--neon-cyan);
             overflow: hidden;
+            border-top: 5px solid var(--gulal-orange);
+            border-bottom: 5px solid var(--gulal-purple);
         }
 
         .section-header {
             text-align: center;
-            margin-bottom: 80px;
-            position: relative;
+            margin-bottom: 4rem;
         }
 
         .section-title {
-            font-family: var(--font-mega);
-            font-size: clamp(3rem, 6vw, 5rem);
-            color: var(--text-main);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
         }
 
-        .lore-grid {
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: #b2bec3;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .myth-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
             position: relative;
             z-index: 2;
         }
 
-        .lore-card {
-            background: var(--bg-void);
-            border: 2px solid #333;
-            border-radius: 10px;
-            padding: 40px 30px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .myth-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: var(--blur-light);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        /* The neon scanline effect on hover */
-        .lore-card::before {
+        .myth-card::before {
             content: '';
             position: absolute;
-            top: -100%; left: 0;
-            width: 100%; height: 50%;
-            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
-            transition: top 0.6s;
-            z-index: 0;
-            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 5px;
         }
 
-        .lore-card:hover::before { top: 200%; }
+        .myth-card.fire::before { background: linear-gradient(90deg, var(--gulal-orange), var(--gulal-yellow)); }
+        .myth-card.love::before { background: linear-gradient(90deg, var(--gulal-pink), var(--gulal-purple)); }
 
-        .lore-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            background: rgba(15,15,15,1);
+        .myth-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        /* Card 1 Specifics (Fire/Magenta) */
-        .card-fire { border-bottom: 4px solid var(--neon-magenta); }
-        .card-fire:hover {
-            border-color: var(--neon-magenta);
-            box-shadow: var(--glow-magenta);
-        }
-        .card-fire .lore-icon { color: var(--neon-magenta); text-shadow: var(--glow-magenta); }
+        .myth-card.fire:hover { box-shadow: 0 10px 30px rgba(255, 94, 0, 0.2); }
+        .myth-card.love:hover { box-shadow: 0 10px 30px rgba(255, 0, 122, 0.2); }
 
-        /* Card 2 Specifics (Water/Cyan) */
-        .card-water { border-bottom: 4px solid var(--neon-cyan); }
-        .card-water:hover {
-            border-color: var(--neon-cyan);
-            box-shadow: var(--glow-cyan);
-        }
-        .card-water .lore-icon { color: var(--neon-cyan); text-shadow: var(--glow-cyan); }
-
-        .lore-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            position: relative;
-            z-index: 1;
+        .myth-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
         }
 
-        .lore-title {
-            font-family: var(--font-playful);
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: var(--text-main);
-            text-transform: uppercase;
+        .myth-card.fire .myth-icon { color: var(--gulal-orange); text-shadow: 0 0 15px var(--gulal-orange); }
+        .myth-card.love .myth-icon { color: var(--gulal-pink); text-shadow: 0 0 15px var(--gulal-pink); }
+
+        .myth-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
             letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .lore-text {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            line-height: 1.8;
-            position: relative;
-            z-index: 1;
         }
 
         /* ==========================================================================
-           7. SQUAD MATRIX (HOLOGRAPHIC 3D CARDS)
+           7. HOLI PERSONALITIES (3D FLIP CARDS)
            ========================================================================== */
-        .matrix-section {
-            background-color: var(--bg-void);
-            background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-                              linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
-            position: relative;
+        .personalities-section {
+            background-color: var(--bg-pure-white);
+            background-image: radial-gradient(rgba(0,0,0,0.05) 2px, transparent 2px);
+            background-size: 30px 30px;
         }
 
-        .matrix-grid {
+        .players-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
         }
 
-        .holo-card {
-            height: 400px;
+        .flip-card {
+            background-color: transparent;
+            height: 380px;
             perspective: 1000px;
             cursor: pointer;
         }
 
-        .holo-inner {
+        .flip-card-inner {
             position: relative;
             width: 100%;
             height: 100%;
             text-align: center;
-            transition: transform 0.6s cubic-bezier(0.87, 0, 0.13, 1);
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
         }
 
-        .holo-card:hover .holo-inner { transform: rotateY(180deg); }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
 
-        .holo-front, .holo-back {
+        .flip-front, .flip-back {
             position: absolute;
             width: 100%;
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 15px;
-            padding: 30px 20px;
+            border-radius: 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: rgba(20,20,20,0.8);
-            backdrop-filter: blur(10px);
-            border: 2px solid #333;
+            padding: 2rem;
+            border: 3px solid transparent;
         }
 
-        .holo-front i {
-            font-size: 5rem;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        .flip-front {
+            background: #fff;
+            color: var(--text-main);
         }
 
-        .holo-front h3 {
-            font-family: var(--font-mega);
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        .flip-front i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
         }
 
-        .holo-back {
-            transform: rotateY(180deg);
-            background: var(--bg-surface);
+        .flip-card:hover .flip-front i {
+            transform: scale(1.2);
         }
 
-        .holo-back h3 {
-            font-family: var(--font-playful);
+        .flip-front h3 {
+            font-family: var(--font-heading);
             font-size: 1.8rem;
-            margin-bottom: 15px;
+            margin-bottom: 0.5rem;
         }
 
-        .holo-back p {
-            font-size: 1rem;
-            color: #ccc;
+        .flip-back {
+            background: var(--text-main);
+            color: #fff;
+            transform: rotateY(180deg);
+        }
+
+        .flip-back h3 {
+            font-family: var(--font-heading);
+            color: var(--gulal-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flip-back p {
+            font-size: 0.95rem;
             line-height: 1.6;
+            opacity: 0.9;
         }
 
-        .holo-stat {
-            width: 100%;
-            height: 8px;
-            background: #222;
-            margin-top: 20px;
-            border-radius: 4px;
-            position: relative;
-            overflow: hidden;
-        }
+        /* Persona Specific Colors */
+        .persona-sniper .flip-front { border-color: var(--gulal-cyan); }
+        .persona-sniper .flip-front i { color: var(--gulal-cyan); }
+        .persona-sniper .flip-back { background: var(--gulal-cyan); color: var(--bg-deep-dark); border-color: var(--gulal-cyan);}
+        .persona-sniper .flip-back h3 { color: var(--bg-deep-dark); }
 
-        .holo-stat-fill {
-            height: 100%;
-            position: absolute;
-            top: 0; left: 0;
-            box-shadow: 0 0 10px currentColor;
-        }
+        .persona-clean .flip-front { border-color: var(--gulal-pink); }
+        .persona-clean .flip-front i { color: var(--gulal-pink); }
+        .persona-clean .flip-back { background: var(--gulal-pink); color: #fff; border-color: var(--gulal-pink);}
+        .persona-clean .flip-back h3 { color: #fff; }
 
-        /* Matrix Specific Colors */
-        .matrix-sniper .holo-front { border-color: var(--neon-lime); }
-        .matrix-sniper .holo-front i, .matrix-sniper .holo-front h3 { color: var(--neon-lime); }
-        .matrix-sniper .holo-back { border-color: var(--neon-lime); }
-        .matrix-sniper .holo-back h3 { color: var(--neon-lime); text-shadow: 0 0 10px var(--neon-lime); }
-        .matrix-sniper .holo-stat-fill { background: var(--neon-lime); color: var(--neon-lime); width: 95%; }
+        .persona-hulk .flip-front { border-color: var(--gulal-green); }
+        .persona-hulk .flip-front i { color: var(--gulal-green); }
+        .persona-hulk .flip-back { background: var(--gulal-green); color: var(--bg-deep-dark); border-color: var(--gulal-green);}
+        .persona-hulk .flip-back h3 { color: var(--bg-deep-dark); }
 
-        .matrix-stealth .holo-front { border-color: var(--neon-violet); }
-        .matrix-stealth .holo-front i, .matrix-stealth .holo-front h3 { color: var(--neon-violet); }
-        .matrix-stealth .holo-back { border-color: var(--neon-violet); }
-        .matrix-stealth .holo-back h3 { color: var(--neon-violet); text-shadow: 0 0 10px var(--neon-violet); }
-        .matrix-stealth .holo-stat-fill { background: var(--neon-violet); color: var(--neon-violet); width: 80%; }
-
-        .matrix-tank .holo-front { border-color: var(--neon-orange); }
-        .matrix-tank .holo-front i, .matrix-tank .holo-front h3 { color: var(--neon-orange); }
-        .matrix-tank .holo-back { border-color: var(--neon-orange); }
-        .matrix-tank .holo-back h3 { color: var(--neon-orange); text-shadow: 0 0 10px var(--neon-orange); }
-        .matrix-tank .holo-stat-fill { background: var(--neon-orange); color: var(--neon-orange); width: 100%; }
-
-        .matrix-vip .holo-front { border-color: var(--neon-magenta); }
-        .matrix-vip .holo-front i, .matrix-vip .holo-front h3 { color: var(--neon-magenta); }
-        .matrix-vip .holo-back { border-color: var(--neon-magenta); }
-        .matrix-vip .holo-back h3 { color: var(--neon-magenta); text-shadow: var(--glow-magenta); }
-        .matrix-vip .holo-stat-fill { background: var(--neon-magenta); color: var(--neon-magenta); width: 10%; }
+        .persona-dj .flip-front { border-color: var(--gulal-purple); }
+        .persona-dj .flip-front i { color: var(--gulal-purple); }
+        .persona-dj .flip-back { background: var(--gulal-purple); color: #fff; border-color: var(--gulal-purple);}
+        .persona-dj .flip-back h3 { color: var(--gulal-yellow); }
 
     </style>
 
-    <section id="lore" class="section-padding lore-section">
+    <section id="mythology" class="section-pad mythology-section">
+        <div style="position:absolute; top:10%; left:5%; width:5px; height:5px; background:var(--gulal-yellow); box-shadow:0 0 10px var(--gulal-yellow); border-radius:50%; animation: float-blob 5s infinite;"></div>
+        <div style="position:absolute; bottom:20%; right:10%; width:8px; height:8px; background:var(--gulal-pink); box-shadow:0 0 10px var(--gulal-pink); border-radius:50%; animation: float-blob 7s infinite;"></div>
+        
         <div class="container">
-            <div class="section-header animate__animated animate__fadeInDown">
-                <h2 class="section-title">The <span style="color: var(--neon-cyan);">Lore</span></h2>
-                <p style="font-size: 1.2rem; color: var(--text-muted); font-family: var(--font-playful);">Why do we go to war with colors? The ancient files have the answers.</p>
+            <div class="section-header animate__animated animate__fadeInUp">
+                <h2 class="section-title">The Legend of <span style="color: var(--gulal-yellow);">Holi</span></h2>
+                <p class="section-subtitle">Why do we willingly let people throw colored powder in our eyes? Because ancient legends tell us to celebrate the victory of good and the magic of love.</p>
             </div>
 
-            <div class="lore-grid">
-                <div class="lore-card card-fire animate__animated animate__fadeInLeft">
-                    <i class="fa-solid fa-fire lore-icon"></i>
-                    <h3 class="lore-title">Ignition: Good vs Evil</h3>
-                    <p class="lore-text">
-                        Before the colors, comes the fire. <strong>Holika Dahan</strong> commemorates the ultimate victory of devotion over arrogance. The demon king Hiranyakashipu tried to burn his own son, Prahlad, with the help of his fire-immune sister, Holika. 
+            <div class="myth-grid">
+                <div class="myth-card fire animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+                    <i class="fa-solid fa-fire-flame-curved myth-icon"></i>
+                    <h3 class="myth-title">The Triumph of Good</h3>
+                    <p>
+                        The festival begins with <strong>Holika Dahan</strong>. Legend says the demon king Hiranyakashipu wanted everyone to worship him, but his son Prahlad remained devoted to Lord Vishnu. 
                         <br><br>
-                        But the universe had other plans. Prahlad's devotion to Lord Vishnu shielded him, while Holika's immunity was revoked. Today, we burn the pyre to incinerate negativity and reset the system for a colorful tomorrow.
+                        The king's sister, Holika, who had a boon protecting her from fire, tricked Prahlad into sitting on a pyre with her. But faith won! The cloak protected Prahlad, and Holika burned. Today, we light bonfires on the eve of Holi to burn away evil and let goodness triumph!
                     </p>
                 </div>
 
-                <div class="lore-card card-water animate__animated animate__fadeInRight">
-                    <i class="fa-solid fa-droplet lore-icon"></i>
-                    <h3 class="lore-title">Saturation: Divine Love</h3>
-                    <p class="lore-text">
-                        The chaotic splashing of colors? That's a direct patch from Lord Krishna. Legend has it, the blue-skinned deity was playfully envious of Radha's fair complexion.
+                <div class="myth-card love animate__animated animate__fadeInRight" style="animation-delay: 0.4s;">
+                    <i class="fa-solid fa-heart myth-icon"></i>
+                    <h3 class="myth-title">The Colors of Divine Love</h3>
+                    <p>
+                        The splashing of colors? We can thank Lord Krishna for that. As a mischievous youth in Vrindavan, Krishna was famously blue-skinned and playfully complained to his mother Yashoda about why Radha was fair and he was dark.
                         <br><br>
-                        His mother Yashoda told him to just paint her face whatever color he wanted. He took it literally! This playful prank in Vrindavan evolved into a nationwide festival. It breaks down social firewalls, equalizing everyone under a thick layer of neon gulal.
+                        Yashoda jokingly told him to color Radha's face whatever color he wanted. He did exactly that! This playful coloring between Radha, Krishna, and the Gopis became a celebration of divine love, breaking down barriers and painting everyone equal.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="squad" class="section-padding matrix-section">
+    <section id="types" class="section-pad personalities-section">
         <div class="container">
-            <div class="section-header animate__animated animate__fadeInDown">
-                <h2 class="section-title">Squad <span class="kinetic-text">Matrix</span></h2>
-                <p style="font-size: 1.2rem; color: var(--text-muted); font-family: var(--font-playful);">Identify the hostiles and allies in your immediate vicinity.</p>
+            <div class="section-header animate__animated animate__fadeInUp">
+                <h2 class="section-title" style="color: var(--text-main);">Identify Your <span class="color-text-gradient">Squad</span></h2>
+                <p class="section-subtitle" style="color: #636e72;">Every friend group has these specific characters. Tag yourself before they tag you with permanent silver color.</p>
             </div>
 
-            <div class="matrix-grid">
+            <div class="players-grid">
                 
-                <div class="holo-card matrix-sniper animate__animated animate__zoomIn">
-                    <div class="holo-inner">
-                        <div class="holo-front">
-                            <i class="fa-solid fa-satellite-dish"></i>
-                            <h3>The Sniper</h3>
-                            <p style="color: #666; margin-top: 10px; font-family: var(--font-body);">[ HOVER TO DECRYPT ]</p>
+                <div class="flip-card persona-sniper animate__animated animate__zoomIn" style="animation-delay: 0.1s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-crosshairs"></i>
+                            <h3>The Balcony Sniper</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
                         </div>
-                        <div class="holo-back">
-                            <h3>High Altitude Threat</h3>
-                            <p>Operates strictly from the 3rd-floor balcony. Equipped with 500 precision water balloons. Never engages in ground combat.</p>
-                            <p style="margin-top: 15px; font-weight: bold; font-family: var(--font-mega);">ACCURACY</p>
-                            <div class="holo-stat"><div class="holo-stat-fill"></div></div>
+                        <div class="flip-back">
+                            <h3>Threat Level: High</h3>
+                            <p>Never steps foot on the ground. Has a stockpile of 500 precision-filled water balloons on the 3rd floor. <br><br><strong>Catchphrase:</strong> <em>"Headshot!"</em></p>
                         </div>
                     </div>
                 </div>
 
-                <div class="holo-card matrix-tank animate__animated animate__zoomIn" style="animation-delay: 0.2s;">
-                    <div class="holo-inner">
-                        <div class="holo-front">
-                            <i class="fa-solid fa-biohazard"></i>
-                            <h3>The Tank</h3>
-                            <p style="color: #666; margin-top: 10px; font-family: var(--font-body);">[ HOVER TO DECRYPT ]</p>
-                        </div>
-                        <div class="holo-back">
-                            <h3>Unrecognizable Entity</h3>
-                            <p>Covered entirely in permanent silver paint, mud, and engine oil by 8:30 AM. Their own iPhone FaceID rejects them. Do not engage.</p>
-                            <p style="margin-top: 15px; font-weight: bold; font-family: var(--font-mega);">DESTRUCTION</p>
-                            <div class="holo-stat"><div class="holo-stat-fill"></div></div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="holo-card matrix-vip animate__animated animate__zoomIn" style="animation-delay: 0.4s;">
-                    <div class="holo-inner">
-                        <div class="holo-front">
-                            <i class="fa-solid fa-gem"></i>
-                            <h3>The V.I.P</h3>
-                            <p style="color: #666; margin-top: 10px; font-family: var(--font-body);">[ HOVER TO DECRYPT ]</p>
-                        </div>
-                        <div class="holo-back">
+                <div class="flip-card persona-clean animate__animated animate__zoomIn" style="animation-delay: 0.3s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-hand-sparkles"></i>
                             <h3>The "Tika Only"</h3>
-                            <p>Shows up in fresh white designer clothes. Begs for a small dot of organic dry color. Always ends up in the mud pool.</p>
-                            <p style="margin-top: 15px; font-weight: bold; font-family: var(--font-mega);">SURVIVAL RATE</p>
-                            <div class="holo-stat"><div class="holo-stat-fill"></div></div>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Threat Level: Zero</h3>
+                            <p>Shows up in designer clothes. Begs for just a small dot of organic color on the cheek. <br><br><strong>Outcome:</strong> Always ends up thrown in the deepest mud pool by 11 AM.</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="holo-card matrix-stealth animate__animated animate__zoomIn" style="animation-delay: 0.6s;">
-                    <div class="holo-inner">
-                        <div class="holo-front">
-                            <i class="fa-solid fa-user-ninja"></i>
-                            <h3>The Ninja</h3>
-                            <p style="color: #666; margin-top: 10px; font-family: var(--font-body);">[ HOVER TO DECRYPT ]</p>
+                <div class="flip-card persona-hulk animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-mask"></i>
+                            <h3>The Silver Zombie</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
                         </div>
-                        <div class="holo-back">
-                            <h3>Silent Assassin</h3>
-                            <p>Sneaks up from behind with a handful of neon green powder. Strikes fast, vanishes into the crowd before you can retaliate.</p>
-                            <p style="margin-top: 15px; font-weight: bold; font-family: var(--font-mega);">STEALTH</p>
-                            <div class="holo-stat"><div class="holo-stat-fill"></div></div>
+                        <div class="flip-back">
+                            <h3>Threat Level: Extreme</h3>
+                            <p>Covered entirely in permanent silver color and engine oil by 9:00 AM. Even their iPhone FaceID doesn't recognize them anymore. <br><br><strong>Do not engage.</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card persona-dj animate__animated animate__zoomIn" style="animation-delay: 0.7s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-compact-disc"></i>
+                            <h3>The Vibe Manager</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Threat Level: Musical</h3>
+                            <p>Has control of the Bluetooth speaker. Will play 'Rang Barse' and 'Balam Pichkari' exactly 47 times in a row. <br><br><strong>Role:</strong> Essential for survival.</p>
                         </div>
                     </div>
                 </div>
@@ -828,259 +844,253 @@
     </section>
     <style>
         /* ==========================================================================
-           8. SURVIVAL PROTOCOL (CYBER-TIMELINE)
+           8. SURVIVAL GUIDE (NEON TIMELINE)
            ========================================================================== */
-        .protocol-section {
-            background-color: var(--bg-void);
+        .survival-section {
+            background-color: var(--bg-deep-dark);
+            color: var(--text-light);
             position: relative;
-            z-index: 5;
-            padding: 120px 0;
-            border-top: 4px solid var(--neon-lime);
-            overflow: hidden;
-        }
-
-        /* Abstract glowing grid in background */
-        .protocol-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: 
-                linear-gradient(rgba(57, 255, 20, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(57, 255, 20, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-            z-index: 0;
-            pointer-events: none;
+            padding: 6rem 1rem;
+            border-top: 5px dashed var(--gulal-cyan);
+            border-bottom: 5px dashed var(--gulal-green);
         }
 
         .timeline-container {
-            max-width: 1000px;
+            max-width: 900px;
             margin: 0 auto;
             position: relative;
-            padding: 40px 0;
-            z-index: 2;
+            padding: 2rem 0;
         }
 
-        /* The Neon Power Line */
-        .timeline-container::after {
+        /* The Neon Center Line */
+        .timeline-container::before {
             content: '';
             position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
             width: 4px;
-            background: var(--neon-cyan);
-            box-shadow: var(--glow-cyan);
-            top: 0; bottom: 0; left: 50%;
-            margin-left: -2px;
-            border-radius: 2px;
+            background: var(--gulal-pink);
+            box-shadow: var(--glow-pink);
+            transform: translateX(-50%);
+            border-radius: 5px;
         }
 
         .timeline-step {
-            padding: 10px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 4rem;
             position: relative;
-            background-color: inherit;
-            width: 50%;
+            width: 100%;
         }
 
-        .timeline-step.left { left: 0; text-align: right; }
-        .timeline-step.right { left: 50%; text-align: left; }
-
-        /* The Glowing Nodes */
-        .timeline-step::after {
-            content: '';
-            position: absolute;
-            width: 24px; height: 24px;
-            right: -12px;
-            background-color: var(--bg-void);
-            border: 4px solid var(--neon-cyan);
-            top: 30px;
-            border-radius: 50%;
-            z-index: 1;
-            box-shadow: 0 0 15px var(--neon-cyan);
-            transition: all 0.3s;
-        }
-
-        .timeline-step.right::after { left: -12px; }
-
-        .timeline-step:hover::after {
-            background-color: var(--neon-cyan);
-            transform: scale(1.5);
-            box-shadow: 0 0 30px var(--neon-cyan);
+        /* Alternating layout for timeline */
+        .timeline-step:nth-child(even) {
+            flex-direction: row-reverse;
         }
 
         .step-content {
-            padding: 30px;
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid #333;
+            width: 45%;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid var(--gulal-yellow);
             position: relative;
-            border-radius: 10px;
-            backdrop-filter: blur(10px);
             transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: var(--blur-light);
         }
-
-        .timeline-step.left .step-content { border-right: 4px solid var(--neon-yellow); }
-        .timeline-step.right .step-content { border-left: 4px solid var(--neon-magenta); }
 
         .step-content:hover {
-            transform: translateY(-5px) scale(1.03);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 214, 0, 0.2);
         }
 
-        .timeline-step.left .step-content:hover { box-shadow: -10px 10px 30px rgba(255, 230, 0, 0.2); }
-        .timeline-step.right .step-content:hover { box-shadow: 10px 10px 30px rgba(255, 0, 85, 0.2); }
+        .timeline-step:nth-child(even) .step-content {
+            border-color: var(--gulal-cyan);
+        }
+
+        .timeline-step:nth-child(even) .step-content:hover {
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
+        }
+
+        /* The Glowing Dot */
+        .step-dot {
+            width: 30px;
+            height: 30px;
+            background: var(--bg-deep-dark);
+            border: 5px solid var(--gulal-pink);
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: var(--glow-pink);
+            z-index: 2;
+        }
 
         .step-number {
-            font-family: var(--font-mega);
-            font-size: 3rem;
-            color: rgba(255,255,255,0.05);
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: rgba(255,255,255,0.1);
             position: absolute;
-            top: 10px;
+            top: -20px;
+            right: 20px;
             line-height: 1;
         }
-        
-        .timeline-step.left .step-number { right: 20px; }
-        .timeline-step.right .step-number { left: 20px; }
+
+        .timeline-step:nth-child(even) .step-number {
+            left: 20px;
+            right: auto;
+        }
 
         .step-content h3 {
-            font-family: var(--font-playful);
+            font-family: var(--font-heading);
             font-size: 1.8rem;
-            color: var(--text-main);
-            margin-bottom: 10px;
+            color: var(--gulal-yellow);
+            margin-bottom: 0.5rem;
             position: relative;
-            z-index: 2;
+            z-index: 1;
+        }
+
+        .timeline-step:nth-child(even) .step-content h3 {
+            color: var(--gulal-cyan);
         }
 
         .step-content p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 300;
             line-height: 1.6;
             position: relative;
-            z-index: 2;
+            z-index: 1;
         }
 
-        /* Mobile Adjustments for Protocol */
-        @media screen and (max-width: 768px) {
-            .timeline-container::after { left: 31px; }
-            .timeline-step { width: 100%; padding-left: 70px; padding-right: 25px; text-align: left; }
-            .timeline-step.left { text-align: left; }
-            .timeline-step::after { left: 19px; }
-            .timeline-step.right { left: 0%; }
-            .timeline-step.left .step-content { border-right: none; border-left: 4px solid var(--neon-yellow); }
-            .timeline-step.left .step-number { right: auto; left: 20px; }
+        /* Mobile Adjustments for Timeline */
+        @media (max-width: 768px) {
+            .timeline-container::before { left: 30px; }
+            .timeline-step { flex-direction: column; align-items: flex-end; }
+            .timeline-step:nth-child(even) { flex-direction: column; align-items: flex-end; }
+            .step-content { width: calc(100% - 70px); margin-bottom: 2rem; }
+            .step-dot { left: 30px; }
         }
 
         /* ==========================================================================
-           9. BHAANG OVERDRIVE METER (INTERACTIVE SLIDER)
+           9. SPECIAL THANDAI & ENERGY METER
            ========================================================================== */
-        .overdrive-section {
-            background: linear-gradient(180deg, var(--bg-void) 0%, #0a0a0a 100%);
-            border-top: 4px solid var(--neon-orange);
+        .thandai-section {
+            background: linear-gradient(135deg, var(--bg-pure-white) 0%, #ffeaa7 100%);
             text-align: center;
-            position: relative;
             overflow: hidden;
+            position: relative;
         }
 
         .meter-container {
             max-width: 800px;
             margin: 0 auto;
-            background: rgba(15, 15, 15, 0.9);
-            padding: 50px 30px;
-            border-radius: 20px;
-            border: 2px solid #333;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.5);
+            background: var(--glass-bg-light);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 2px solid var(--gulal-orange);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: var(--blur-heavy);
             position: relative;
             z-index: 5;
         }
 
-        /* The Custom Cyber Slider */
-        .cyber-slider {
+        /* Custom Range Slider */
+        .thandai-slider {
             -webkit-appearance: none;
             width: 100%;
-            height: 20px;
-            background: #111;
+            height: 15px;
+            background: #dfe6e9;
             border-radius: 10px;
             outline: none;
-            margin: 40px 0;
-            border: 1px solid #333;
-            box-shadow: inset 0 5px 10px rgba(0,0,0,0.8);
+            margin: 3rem 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
             transition: background 0.3s ease;
-            position: relative;
-            z-index: 10;
         }
 
-        .cyber-slider::-webkit-slider-thumb {
+        .thandai-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 5px; /* Aggressive square thumb */
-            background: var(--neon-orange);
-            cursor: ew-resize;
-            border: 3px solid var(--bg-void);
-            box-shadow: 0 0 20px var(--neon-orange);
-            transition: transform 0.1s, background 0.3s, box-shadow 0.3s;
-            transform: rotate(45deg); /* Diamond shape */
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gulal-orange);
+            cursor: grab;
+            box-shadow: 0 0 15px var(--gulal-orange);
+            border: 4px solid #fff;
+            transition: transform 0.2s, background 0.3s;
         }
 
-        .cyber-slider::-webkit-slider-thumb:active {
-            transform: scale(1.2) rotate(45deg);
+        .thandai-slider::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(1.2);
         }
 
-        .meter-title {
-            font-family: var(--font-mega);
-            font-size: clamp(2rem, 5vw, 4rem);
-            min-height: 100px;
-            color: var(--neon-orange);
-            text-shadow: 0 0 20px rgba(255, 94, 0, 0.5);
-            transition: color 0.3s, text-shadow 0.3s;
-            text-transform: uppercase;
+        .meter-display {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            min-height: 80px;
+            color: var(--gulal-orange);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+            transition: color 0.3s;
         }
 
         .meter-desc {
             font-size: 1.2rem;
-            color: var(--text-muted);
+            color: #636e72;
             min-height: 80px;
-            margin-top: 20px;
-            font-family: var(--font-body);
+            margin-top: 10px;
+            font-weight: 600;
         }
-
     </style>
 
-    <section id="survival" class="section-padding protocol-section">
+    <section id="survival" class="survival-section">
         <div class="container">
-            <div class="section-header animate__animated animate__fadeInDown">
-                <h2 class="section-title">Survival <span style="color: var(--neon-lime);">Protocol</span></h2>
-                <p style="font-size: 1.2rem; color: var(--text-muted); font-family: var(--font-playful);">Strict adherence to these rules will ensure your survival on the battlefield.</p>
+            <div class="section-header animate__animated animate__fadeInUp">
+                <h2 class="section-title">Holi <span style="color: var(--gulal-pink);">Survival Guide</span></h2>
+                <p class="section-subtitle">Follow these steps strictly, or face the vibrant, permanent consequences.</p>
             </div>
 
             <div class="timeline-container">
                 
-                <div class="timeline-step left animate__animated animate__fadeInLeft">
-                    <div class="step-content">
+                <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <div class="step-content animate__animated animate__fadeInLeft" style="animation-delay: 0.1s;">
                         <div class="step-number">01</div>
-                        <h3>The Oil Armor</h3>
-                        <p>Coat yourself entirely in mustard or coconut oil. Hair, face, ears. This tactical layer ensures the aggressive permanent pink colors slide right off your chassis.</p>
+                        <h3>The Coconut Oil Shield</h3>
+                        <p>Bathe in coconut or mustard oil. Hair, face, ears, nails. Become a slippery, unstoppable target. Colors must slide off you like water off a duck's back.</p>
                     </div>
+                    <div style="width: 45%;" class="hide-mobile"></div>
                 </div>
 
-                <div class="timeline-step right animate__animated animate__fadeInRight" style="animation-delay: 0.2s;">
-                    <div class="step-content">
+                <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <div style="width: 45%;" class="hide-mobile"></div>
+                    <div class="step-content animate__animated animate__fadeInRight" style="animation-delay: 0.3s;">
                         <div class="step-number">02</div>
                         <h3>Sacrificial Garments</h3>
-                        <p>Do not wear white unless you wish to be heavily targeted. Equip the oldest, most damaged clothing in your inventory. Consider these items permanently lost post-mission.</p>
+                        <p>Wear the oldest, most ripped clothes you own. If you wear white, you are not making a fashion statement; you are painting a giant bullseye on your back.</p>
                     </div>
                 </div>
 
-                <div class="timeline-step left animate__animated animate__fadeInLeft" style="animation-delay: 0.4s;">
-                    <div class="step-content">
+                <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <div class="step-content animate__animated animate__fadeInLeft" style="animation-delay: 0.5s;">
                         <div class="step-number">03</div>
-                        <h3>Tech Lockdown</h3>
-                        <p>Seal all communication devices in heavy-duty waterproof casing. If your hardware lacks IP68 certification, leave it at base. No selfie is worth motherboard failure.</p>
+                        <h3>Protect the Tech</h3>
+                        <p>Phones go in ziplock bags. If your phone isn't IP68 waterproof, leave it indoors. No Instagram reel is worth rice-bagging your phone for 3 days.</p>
                     </div>
+                    <div style="width: 45%;" class="hide-mobile"></div>
                 </div>
 
-                <div class="timeline-step right animate__animated animate__fadeInRight" style="animation-delay: 0.6s;">
-                    <div class="step-content">
+                <div class="timeline-step">
+                    <div class="step-dot"></div>
+                    <div style="width: 45%;" class="hide-mobile"></div>
+                    <div class="step-content animate__animated animate__fadeInRight" style="animation-delay: 0.7s;">
                         <div class="step-number">04</div>
-                        <h3>Evasion Tactics</h3>
-                        <p>Map out all "Safe Zones" (locked doors, elevated areas). When the horde approaches armed with eggs, mud, and silver paint—initiate immediate retreat.</p>
+                        <h3>Tactical Retreat</h3>
+                        <p>Always map out the nearest safe zone (a locked bathroom). When the mob comes running with eggs, mud, and permanent dye, RUN. Don't look back.</p>
                     </div>
                 </div>
 
@@ -1088,230 +1098,202 @@
         </div>
     </section>
 
-    <section id="overdrive" class="section-padding overdrive-section">
+    <section id="thandai" class="section-pad thandai-section">
+        <div style="position:absolute; top:10%; left:10%; font-size: 3rem; opacity: 0.2; transform: rotate(-15deg);">🥛</div>
+        <div style="position:absolute; bottom:20%; right:15%; font-size: 4rem; opacity: 0.2; transform: rotate(20deg);">🥟</div>
+        
         <div class="container">
             <div class="section-header animate__animated animate__zoomIn">
-                <h2 class="section-title">Thandai <span class="kinetic-text">Overdrive</span></h2>
-                <p style="font-size: 1.2rem; color: var(--text-muted); font-family: var(--font-playful);">Calibrate your festive energy levels. Move the slider to assess your current state.</p>
+                <h2 class="section-title">The <span style="color: var(--gulal-orange);">Thandai & Gujiya</span> Meter</h2>
+                <p class="section-subtitle" style="color: #636e72;">How much festive fuel have you consumed? Move the slider to find out your current state of mind.</p>
             </div>
 
-            <div class="meter-container animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                <div class="meter-title" id="meter-title">SYSTEM BASELINE</div>
+            <div class="meter-container animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <div class="meter-display" id="meter-title">Level 0: Totally Normal</div>
                 
-                <input type="range" min="0" max="4" value="0" class="cyber-slider" id="overdrive-input">
+                <input type="range" min="0" max="4" value="0" class="thandai-slider" id="thandai-input">
                 
                 <div class="meter-desc" id="meter-text">
-                    You haven't consumed any Gujiyas. Your system is dangerously sober. Please refuel immediately to join the festivities.
+                    You haven't eaten a single Gujiya yet. Are you even celebrating Holi? Go grab some sweets!
                 </div>
             </div>
         </div>
     </section>
-    <footer style="background: var(--bg-void); padding: 80px 20px 40px; text-align: center; border-top: 4px solid var(--neon-magenta); position: relative; overflow: hidden; z-index: 10;">
+    <footer style="background: var(--bg-deep-dark); color: var(--text-light); padding: 5rem 1rem 2rem; text-align: center; border-top: 5px solid var(--gulal-purple); position: relative; overflow: hidden;">
         
-        <div style="position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 300px; height: 300px; background: var(--neon-violet); border-radius: 50%; filter: blur(100px); opacity: 0.2; pointer-events: none;"></div>
+        <div style="position: absolute; top: -50px; left: -50px; width: 200px; height: 200px; background: var(--gulal-cyan); border-radius: 50%; filter: blur(60px); opacity: 0.2;"></div>
+        <div style="position: absolute; bottom: -50px; right: -50px; width: 250px; height: 250px; background: var(--gulal-pink); border-radius: 50%; filter: blur(80px); opacity: 0.2;"></div>
 
         <div class="container" style="position: relative; z-index: 10;">
-            <h2 style="font-family: var(--font-mega); font-size: 2.5rem; color: var(--text-main); margin-bottom: 10px; letter-spacing: 2px;">SYSTEM ARCHITECT</h2>
-            <p style="font-family: var(--font-playful); color: var(--text-muted); font-size: 1.2rem; margin-bottom: 40px;">Created & Engineered by</p>
+            <h2 class="color-text-gradient" style="font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 1rem;">BURA NA MANO, HOLI HAI!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 3rem; color: #b2bec3; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Disclaimer: The creators of this website are not responsible for ruined white shirts, lost slippers, or the embarrassing dance moves you made after 4 glasses of Thandai. Play safe, respect boundaries, and spread love!
+            </p>
             
-            <a href="https://instagram.com/shashank_404_" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; gap: 15px; background: transparent; color: var(--text-main); border: 2px solid var(--neon-magenta); padding: 15px 40px; border-radius: 50px; font-family: var(--font-mega); font-size: 1.8rem; text-decoration: none; transition: all 0.3s; box-shadow: 0 0 20px rgba(255, 0, 85, 0.3); position: relative; overflow: hidden;" class="insta-btn">
-                <i class="fa-brands fa-instagram" style="color: var(--neon-magenta); transition: color 0.3s;"></i>
-                @shashank_404_
-            </a>
+            <div style="font-size: 2rem; display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem;">
+                <a href="#" style="color: var(--gulal-pink); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color: var(--gulal-cyan); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" style="color: var(--gulal-yellow); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);"><i class="fa-brands fa-youtube"></i></a>
+            </div>
             
-            <div style="width: 100%; max-width: 600px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); margin: 60px auto 30px;"></div>
+            <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 1.5rem;"></div>
             
-            <p style="font-weight: 800; color: #444; font-family: var(--font-body); letter-spacing: 1px;">&copy; 2026. ALL PROTOCOLS RESERVED. HAPPY HOLI.</p>
+            <p style="font-weight: 600; color: #636e72; font-size: 0.9rem;">&copy; 2026 The Holi Squad. Stay Colorful. Stay Safe.</p>
         </div>
     </footer>
-
-    <style>
-        .insta-btn:hover {
-            background: var(--neon-magenta);
-            color: var(--bg-void);
-            box-shadow: 0 0 40px var(--neon-magenta);
-            transform: translateY(-5px) scale(1.05);
-        }
-        .insta-btn:hover i {
-            color: var(--bg-void) !important;
-        }
-    </style>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             
-            // --- AUDIO & PRELOADER ENGINE ---
+            // 1. PRELOADER LOGIC
             const preloader = document.getElementById('preloader');
-            const enterBtn = document.getElementById('enter-experience');
-            const bgMusic = document.getElementById('bg-music');
-            const splatSound = document.getElementById('splat-sound');
-            const audioBtn = document.getElementById('audio-btn');
-            
-            // Lower the volume of the sound effects so they don't deafen the user
-            splatSound.volume = 0.5;
-            bgMusic.volume = 0.6;
-
-            let isMusicPlaying = false;
-
-            // Unlock Audio Context on First Interaction (Bypasses Browser Restrictions)
-            enterBtn.addEventListener('click', () => {
-                // Play music
-                bgMusic.play().then(() => {
-                    isMusicPlaying = true;
-                }).catch(e => console.log("Audio play failed:", e));
-
-                // Fade out preloader
+            // Give the user a moment to see the dripping paint, then fade it out
+            setTimeout(() => {
                 preloader.style.opacity = '0';
                 setTimeout(() => {
                     preloader.style.display = 'none';
-                    document.body.style.overflow = 'auto'; // Enable scrolling
-                }, 1000);
-            });
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }, 800);
+            }, 1800);
 
-            // Audio Navbar Toggle Logic
-            audioBtn.addEventListener('click', () => {
-                if (isMusicPlaying) {
-                    bgMusic.pause();
-                    audioBtn.classList.add('muted');
-                    audioBtn.querySelector('span').innerText = "AUDIO OFF";
-                    audioBtn.style.color = "var(--text-muted)";
-                    audioBtn.style.borderColor = "var(--text-muted)";
-                    audioBtn.style.boxShadow = "none";
-                } else {
-                    bgMusic.play();
-                    audioBtn.classList.remove('muted');
-                    audioBtn.querySelector('span').innerText = "AUDIO ON";
-                    audioBtn.style.color = "var(--neon-yellow)";
-                    audioBtn.style.borderColor = "var(--neon-yellow)";
-                    audioBtn.style.boxShadow = "0 0 10px rgba(255, 230, 0, 0.2)";
-                }
-                isMusicPlaying = !isMusicPlaying;
-            });
-
-            // --- NAVBAR SCROLL PHYSICS ---
+            // 2. NAVBAR SCROLL & MOBILE MENU EFFECT
             const navbar = document.getElementById('navbar');
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 80) {
+                if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
                 } else {
                     navbar.classList.remove('scrolled');
                 }
             });
 
-            // --- THE COLOR SPLATTER ENGINE (CONFETTI + SOUND) ---
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
+            // 3. COLOR THROWING LOGIC (CONFETTI)
+            // Matching our CSS variables for a cohesive look
             const holiColors = [
-                '#FF0055', // Magenta
+                '#FF007A', // Pink
+                '#FFD600', // Yellow
                 '#00F0FF', // Cyan
-                '#39FF14', // Lime
-                '#FFE600', // Yellow
-                '#FF5E00', // Orange
-                '#B200FF'  // Violet
+                '#00FF66', // Green
+                '#B200FF', // Purple
+                '#FF5E00'  // Orange
             ];
 
-            function fireColorSplat(x, y) {
-                // Play Splat Sound
-                splatSound.currentTime = 0; // Reset to start
-                splatSound.play().catch(e => {}); // Catch error if user clicked before interacting
-
-                // Fire Visual Confetti
+            // Function to trigger a color explosion at specific coordinates
+            function splashColor(x, y) {
                 confetti({
-                    particleCount: 150,
-                    spread: 100,
+                    particleCount: 120,
+                    spread: 80,
                     origin: { x: x, y: y },
                     colors: holiColors,
                     disableForReducedMotion: true,
                     zIndex: 9999,
-                    scalar: 1.4,
-                    ticks: 200 // Lasts a bit longer
+                    scalar: 1.2 // Make the "powder" chunks slightly bigger
                 });
             }
 
-            // Hero Global Deploy Button (Massive Explosion)
-            const globalStrikeBtn = document.getElementById('global-strike-btn');
-            if (globalStrikeBtn) {
-                globalStrikeBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    splatSound.currentTime = 0;
-                    splatSound.play().catch(e => {});
-
+            // Big button on Hero Section
+            const triggerSplatterBtn = document.getElementById('trigger-splatter');
+            if (triggerSplatterBtn) {
+                triggerSplatterBtn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent global click
+                    // Shoot a massive amount of colors from the bottom center of the screen
                     confetti({
-                        particleCount: 500,
-                        spread: 180,
-                        origin: { y: 0.9 }, // Shoot from bottom
+                        particleCount: 400,
+                        spread: 160,
+                        origin: { y: 0.8 },
                         colors: holiColors,
-                        startVelocity: 70,
-                        scalar: 1.8,
-                        zIndex: 9999
+                        startVelocity: 55,
+                        scalar: 1.5
                     });
                 });
             }
 
-            // Global Click Listener (Anywhere on screen)
+            // Interactive Screen Clicking (Throw colors wherever you click!)
             document.body.addEventListener('click', (e) => {
-                // Ignore clicks on buttons, links, inputs, or sliders
-                if(['INPUT', 'BUTTON', 'A', 'I'].includes(e.target.tagName) || e.target.closest('.holo-card') || e.target.closest('.cyber-slider')) {
+                // Don't trigger if clicking on inputs, buttons, or links
+                if(['INPUT', 'BUTTON', 'A', 'I'].includes(e.target.tagName) || e.target.closest('.flip-card') || e.target.closest('.thandai-slider')) {
                     return;
                 }
+                
+                // Convert pixel coordinates to relative (0 to 1) coordinates for confetti library
                 const x = e.clientX / window.innerWidth;
                 const y = e.clientY / window.innerHeight;
-                fireColorSplat(x, y);
+                
+                splashColor(x, y);
             });
 
-            // --- BHAANG OVERDRIVE METER LOGIC ---
-            const overdriveInput = document.getElementById('overdrive-input');
+            // 4. SPECIAL THANDAI METER LOGIC
+            const thandaiInput = document.getElementById('thandai-input');
             const meterTitle = document.getElementById('meter-title');
             const meterText = document.getElementById('meter-text');
 
-            const meterLevels = [
+            const thandaiLevels = [
                 {
-                    title: "SYSTEM BASELINE",
-                    desc: "You haven't consumed any Gujiyas. Your system is dangerously sober. Please refuel immediately to join the festivities.",
-                    color: "var(--neon-orange)",
-                    shadow: "0 0 20px rgba(255, 94, 0, 0.5)"
+                    title: "Level 0: Totally Normal",
+                    desc: "You haven't eaten a single Gujiya yet. Are you even celebrating Holi? Go grab some sweets!",
+                    color: "var(--gulal-orange)",
+                    shadow: "0 0 10px rgba(255, 94, 0, 0.4)"
                 },
                 {
-                    title: "IGNITION LEVEL 1",
-                    desc: "3 Gujiyas processed. Motor functions increasing. You are ready to deploy your first water balloon.",
-                    color: "var(--neon-yellow)",
-                    shadow: "0 0 20px rgba(255, 230, 0, 0.8)"
+                    title: "Level 1: Sugar Rush",
+                    desc: "3 Gujiyas down. The colors look a little brighter. You are ready to throw your first water balloon.",
+                    color: "var(--gulal-yellow)",
+                    shadow: "0 0 15px rgba(255, 214, 0, 0.6)"
                 },
                 {
-                    title: "VIBE PROTOCOL: ACTIVE",
-                    desc: "One glass of Thandai absorbed. Audio receptors syncing with the Dhol beats. Target acquisition locked.",
-                    color: "var(--neon-lime)",
-                    shadow: "0 0 30px rgba(57, 255, 20, 0.9)"
+                    title: "Level 2: The Vibe Check",
+                    desc: "One glass of Thandai in. You are dancing aggressively to the Dhol. Everyone is your best friend.",
+                    color: "var(--gulal-green)",
+                    shadow: "0 0 20px rgba(0, 255, 102, 0.8)"
                 },
                 {
-                    title: "SYSTEM MALFUNCTION",
-                    desc: "Why is the street dog glowing purple? Visual cortex compromised. You are currently trying to apply gulal to a parked car.",
-                    color: "var(--neon-cyan)",
-                    shadow: "0 0 40px rgba(0, 240, 255, 1)"
+                    title: "Level 3: Seeing Double",
+                    desc: "Why is the street dog purple? Who am I? You are currently trying to apply gulal to a parked car.",
+                    color: "var(--gulal-cyan)",
+                    shadow: "0 0 25px rgba(0, 240, 255, 1)"
                 },
                 {
-                    title: "ASCENSION ACHIEVED",
-                    desc: "Total sensory overdrive. You are now communicating with colors telepathically. You have transcended the physical matrix. Happy Holi.",
-                    color: "var(--neon-magenta)",
-                    shadow: "0 0 50px rgba(255, 0, 85, 1)"
+                    title: "Level 4: Ascended State",
+                    desc: "You are now communicating with colors telepathically. You have transcended the physical realm. Happy Holi.",
+                    color: "var(--gulal-pink)",
+                    shadow: "0 0 30px rgba(255, 0, 122, 1)"
                 }
             ];
 
-            function updateOverdrive() {
-                const val = parseInt(overdriveInput.value);
-                const levelData = meterLevels[val];
+            function updateThandaiMeter() {
+                const val = parseInt(thandaiInput.value);
+                const levelData = thandaiLevels[val];
 
-                // Update DOM
+                // Update UI Texts
                 meterTitle.innerText = levelData.title;
                 meterText.innerText = levelData.desc;
+
+                // Update Colors and Glows dynamically
                 meterTitle.style.color = levelData.color;
                 meterTitle.style.textShadow = levelData.shadow;
 
-                // Dynamically update the slider thumb via CSS variable
-                document.documentElement.style.setProperty('--current-meter-color', levelData.color);
-                document.documentElement.style.setProperty('--current-meter-shadow', levelData.shadow);
+                // Modify Slider Thumb Color via CSS variable injection
+                document.documentElement.style.setProperty('--current-thandai-color', levelData.color);
+                document.documentElement.style.setProperty('--current-thandai-shadow', levelData.shadow);
                 
-                // Camera shake effect for high intensity
+                // Add a little screen shake effect for higher levels (Level 3 & 4)
                 if(val >= 3) {
                     document.body.classList.add('animate__animated', 'animate__headShake');
                     setTimeout(() => {
@@ -1320,45 +1302,43 @@
                 }
             }
 
-            // Inject styles to override the webkit-slider-thumb color dynamically
+            // Override slider thumb color using the injected CSS variable
             const style = document.createElement('style');
             style.innerHTML = `
-                .cyber-slider::-webkit-slider-thumb {
-                    background: var(--current-meter-color, var(--neon-orange)) !important;
-                    box-shadow: var(--current-meter-shadow, 0 0 20px var(--neon-orange)) !important;
-                    border-color: var(--bg-void) !important;
+                .thandai-slider::-webkit-slider-thumb {
+                    background: var(--current-thandai-color, var(--gulal-orange)) !important;
+                    box-shadow: var(--current-thandai-shadow, 0 0 15px var(--gulal-orange)) !important;
                 }
             `;
             document.head.appendChild(style);
 
-            overdriveInput.addEventListener('input', updateOverdrive);
+            thandaiInput.addEventListener('input', updateThandaiMeter);
 
-            // --- SCROLL ANIMATION OBSERVER ---
-            // Prevents animations from firing before the user scrolls to them
+            // 5. SCROLL ANIMATION OBSERVER (For animate.css elements)
+            // Fixes the issue where elements animate before they are scrolled into view
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.15
+                threshold: 0.15 // Trigger when 15% of the element is visible
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Element is in view, let the CSS animation run
                         entry.target.style.visibility = 'visible';
+                        // Stop observing once animated
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
+            // Initially hide elements with animate__animated so they don't flash on load
             document.querySelectorAll('.animate__animated').forEach(el => {
-                // Ensure the Hero elements don't get hidden if they are immediately visible
-                if(!el.closest('#hero')) {
-                    el.style.visibility = 'hidden'; 
-                }
+                el.style.visibility = 'hidden'; 
                 observer.observe(el);
             });
         });
     </script>
 </body>
 </html>
-
