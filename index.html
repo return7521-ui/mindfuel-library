@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <title>Holi Hai 2026! | The Ultimate Color Chaos</title>
-    <meta name="description" content="Survive and thrive during Holi 2026. Throw virtual colors, check your Bhaang meter, and learn the types of Holi players.">
+    <title>Holi 2026: The Great Indian Color Festival</title>
+    <meta name="description" content="Dive into the mythology, the madness, and the magic of Holi. Discover why we celebrate and how to survive it.">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -17,207 +17,205 @@
 
     <style>
         /* ==========================================================================
-           1. CSS VARIABLES (THE HOLI PALETTE)
+           1. THE HOLI 2026 COLOR PALETTE (CSS VARIABLES)
            ========================================================================== */
         :root {
-            /* Neon Gulal Colors */
-            --neon-pink: #FF007F;
-            --neon-green: #39FF14;
-            --neon-yellow: #FFFF00;
-            --neon-blue: #00FFFF;
-            --neon-orange: #FF5E00;
-            --neon-purple: #9D00FF;
+            /* The "Gulal" (Dry Color) Neons */
+            --gulal-pink: #FF007A;
+            --gulal-yellow: #FFD600;
+            --gulal-cyan: #00F0FF;
+            --gulal-green: #00FF66;
+            --gulal-purple: #B200FF;
+            --gulal-orange: #FF5E00;
 
-            /* Base Colors */
-            --bg-dark: #0f0f13; /* Dark mode base makes neon pop! */
-            --bg-light: #ffffff;
-            --text-light: #f5f6fa;
-            --text-dark: #2f3640;
+            /* Base Theme Colors */
+            --bg-pure-white: #F8F9FA; /* Off-white so colors pop */
+            --bg-deep-dark: #0A0A0A;  /* For contrast sections */
+            --text-main: #2D3436;
+            --text-light: #F5F6FA;
 
-            /* Glassmorphism */
-            --glass-bg: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
-            --glass-blur: blur(15px);
-
-            /* Typography */
-            --font-crazy: 'Bangers', cursive;
-            --font-body: 'Nunito', sans-serif;
+            /* Glassmorphism Variables */
+            --glass-bg-light: rgba(255, 255, 255, 0.7);
+            --glass-bg-dark: rgba(10, 10, 10, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --blur-heavy: blur(20px);
+            --blur-light: blur(10px);
 
             /* Shadows & Glows */
-            --glow-pink: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
-            --glow-blue: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue);
-            --glow-green: 0 0 15px var(--neon-green), 0 0 30px var(--neon-green);
+            --glow-pink: 0 0 20px rgba(255, 0, 122, 0.6);
+            --glow-cyan: 0 0 20px rgba(0, 240, 255, 0.6);
+            --shadow-soft: 0 10px 30px rgba(0,0,0,0.08);
+
+            /* Typography */
+            --font-heading: 'Carter One', cursive;
+            --font-body: 'Poppins', sans-serif;
         }
 
         /* ==========================================================================
-           2. GLOBAL RESET & UTILITIES
+           2. GLOBAL RESET & RESPONSIVE TYPOGRAPHY
            ========================================================================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: crosshair; /* Encourages throwing colors! */
+            /* A custom cursor hinting at interactivity */
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23FF007A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>') 12 12, auto;
         }
 
         html {
             scroll-behavior: smooth;
-            font-size: 16px;
+            /* Fluid typography for perfect scaling on all devices */
+            font-size: clamp(14px, 1.5vw, 18px); 
             overflow-x: hidden;
         }
 
         body {
             font-family: var(--font-body);
-            background-color: var(--bg-dark);
-            color: var(--text-light);
+            background-color: var(--bg-pure-white);
+            color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
         }
 
-        /* Crazy Scrollbar */
+        /* Custom Paint Scrollbar */
         ::-webkit-scrollbar {
             width: 12px;
         }
         ::-webkit-scrollbar-track {
-            background: #1a1a1a;
+            background: #e0e0e0;
         }
         ::-webkit-scrollbar-thumb {
-            background: linear-gradient(to bottom, var(--neon-pink), var(--neon-blue), var(--neon-yellow));
+            background: linear-gradient(180deg, var(--gulal-pink), var(--gulal-orange), var(--gulal-yellow), var(--gulal-green), var(--gulal-cyan));
             border-radius: 10px;
         }
 
         /* Utility Classes */
         .container {
             width: 90%;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 1rem;
         }
 
-        .section-padding {
-            padding: 100px 0;
+        .section-pad {
+            padding: 6rem 0;
         }
 
-        .crazy-text {
-            font-family: var(--font-crazy);
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .text-center {
+            text-align: center;
         }
 
-        .text-gradient-multicolor {
-            background: linear-gradient(45deg, var(--neon-pink), var(--neon-yellow), var(--neon-blue), var(--neon-green));
+        .color-text-gradient {
+            background: linear-gradient(90deg, var(--gulal-pink), var(--gulal-orange), var(--gulal-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-size: 300% 300%;
-            animation: gradientMove 5s ease infinite;
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
         }
 
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
 
         /* ==========================================================================
-           3. PRELOADER (THE SWELLING WATER BALLOON)
+           3. THE "DRIPPING PAINT" PRELOADER
            ========================================================================== */
-        #holi-preloader {
+        #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-dark);
+            background: var(--bg-pure-white);
             z-index: 99999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.8s ease-in-out;
         }
 
-        .balloon {
-            width: 80px;
-            height: 100px;
-            background: var(--neon-pink);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+        .paint-drop-container {
             position: relative;
-            box-shadow: inset -10px -10px 20px rgba(0,0,0,0.3), var(--glow-pink);
-            animation: swell 2s ease-in-out infinite alternate;
+            width: 100px;
+            height: 100px;
         }
 
-        .balloon::after {
-            content: '';
+        .drop {
             position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 15px;
-            height: 15px;
-            background: var(--neon-pink);
-            border-radius: 50%;
-        }
-
-        .balloon-knot {
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
             width: 20px;
-            height: 10px;
-            background: var(--neon-pink);
-            border-radius: 5px;
+            height: 20px;
+            background: var(--gulal-pink);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: drip 1.5s infinite ease-in-out;
         }
 
-        .loading-text {
-            margin-top: 40px;
+        .drop:nth-child(2) { background: var(--gulal-cyan); animation-delay: 0.5s; }
+        .drop:nth-child(3) { background: var(--gulal-yellow); animation-delay: 1s; }
+
+        @keyframes drip {
+            0% { transform: translate(-50%, -100px) scale(0.5) rotate(45deg); opacity: 0; }
+            50% { opacity: 1; transform: translate(-50%, 0) scale(1) rotate(45deg); border-radius: 0 50% 50% 50%; }
+            100% { transform: translate(-50%, 100px) scale(0) rotate(45deg); opacity: 0; }
+        }
+
+        .preloader-text {
+            margin-top: 2rem;
+            font-family: var(--font-heading);
             font-size: 2rem;
-            color: var(--neon-yellow);
-            text-shadow: 0 0 10px var(--neon-yellow);
-            animation: jitter 0.5s infinite;
+            color: var(--text-main);
+            letter-spacing: 2px;
         }
 
-        @keyframes swell {
-            0% { transform: scale(1) rotate(-5deg); background: var(--neon-pink); box-shadow: var(--glow-pink); }
-            33% { background: var(--neon-blue); box-shadow: var(--glow-blue); }
-            66% { background: var(--neon-green); box-shadow: var(--glow-green); }
-            100% { transform: scale(1.5) rotate(5deg); background: var(--neon-yellow); box-shadow: 0 0 20px var(--neon-yellow); }
+        /* Add a splat under the drops */
+        .splat-base {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 50%;
+            animation: pulse-splat 1.5s infinite ease-in-out;
         }
 
-        @keyframes jitter {
-            0% { transform: translate(1px, 1px) rotate(0deg); }
-            10% { transform: translate(-1px, -2px) rotate(-1deg); }
-            20% { transform: translate(-3px, 0px) rotate(1deg); }
-            30% { transform: translate(3px, 2px) rotate(0deg); }
-            40% { transform: translate(1px, -1px) rotate(1deg); }
-            50% { transform: translate(-1px, 2px) rotate(-1deg); }
-            60% { transform: translate(-3px, 1px) rotate(0deg); }
-            70% { transform: translate(3px, 1px) rotate(-1deg); }
-            80% { transform: translate(-1px, -1px) rotate(1deg); }
-            90% { transform: translate(1px, 2px) rotate(0deg); }
-            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        @keyframes pulse-splat {
+            0%, 100% { transform: translateX(-50%) scale(0.8); opacity: 0.3; }
+            50% { transform: translateX(-50%) scale(1.2); opacity: 0.8; }
         }
         /* ... continued in Part 2 ... */
         /* ==========================================================================
-           4. NAVBAR (NEON GLASSMORPHISM)
+           4. NAVIGATION BAR (GLASSMORPHISM & PAINT HOVERS)
            ========================================================================== */
-        .holi-nav {
+        .holi-navbar {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
             z-index: 1000;
-            padding: 20px 0;
+            padding: 1.5rem 0;
             transition: all 0.4s ease;
             border-bottom: 2px solid transparent;
         }
 
-        .holi-nav.scrolled {
-            background: rgba(15, 15, 19, 0.85);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            padding: 10px 0;
-            border-bottom: 2px solid var(--neon-pink);
-            box-shadow: 0 5px 20px rgba(255, 0, 127, 0.3);
+        .holi-navbar.scrolled {
+            background: var(--glass-bg-light);
+            backdrop-filter: var(--blur-heavy);
+            -webkit-backdrop-filter: var(--blur-heavy);
+            padding: 0.8rem 0;
+            border-bottom: 2px solid var(--gulal-pink);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Dark mode exception for the navbar when scrolling past certain sections */
+        .holi-navbar.scrolled.dark-mode {
+            background: var(--glass-bg-dark);
+            border-bottom-color: var(--gulal-cyan);
         }
 
         .nav-wrapper {
@@ -227,50 +225,63 @@
         }
 
         .nav-logo {
-            font-family: var(--font-crazy);
+            font-family: var(--font-heading);
             font-size: 2.5rem;
-            color: var(--text-light);
+            color: var(--text-main);
             text-decoration: none;
-            text-shadow: 3px 3px 0px var(--neon-purple), -2px -2px 0px var(--neon-blue);
+            position: relative;
+            display: inline-block;
             transition: transform 0.3s;
         }
 
+        /* A little paint drip on the logo */
+        .nav-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            right: 0;
+            width: 15px;
+            height: 15px;
+            background: var(--gulal-cyan);
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(45deg);
+        }
+
         .nav-logo:hover {
-            transform: scale(1.1) rotate(-5deg);
+            transform: scale(1.05) rotate(-3deg);
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 2.5rem;
             align-items: center;
         }
 
         .nav-item a {
-            font-family: var(--font-crazy);
-            font-size: 1.5rem;
-            color: var(--text-light);
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            color: var(--text-main);
             text-decoration: none;
             position: relative;
-            padding: 5px 10px;
-            transition: all 0.3s;
+            padding: 0.5rem;
+            transition: color 0.3s;
+            letter-spacing: 1px;
         }
 
-        /* Hover effect that splashes color */
+        /* Paint stroke hover effect */
         .nav-item a::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--neon-yellow);
-            z-index: -1;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gulal-yellow);
             transform: scaleX(0);
             transform-origin: right;
-            transition: transform 0.3s ease;
-            border-radius: 5px;
-        }
-
-        .nav-item a:hover {
-            color: var(--bg-dark);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 2px;
         }
 
         .nav-item a:hover::before {
@@ -278,65 +289,64 @@
             transform-origin: left;
         }
 
-        /* Nav Item Specific Colors */
-        .nav-item:nth-child(2) a::before { background: var(--neon-blue); }
-        .nav-item:nth-child(3) a::before { background: var(--neon-green); }
-        .nav-item:nth-child(4) a::before { background: var(--neon-pink); }
+        /* Nav link specific hover colors */
+        .nav-item:nth-child(1) a:hover { color: var(--gulal-pink); }
+        .nav-item:nth-child(1) a::before { background: var(--gulal-pink); }
+        .nav-item:nth-child(2) a:hover { color: var(--gulal-cyan); }
+        .nav-item:nth-child(2) a::before { background: var(--gulal-cyan); }
+        .nav-item:nth-child(3) a:hover { color: var(--gulal-orange); }
+        .nav-item:nth-child(3) a::before { background: var(--gulal-orange); }
 
-        /* Bhaang Meter Mini Display */
-        .bhaang-status {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-            border: 1px solid var(--neon-green);
-            font-family: var(--font-crazy);
-            font-size: 1.2rem;
-            color: var(--neon-green);
-            box-shadow: var(--glow-green);
+        /* Mobile Hamburger Menu */
+        .hamburger {
+            display: none;
             cursor: pointer;
-            animation: pulse-green 2s infinite;
+            z-index: 1001;
         }
-
-        @keyframes pulse-green {
-            0% { box-shadow: 0 0 5px var(--neon-green); }
-            50% { box-shadow: 0 0 20px var(--neon-green); }
-            100% { box-shadow: 0 0 5px var(--neon-green); }
+        .hamburger .line {
+            width: 30px;
+            height: 4px;
+            background-color: var(--text-main);
+            margin: 6px 0;
+            border-radius: 2px;
+            transition: 0.4s;
         }
 
         /* ==========================================================================
-           5. HERO SECTION (EXPLOSIVE VISUALS)
+           5. HERO SECTION (THE COLOR EXPLOSION)
            ========================================================================== */
         .hero {
             position: relative;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: radial-gradient(circle at center, #2a0845 0%, #0f0f13 100%);
+            background: #ffffff;
+            /* A subtle dotted pattern to look like a blank canvas */
+            background-image: radial-gradient(#d1d1d1 1px, transparent 1px);
+            background-size: 20px 20px;
         }
 
-        /* Floating Color Clouds (CSS drawn) */
-        .color-cloud {
+        /* Giant abstract color shapes floating in the background */
+        .abstract-blob {
             position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
+            filter: blur(80px);
             z-index: 0;
-            animation: float-around 15s infinite alternate ease-in-out;
             opacity: 0.6;
+            animation: float-blob 20s infinite alternate ease-in-out;
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
         }
 
-        .cloud-1 { width: 400px; height: 400px; background: var(--neon-pink); top: -100px; left: -100px; }
-        .cloud-2 { width: 500px; height: 500px; background: var(--neon-blue); bottom: -150px; right: -100px; animation-delay: -5s; }
-        .cloud-3 { width: 300px; height: 300px; background: var(--neon-yellow); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-delay: -10s; }
+        .blob-1 { width: 600px; height: 600px; background: var(--gulal-pink); top: -100px; left: -100px; animation-duration: 25s; }
+        .blob-2 { width: 500px; height: 500px; background: var(--gulal-cyan); bottom: -100px; right: -50px; animation-duration: 22s; animation-delay: -5s; }
+        .blob-3 { width: 400px; height: 400px; background: var(--gulal-yellow); top: 50%; left: 50%; transform: translate(-50%, -50%); animation-duration: 30s; animation-delay: -10s; }
 
-        @keyframes float-around {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 50px) scale(1.2); }
-            100% { transform: translate(-50px, 100px) scale(0.9); }
+        @keyframes float-blob {
+            0% { transform: translate(0, 0) scale(1) rotate(0deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+            33% { transform: translate(50px, -50px) scale(1.1) rotate(90deg); border-radius: 60% 40% 30% 70% / 50% 60% 40% 50%; }
+            66% { transform: translate(-50px, 50px) scale(0.9) rotate(180deg); border-radius: 30% 70% 60% 40% / 60% 40% 50% 60%; }
+            100% { transform: translate(0, 0) scale(1) rotate(360deg); border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
         }
 
         .hero-content {
@@ -344,396 +354,491 @@
             z-index: 10;
             text-align: center;
             max-width: 900px;
-            padding: 20px;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow-soft);
         }
 
-        .warning-label {
+        .hero-badge {
             display: inline-block;
-            background: var(--neon-yellow);
-            color: var(--bg-dark);
+            background: var(--text-main);
+            color: var(--bg-pure-white);
             font-family: var(--font-body);
-            font-weight: 900;
-            padding: 5px 20px;
-            border-radius: 5px;
+            font-weight: 800;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 20px;
-            transform: rotate(-3deg);
-            box-shadow: 4px 4px 0px var(--neon-pink);
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            transform: rotate(-2deg);
+            box-shadow: 4px 4px 0px var(--gulal-yellow);
         }
 
         .hero-title {
-            font-size: 8rem;
-            line-height: 0.9;
-            margin-bottom: 20px;
-            color: var(--text-light);
-            text-shadow: 
-                4px 4px 0px var(--neon-pink),
-                8px 8px 0px var(--neon-blue),
-                12px 12px 0px var(--neon-yellow);
+            font-size: clamp(3rem, 8vw, 7rem);
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+            font-family: var(--font-heading);
+            text-shadow: 3px 3px 0px #fff;
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 40px;
-            color: #dcdde1;
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            font-weight: 600;
+            margin-bottom: 2.5rem;
+            color: #4a4a4a;
         }
 
-        /* Neon Throw Button */
-        .btn-throw {
+        /* Interactive "Throw Color" Button */
+        .btn-splatter {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
-            padding: 15px 40px;
-            font-family: var(--font-crazy);
-            font-size: 2rem;
-            color: var(--bg-dark);
-            background: var(--neon-green);
+            padding: 1rem 3rem;
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: #fff;
+            background: var(--text-main);
             border: none;
             border-radius: 50px;
-            box-shadow: var(--glow-green);
-            transition: all 0.2s;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .btn-throw::before {
+        .btn-splatter::before {
             content: '';
             position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
+            top: 50%; left: 50%;
+            width: 0; height: 0;
+            background: var(--gulal-pink);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s ease, height 0.5s ease;
+            z-index: 0;
         }
 
-        .btn-throw:hover {
-            transform: scale(1.1) translateY(-5px);
-            background: var(--neon-yellow);
-            box-shadow: 0 0 30px var(--neon-yellow), 0 0 60px var(--neon-yellow);
+        .btn-splatter:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
-        .btn-throw:hover::before {
-            left: 100%;
+        .btn-splatter:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 25px rgba(255, 0, 122, 0.3);
         }
 
-        .btn-throw:active {
-            transform: scale(0.9);
+        .btn-splatter span, .btn-splatter i {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll Down Arrow */
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: var(--text-main);
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-20px) translateX(-50%); }
+            60% { transform: translateY(-10px) translateX(-50%); }
+        }
+
+        /* Mobile adjustments for nav */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                right: -100%;
+                top: 0;
+                flex-direction: column;
+                background: var(--glass-bg-light);
+                backdrop-filter: var(--blur-heavy);
+                width: 70%;
+                height: 100vh;
+                justify-content: center;
+                transition: 0.4s ease-in-out;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+            }
+            .nav-links.active { right: 0; }
+            .hamburger { display: block; }
+            .hamburger.active .line:nth-child(1) { transform: rotate(-45deg) translate(-6px, 6px); }
+            .hamburger.active .line:nth-child(2) { opacity: 0; }
+            .hamburger.active .line:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
         }
     </style>
 </head>
 
 <body>
 
-    <div id="holi-preloader">
-        <div class="balloon">
-            <div class="balloon-knot"></div>
+    <div id="preloader">
+        <div class="paint-drop-container">
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="drop"></div>
+            <div class="splat-base"></div>
         </div>
-        <div class="loading-text crazy-text">Filling Water Balloons...</div>
+        <div class="preloader-text">Mixing Colors...</div>
     </div>
 
-    <nav class="holi-nav" id="navbar">
+    <nav class="holi-navbar" id="navbar">
         <div class="container nav-wrapper">
-            <a href="#" class="nav-logo">HOLI '26</a>
+            <a href="#" class="nav-logo">Holi '26</a>
             
-            <ul class="nav-links">
-                <li class="nav-item"><a href="#squad">The Squad</a></li>
+            <ul class="nav-links" id="nav-links">
+                <li class="nav-item"><a href="#mythology">The Legend</a></li>
+                <li class="nav-item"><a href="#types">Holi Personalities</a></li>
                 <li class="nav-item"><a href="#survival">Survival Guide</a></li>
-                <li class="nav-item"><a href="#bhaang">Bhaang Meter</a></li>
-                <li class="nav-item"><a href="#weapons">Arsenal</a></li>
-                <li>
-                    <div class="bhaang-status" id="nav-bhaang-meter">
-                        <i class="fa-solid fa-martini-glass-citrus"></i>
-                        <span>Sober</span>
-                    </div>
-                </li>
+                <li class="nav-item"><a href="#squad" class="color-text-gradient" style="font-weight: 800;">Tag Your Squad</a></li>
             </ul>
+
+            <div class="hamburger" id="hamburger">
+                <div class="line"></div>
+                <div class="line"></div>
+                <div class="line"></div>
+            </div>
         </div>
     </nav>
 
     <header id="hero" class="hero">
-        <div class="color-cloud cloud-1"></div>
-        <div class="color-cloud cloud-2"></div>
-        <div class="color-cloud cloud-3"></div>
+        <div class="abstract-blob blob-1"></div>
+        <div class="abstract-blob blob-2"></div>
+        <div class="abstract-blob blob-3"></div>
 
-        <div class="hero-content animate__animated animate__zoomIn">
-            <div class="warning-label">Public Warning Issued</div>
-            <h1 class="hero-title crazy-text">HOLI HAI<br>2026</h1>
-            <p class="hero-subtitle">White clothes are strictly prohibited. Prepare to be stained permanently.</p>
-            
-            <button class="btn-throw" id="global-throw-btn">
-                <i class="fa-solid fa-hand-sparkles"></i>
-                Throw Color Everywhere!
-            </button>
+        <div class="container" style="position: relative;">
+            <div class="hero-content animate__animated animate__zoomIn">
+                <div class="hero-badge">Warning: White Clothes Prohibited</div>
+                <h1 class="hero-title">
+                    The Festival of <span class="color-text-gradient">Colors & Chaos</span>
+                </h1>
+                <p class="hero-subtitle">
+                    From the ancient fires of Holika to the modern-day neighborhood water balloon ambush. Welcome to the maddest, most beautiful festival on Earth.
+                </p>
+                
+                <button class="btn-splatter" id="trigger-splatter">
+                    <span>Initiate Color Bomb</span>
+                    <i class="fa-solid fa-burst"></i>
+                </button>
+            </div>
         </div>
+
+        <a href="#mythology" class="scroll-down">
+            <i class="fa-solid fa-arrow-down"></i>
+        </a>
     </header>
     <style>
         /* ==========================================================================
-           6. THE SQUAD SECTION (3D FLIPPING CARDS)
+           6. MYTHOLOGY SECTION (THE LEGEND)
            ========================================================================== */
-        .squad-section {
-            background-color: var(--bg-dark);
+        .mythology-section {
+            background-color: var(--bg-deep-dark);
+            color: var(--text-light);
             position: relative;
-            z-index: 5;
             overflow: hidden;
-            border-top: 5px dashed var(--neon-pink);
+            border-top: 5px solid var(--gulal-orange);
+            border-bottom: 5px solid var(--gulal-purple);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
         }
 
         .section-title {
-            text-align: center;
-            font-size: 4rem;
-            color: var(--neon-yellow);
-            margin-bottom: 20px;
-            text-shadow: 3px 3px 0 var(--neon-purple);
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.5);
         }
 
         .section-subtitle {
-            text-align: center;
             font-size: 1.2rem;
-            color: var(--text-light);
-            margin-bottom: 60px;
-            font-weight: 700;
+            color: #b2bec3;
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
         }
 
-        .squad-grid {
+        .myth-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            position: relative;
+            z-index: 2;
         }
 
-        .squad-card {
+        .myth-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: var(--blur-light);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .myth-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 5px;
+        }
+
+        .myth-card.fire::before { background: linear-gradient(90deg, var(--gulal-orange), var(--gulal-yellow)); }
+        .myth-card.love::before { background: linear-gradient(90deg, var(--gulal-pink), var(--gulal-purple)); }
+
+        .myth-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .myth-card.fire:hover { box-shadow: 0 10px 30px rgba(255, 94, 0, 0.2); }
+        .myth-card.love:hover { box-shadow: 0 10px 30px rgba(255, 0, 122, 0.2); }
+
+        .myth-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .myth-card.fire .myth-icon { color: var(--gulal-orange); text-shadow: 0 0 15px var(--gulal-orange); }
+        .myth-card.love .myth-icon { color: var(--gulal-pink); text-shadow: 0 0 15px var(--gulal-pink); }
+
+        .myth-title {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        /* ==========================================================================
+           7. HOLI PERSONALITIES (3D FLIP CARDS)
+           ========================================================================== */
+        .personalities-section {
+            background-color: var(--bg-pure-white);
+            background-image: radial-gradient(rgba(0,0,0,0.05) 2px, transparent 2px);
+            background-size: 30px 30px;
+        }
+
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .flip-card {
             background-color: transparent;
-            height: 350px;
+            height: 380px;
             perspective: 1000px;
+            cursor: pointer;
         }
 
-        .squad-inner {
+        .flip-card-inner {
             position: relative;
             width: 100%;
             height: 100%;
             text-align: center;
             transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform-style: preserve-3d;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
         }
 
-        .squad-card:hover .squad-inner {
+        .flip-card:hover .flip-card-inner {
             transform: rotateY(180deg);
         }
 
-        .squad-front, .squad-back {
+        .flip-front, .flip-back {
             position: absolute;
             width: 100%;
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
             border-radius: 20px;
-            padding: 30px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 2rem;
             border: 3px solid transparent;
         }
 
-        /* Front Styling */
-        .squad-front {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        .flip-front {
+            background: #fff;
+            color: var(--text-main);
         }
 
-        .squad-icon {
+        .flip-front i {
             font-size: 4rem;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.5));
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s;
         }
 
-        .squad-name {
-            font-family: var(--font-crazy);
-            font-size: 2.5rem;
-            letter-spacing: 2px;
-        }
-
-        /* Character Specific Colors */
-        .card-sniper .squad-front { border-color: var(--neon-green); }
-        .card-sniper .squad-name { color: var(--neon-green); }
-        .card-sniper .squad-back { background: var(--neon-green); color: var(--bg-dark); }
-
-        .card-clean .squad-front { border-color: var(--neon-blue); }
-        .card-clean .squad-name { color: var(--neon-blue); }
-        .card-clean .squad-back { background: var(--neon-blue); color: var(--bg-dark); }
-
-        .card-zombie .squad-front { border-color: var(--neon-purple); }
-        .card-zombie .squad-name { color: var(--neon-purple); }
-        .card-zombie .squad-back { background: var(--neon-purple); color: var(--text-light); }
-
-        .card-tank .squad-front { border-color: var(--neon-pink); }
-        .card-tank .squad-name { color: var(--neon-pink); }
-        .card-tank .squad-back { background: var(--neon-pink); color: var(--text-light); }
-
-        /* Back Styling */
-        .squad-back {
-            transform: rotateY(180deg);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        .squad-back p {
-            font-size: 1.1rem;
-            font-weight: 700;
-            line-height: 1.6;
-        }
-
-        .squad-back h3 {
-            font-family: var(--font-crazy);
-            font-size: 2rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        /* ==========================================================================
-           7. BHAANG TOXICITY METER SECTION
-           ========================================================================== */
-        .bhaang-section {
-            background: linear-gradient(180deg, var(--bg-dark) 0%, #1a0b2e 100%);
-            border-top: 5px dashed var(--neon-blue);
-            text-align: center;
-        }
-
-        .meter-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 50px 30px;
-            border-radius: 30px;
-            border: 2px solid var(--neon-purple);
-            box-shadow: 0 0 40px rgba(157, 0, 255, 0.2);
-        }
-
-        /* Custom Range Slider */
-        .bhaang-slider {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 20px;
-            background: #333;
-            border-radius: 10px;
-            outline: none;
-            margin: 40px 0;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-            transition: background 0.3s ease;
-        }
-
-        .bhaang-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: var(--neon-green);
-            cursor: grab;
-            box-shadow: var(--glow-green);
-            border: 4px solid #fff;
-            transition: transform 0.1s, background 0.3s;
-        }
-
-        .bhaang-slider::-webkit-slider-thumb:active {
-            cursor: grabbing;
+        .flip-card:hover .flip-front i {
             transform: scale(1.2);
         }
 
-        .bhaang-display {
-            font-family: var(--font-crazy);
-            font-size: 3rem;
-            min-height: 80px;
-            color: var(--neon-green);
-            text-shadow: 0 0 20px var(--neon-green);
-            transition: color 0.3s, text-shadow 0.3s;
+        .flip-front h3 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
         }
 
-        .bhaang-desc {
-            font-size: 1.2rem;
-            color: #ccc;
-            min-height: 60px;
-            margin-top: 10px;
+        .flip-back {
+            background: var(--text-main);
+            color: #fff;
+            transform: rotateY(180deg);
         }
+
+        .flip-back h3 {
+            font-family: var(--font-heading);
+            color: var(--gulal-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .flip-back p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Persona Specific Colors */
+        .persona-sniper .flip-front { border-color: var(--gulal-cyan); }
+        .persona-sniper .flip-front i { color: var(--gulal-cyan); }
+        .persona-sniper .flip-back { background: var(--gulal-cyan); color: var(--bg-deep-dark); border-color: var(--gulal-cyan);}
+        .persona-sniper .flip-back h3 { color: var(--bg-deep-dark); }
+
+        .persona-clean .flip-front { border-color: var(--gulal-pink); }
+        .persona-clean .flip-front i { color: var(--gulal-pink); }
+        .persona-clean .flip-back { background: var(--gulal-pink); color: #fff; border-color: var(--gulal-pink);}
+        .persona-clean .flip-back h3 { color: #fff; }
+
+        .persona-hulk .flip-front { border-color: var(--gulal-green); }
+        .persona-hulk .flip-front i { color: var(--gulal-green); }
+        .persona-hulk .flip-back { background: var(--gulal-green); color: var(--bg-deep-dark); border-color: var(--gulal-green);}
+        .persona-hulk .flip-back h3 { color: var(--bg-deep-dark); }
+
+        .persona-dj .flip-front { border-color: var(--gulal-purple); }
+        .persona-dj .flip-front i { color: var(--gulal-purple); }
+        .persona-dj .flip-back { background: var(--gulal-purple); color: #fff; border-color: var(--gulal-purple);}
+        .persona-dj .flip-back h3 { color: var(--gulal-yellow); }
+
     </style>
 
-    <section id="squad" class="section-padding squad-section">
+    <section id="mythology" class="section-pad mythology-section">
+        <div style="position:absolute; top:10%; left:5%; width:5px; height:5px; background:var(--gulal-yellow); box-shadow:0 0 10px var(--gulal-yellow); border-radius:50%; animation: float-blob 5s infinite;"></div>
+        <div style="position:absolute; bottom:20%; right:10%; width:8px; height:8px; background:var(--gulal-pink); box-shadow:0 0 10px var(--gulal-pink); border-radius:50%; animation: float-blob 7s infinite;"></div>
+        
         <div class="container">
-            <h2 class="section-title crazy-text">Identify Your Squad</h2>
-            <p class="section-subtitle">Tag yourself before they tag you with permanent silver color.</p>
+            <div class="section-header animate__animated animate__fadeInUp">
+                <h2 class="section-title">The Legend of <span style="color: var(--gulal-yellow);">Holi</span></h2>
+                <p class="section-subtitle">Why do we willingly let people throw colored powder in our eyes? Because ancient legends tell us to celebrate the victory of good and the magic of love.</p>
+            </div>
 
-            <div class="squad-grid">
-                
-                <div class="squad-card card-sniper animate__animated animate__fadeInUp">
-                    <div class="squad-inner">
-                        <div class="squad-front">
-                            <div class="squad-icon">💧</div>
-                            <h3 class="squad-name">The Sniper</h3>
-                        </div>
-                        <div class="squad-back">
-                            <h3>Balcony Camper</h3>
-                            <p>Never steps foot on the ground. Has a stockpile of 500 water balloons on the 3rd floor. Accuracy: 99.9%.</p>
-                        </div>
-                    </div>
+            <div class="myth-grid">
+                <div class="myth-card fire animate__animated animate__fadeInLeft" style="animation-delay: 0.2s;">
+                    <i class="fa-solid fa-fire-flame-curved myth-icon"></i>
+                    <h3 class="myth-title">The Triumph of Good</h3>
+                    <p>
+                        The festival begins with <strong>Holika Dahan</strong>. Legend says the demon king Hiranyakashipu wanted everyone to worship him, but his son Prahlad remained devoted to Lord Vishnu. 
+                        <br><br>
+                        The king's sister, Holika, who had a boon protecting her from fire, tricked Prahlad into sitting on a pyre with her. But faith won! The cloak protected Prahlad, and Holika burned. Today, we light bonfires on the eve of Holi to burn away evil and let goodness triumph!
+                    </p>
                 </div>
 
-                <div class="squad-card card-clean animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
-                    <div class="squad-inner">
-                        <div class="squad-front">
-                            <div class="squad-icon">🛑</div>
-                            <h3 class="squad-name">The "Tika Only"</h3>
-                        </div>
-                        <div class="squad-back">
-                            <h3>First Blood</h3>
-                            <p>"Bro, please, just a little bit on the cheek, I have a family function later." (Will eventually be thrown in the mud pool).</p>
-                        </div>
-                    </div>
+                <div class="myth-card love animate__animated animate__fadeInRight" style="animation-delay: 0.4s;">
+                    <i class="fa-solid fa-heart myth-icon"></i>
+                    <h3 class="myth-title">The Colors of Divine Love</h3>
+                    <p>
+                        The splashing of colors? We can thank Lord Krishna for that. As a mischievous youth in Vrindavan, Krishna was famously blue-skinned and playfully complained to his mother Yashoda about why Radha was fair and he was dark.
+                        <br><br>
+                        Yashoda jokingly told him to color Radha's face whatever color he wanted. He did exactly that! This playful coloring between Radha, Krishna, and the Gopis became a celebration of divine love, breaking down barriers and painting everyone equal.
+                    </p>
                 </div>
-
-                <div class="squad-card card-zombie animate__animated animate__fadeInUp" style="animation-delay: 0.4s;">
-                    <div class="squad-inner">
-                        <div class="squad-front">
-                            <div class="squad-icon">🧟</div>
-                            <h3 class="squad-name">The Zombie</h3>
-                        </div>
-                        <div class="squad-back">
-                            <h3>Unrecognizable</h3>
-                            <p>Covered entirely in silver and grease by 9:00 AM. Even their iPhone FaceID doesn't recognize them anymore.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="squad-card card-tank animate__animated animate__fadeInUp" style="animation-delay: 0.6s;">
-                    <div class="squad-inner">
-                        <div class="squad-front">
-                            <div class="squad-icon">🔫</div>
-                            <h3 class="squad-name">The Tank</h3>
-                        </div>
-                        <div class="squad-back">
-                            <h3>Heavy Artillery</h3>
-                            <p>Carries a custom-modified Pichkari hooked up to a 10-liter backpack. Do not engage without backup.</p>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <section id="bhaang" class="section-padding bhaang-section">
+    <section id="types" class="section-pad personalities-section">
         <div class="container">
-            <h2 class="section-title crazy-text" style="color: var(--neon-green);">Bhaang Toxicity Meter</h2>
-            <p class="section-subtitle">How many glasses of Thandai have you had? Be honest.</p>
+            <div class="section-header animate__animated animate__fadeInUp">
+                <h2 class="section-title" style="color: var(--text-main);">Identify Your <span class="color-text-gradient">Squad</span></h2>
+                <p class="section-subtitle" style="color: #636e72;">Every friend group has these specific characters. Tag yourself before they tag you with permanent silver color.</p>
+            </div>
 
-            <div class="meter-container">
-                <div class="bhaang-display" id="bhaang-title">Level 0: Totally Sober</div>
+            <div class="players-grid">
                 
-                <input type="range" min="0" max="4" value="0" class="bhaang-slider" id="bhaang-input">
-                
-                <div class="bhaang-desc" id="bhaang-text">
-                    You are boring. Go drink something colorful.
+                <div class="flip-card persona-sniper animate__animated animate__zoomIn" style="animation-delay: 0.1s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-crosshairs"></i>
+                            <h3>The Balcony Sniper</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Threat Level: High</h3>
+                            <p>Never steps foot on the ground. Has a stockpile of 500 precision-filled water balloons on the 3rd floor. <br><br><strong>Catchphrase:</strong> <em>"Headshot!"</em></p>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="flip-card persona-clean animate__animated animate__zoomIn" style="animation-delay: 0.3s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-hand-sparkles"></i>
+                            <h3>The "Tika Only"</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Threat Level: Zero</h3>
+                            <p>Shows up in designer clothes. Begs for just a small dot of organic color on the cheek. <br><br><strong>Outcome:</strong> Always ends up thrown in the deepest mud pool by 11 AM.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card persona-hulk animate__animated animate__zoomIn" style="animation-delay: 0.5s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-mask"></i>
+                            <h3>The Silver Zombie</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Threat Level: Extreme</h3>
+                            <p>Covered entirely in permanent silver color and engine oil by 9:00 AM. Even their iPhone FaceID doesn't recognize them anymore. <br><br><strong>Do not engage.</strong></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flip-card persona-dj animate__animated animate__zoomIn" style="animation-delay: 0.7s;">
+                    <div class="flip-card-inner">
+                        <div class="flip-front">
+                            <i class="fa-solid fa-compact-disc"></i>
+                            <h3>The Vibe Manager</h3>
+                            <p style="color: #7f8c8d; font-size: 0.9rem;">Hover for profile</p>
+                        </div>
+                        <div class="flip-back">
+                            <h3>Threat Level: Musical</h3>
+                            <p>Has control of the Bluetooth speaker. Will play 'Rang Barse' and 'Balam Pichkari' exactly 47 times in a row. <br><br><strong>Role:</strong> Essential for survival.</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
@@ -742,18 +847,22 @@
            8. SURVIVAL GUIDE (NEON TIMELINE)
            ========================================================================== */
         .survival-section {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-deep-dark);
+            color: var(--text-light);
             position: relative;
-            padding: 100px 20px;
+            padding: 6rem 1rem;
+            border-top: 5px dashed var(--gulal-cyan);
+            border-bottom: 5px dashed var(--gulal-green);
         }
 
         .timeline-container {
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             position: relative;
+            padding: 2rem 0;
         }
 
-        /* The Neon Line */
+        /* The Neon Center Line */
         .timeline-container::before {
             content: '';
             position: absolute;
@@ -761,7 +870,7 @@
             bottom: 0;
             left: 50%;
             width: 4px;
-            background: var(--neon-pink);
+            background: var(--gulal-pink);
             box-shadow: var(--glow-pink);
             transform: translateX(-50%);
             border-radius: 5px;
@@ -771,11 +880,12 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 60px;
+            margin-bottom: 4rem;
             position: relative;
             width: 100%;
         }
 
+        /* Alternating layout for timeline */
         .timeline-step:nth-child(even) {
             flex-direction: row-reverse;
         }
@@ -783,33 +893,33 @@
         .step-content {
             width: 45%;
             background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            border-radius: 15px;
-            border: 2px dashed var(--neon-yellow);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid var(--gulal-yellow);
             position: relative;
             transition: transform 0.3s, box-shadow 0.3s;
+            backdrop-filter: var(--blur-light);
         }
 
         .step-content:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 0 20px var(--neon-yellow);
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 214, 0, 0.2);
         }
 
         .timeline-step:nth-child(even) .step-content {
-            border-color: var(--neon-blue);
+            border-color: var(--gulal-cyan);
         }
 
         .timeline-step:nth-child(even) .step-content:hover {
-            box-shadow: 0 0 20px var(--neon-blue);
-            transform: scale(1.05) rotate(-2deg);
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.2);
         }
 
         /* The Glowing Dot */
         .step-dot {
             width: 30px;
             height: 30px;
-            background: var(--bg-dark);
-            border: 5px solid var(--neon-pink);
+            background: var(--bg-deep-dark);
+            border: 5px solid var(--gulal-pink);
             border-radius: 50%;
             position: absolute;
             left: 50%;
@@ -819,181 +929,168 @@
         }
 
         .step-number {
-            font-family: var(--font-crazy);
-            font-size: 3rem;
-            color: var(--text-light);
+            font-family: var(--font-heading);
+            font-size: 4rem;
+            color: rgba(255,255,255,0.1);
             position: absolute;
-            top: -30px;
-            right: 10px;
-            opacity: 0.2;
+            top: -20px;
+            right: 20px;
+            line-height: 1;
         }
 
         .timeline-step:nth-child(even) .step-number {
-            left: 10px;
+            left: 20px;
             right: auto;
         }
 
         .step-content h3 {
-            font-family: var(--font-crazy);
-            font-size: 2rem;
-            color: var(--neon-yellow);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--gulal-yellow);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
         }
 
         .timeline-step:nth-child(even) .step-content h3 {
-            color: var(--neon-blue);
+            color: var(--gulal-cyan);
         }
 
         .step-content p {
-            font-size: 1.1rem;
-            font-weight: 700;
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Mobile Adjustments for Timeline */
+        @media (max-width: 768px) {
+            .timeline-container::before { left: 30px; }
+            .timeline-step { flex-direction: column; align-items: flex-end; }
+            .timeline-step:nth-child(even) { flex-direction: column; align-items: flex-end; }
+            .step-content { width: calc(100% - 70px); margin-bottom: 2rem; }
+            .step-dot { left: 30px; }
         }
 
         /* ==========================================================================
-           9. THE ARSENAL (WEAPON STATS GRID)
+           9. SPECIAL THANDAI & ENERGY METER
            ========================================================================== */
-        .arsenal-section {
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
-            border-top: 5px dashed var(--neon-green);
-        }
-
-        .arsenal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .weapon-card {
-            background: rgba(20, 20, 20, 0.8);
-            border: 2px solid #333;
-            border-radius: 15px;
-            padding: 30px 20px;
+        .thandai-section {
+            background: linear-gradient(135deg, var(--bg-pure-white) 0%, #ffeaa7 100%);
             text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
             overflow: hidden;
+            position: relative;
         }
 
-        .weapon-card::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%; width: 200%; height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
-            opacity: 0;
-            transition: opacity 0.4s;
-            pointer-events: none;
+        .meter-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--glass-bg-light);
+            padding: 3rem;
+            border-radius: 30px;
+            border: 2px solid var(--gulal-orange);
+            box-shadow: var(--shadow-soft);
+            backdrop-filter: var(--blur-heavy);
+            position: relative;
+            z-index: 5;
         }
 
-        .weapon-card:hover {
-            border-color: var(--neon-orange);
-            box-shadow: 0 0 30px rgba(255, 94, 0, 0.4);
-            transform: translateY(-10px);
-        }
-
-        .weapon-card:hover::before {
-            opacity: 1;
-            animation: rotate-gradient 4s linear infinite;
-        }
-
-        @keyframes rotate-gradient {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .weapon-icon {
-            font-size: 5rem;
-            margin-bottom: 20px;
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .weapon-card:hover .weapon-icon {
-            transform: scale(1.3) rotate(15deg);
-        }
-
-        .weapon-title {
-            font-family: var(--font-crazy);
-            font-size: 2.2rem;
-            color: var(--neon-orange);
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 0 #000;
-        }
-
-        .weapon-stats {
-            text-align: left;
-            margin-top: 20px;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .stat-bar {
+        /* Custom Range Slider */
+        .thandai-slider {
+            -webkit-appearance: none;
             width: 100%;
-            height: 10px;
-            background: #333;
-            border-radius: 5px;
-            margin: 5px 0 15px 0;
-            position: relative;
-            overflow: hidden;
+            height: 15px;
+            background: #dfe6e9;
+            border-radius: 10px;
+            outline: none;
+            margin: 3rem 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+            transition: background 0.3s ease;
         }
 
-        .stat-fill {
-            height: 100%;
-            border-radius: 5px;
-            box-shadow: 0 0 10px currentColor;
+        .thandai-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gulal-orange);
+            cursor: grab;
+            box-shadow: 0 0 15px var(--gulal-orange);
+            border: 4px solid #fff;
+            transition: transform 0.2s, background 0.3s;
         }
 
-        /* Stat Colors */
-        .fill-damage { background: var(--neon-pink); color: var(--neon-pink); }
-        .fill-range { background: var(--neon-blue); color: var(--neon-blue); }
-        .fill-annoy { background: var(--neon-green); color: var(--neon-green); }
+        .thandai-slider::-webkit-slider-thumb:active {
+            cursor: grabbing;
+            transform: scale(1.2);
+        }
 
+        .meter-display {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 4vw, 3rem);
+            min-height: 80px;
+            color: var(--gulal-orange);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1);
+            transition: color 0.3s;
+        }
+
+        .meter-desc {
+            font-size: 1.2rem;
+            color: #636e72;
+            min-height: 80px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
     </style>
 
-    <section id="survival" class="section-padding survival-section">
+    <section id="survival" class="survival-section">
         <div class="container">
-            <h2 class="section-title crazy-text" style="color: var(--neon-pink);">Holi Survival Guide</h2>
-            <p class="section-subtitle">Follow these steps or face the consequences.</p>
+            <div class="section-header animate__animated animate__fadeInUp">
+                <h2 class="section-title">Holi <span style="color: var(--gulal-pink);">Survival Guide</span></h2>
+                <p class="section-subtitle">Follow these steps strictly, or face the vibrant, permanent consequences.</p>
+            </div>
 
             <div class="timeline-container">
                 
                 <div class="timeline-step">
                     <div class="step-dot"></div>
-                    <div class="step-content animate__animated animate__fadeInLeft">
+                    <div class="step-content animate__animated animate__fadeInLeft" style="animation-delay: 0.1s;">
                         <div class="step-number">01</div>
-                        <h3>The Oil Armor</h3>
-                        <p>Bathe in coconut oil. Hair, face, ears. Become a slippery target. Colors must slide off you like water off a duck.</p>
+                        <h3>The Coconut Oil Shield</h3>
+                        <p>Bathe in coconut or mustard oil. Hair, face, ears, nails. Become a slippery, unstoppable target. Colors must slide off you like water off a duck's back.</p>
                     </div>
-                    <div style="width: 45%;"></div> </div>
+                    <div style="width: 45%;" class="hide-mobile"></div>
+                </div>
 
                 <div class="timeline-step">
                     <div class="step-dot"></div>
-                    <div style="width: 45%;"></div>
-                    <div class="step-content animate__animated animate__fadeInRight">
+                    <div style="width: 45%;" class="hide-mobile"></div>
+                    <div class="step-content animate__animated animate__fadeInRight" style="animation-delay: 0.3s;">
                         <div class="step-number">02</div>
-                        <h3>Sacrificial Clothing</h3>
-                        <p>Wear the oldest, most ripped t-shirt you own. If you wear white, you are basically wearing a target on your back.</p>
+                        <h3>Sacrificial Garments</h3>
+                        <p>Wear the oldest, most ripped clothes you own. If you wear white, you are not making a fashion statement; you are painting a giant bullseye on your back.</p>
                     </div>
                 </div>
 
                 <div class="timeline-step">
                     <div class="step-dot"></div>
-                    <div class="step-content animate__animated animate__fadeInLeft">
+                    <div class="step-content animate__animated animate__fadeInLeft" style="animation-delay: 0.5s;">
                         <div class="step-number">03</div>
                         <h3>Protect the Tech</h3>
-                        <p>Phones go in ziplock bags. If your phone isn't waterproof, leave it. TikToks are not worth water damage.</p>
+                        <p>Phones go in ziplock bags. If your phone isn't IP68 waterproof, leave it indoors. No Instagram reel is worth rice-bagging your phone for 3 days.</p>
                     </div>
-                    <div style="width: 45%;"></div>
+                    <div style="width: 45%;" class="hide-mobile"></div>
                 </div>
 
                 <div class="timeline-step">
                     <div class="step-dot"></div>
-                    <div style="width: 45%;"></div>
-                    <div class="step-content animate__animated animate__fadeInRight">
+                    <div style="width: 45%;" class="hide-mobile"></div>
+                    <div class="step-content animate__animated animate__fadeInRight" style="animation-delay: 0.7s;">
                         <div class="step-number">04</div>
-                        <h3>The Escape Route</h3>
-                        <p>Always know where the nearest locked bathroom is. When the mob comes with the permanent silver color, RUN.</p>
+                        <h3>Tactical Retreat</h3>
+                        <p>Always map out the nearest safe zone (a locked bathroom). When the mob comes running with eggs, mud, and permanent dye, RUN. Don't look back.</p>
                     </div>
                 </div>
 
@@ -1001,90 +1098,47 @@
         </div>
     </section>
 
-    <section id="weapons" class="section-padding arsenal-section">
+    <section id="thandai" class="section-pad thandai-section">
+        <div style="position:absolute; top:10%; left:10%; font-size: 3rem; opacity: 0.2; transform: rotate(-15deg);">🥛</div>
+        <div style="position:absolute; bottom:20%; right:15%; font-size: 4rem; opacity: 0.2; transform: rotate(20deg);">🥟</div>
+        
         <div class="container">
-            <h2 class="section-title crazy-text" style="color: var(--neon-orange);">Choose Your Weapon</h2>
-            <p class="section-subtitle">Analyze the stats before entering the battlefield.</p>
+            <div class="section-header animate__animated animate__zoomIn">
+                <h2 class="section-title">The <span style="color: var(--gulal-orange);">Thandai & Gujiya</span> Meter</h2>
+                <p class="section-subtitle" style="color: #636e72;">How much festive fuel have you consumed? Move the slider to find out your current state of mind.</p>
+            </div>
 
-            <div class="arsenal-grid">
+            <div class="meter-container animate__animated animate__fadeInUp" style="animation-delay: 0.3s;">
+                <div class="meter-display" id="meter-title">Level 0: Totally Normal</div>
                 
-                <div class="weapon-card">
-                    <div class="weapon-icon">🔫</div>
-                    <h3 class="weapon-title">The Classic Pichkari</h3>
-                    <p style="color: #ccc; font-size: 0.9rem;">Standard issue assault rifle of Holi. Reliable, decent range.</p>
-                    <div class="weapon-stats">
-                        Damage:
-                        <div class="stat-bar"><div class="stat-fill fill-damage" style="width: 60%;"></div></div>
-                        Range:
-                        <div class="stat-bar"><div class="stat-fill fill-range" style="width: 80%;"></div></div>
-                        Annoyance Level:
-                        <div class="stat-bar"><div class="stat-fill fill-annoy" style="width: 50%;"></div></div>
-                    </div>
+                <input type="range" min="0" max="4" value="0" class="thandai-slider" id="thandai-input">
+                
+                <div class="meter-desc" id="meter-text">
+                    You haven't eaten a single Gujiya yet. Are you even celebrating Holi? Go grab some sweets!
                 </div>
-
-                <div class="weapon-card">
-                    <div class="weapon-icon">🎈</div>
-                    <h3 class="weapon-title">Water Balloon</h3>
-                    <p style="color: #ccc; font-size: 0.9rem;">The sniper's choice. High impact, psychological warfare.</p>
-                    <div class="weapon-stats">
-                        Damage:
-                        <div class="stat-bar"><div class="stat-fill fill-damage" style="width: 90%;"></div></div>
-                        Range:
-                        <div class="stat-bar"><div class="stat-fill fill-range" style="width: 40%;"></div></div>
-                        Annoyance Level:
-                        <div class="stat-bar"><div class="stat-fill fill-annoy" style="width: 100%;"></div></div>
-                    </div>
-                </div>
-
-                <div class="weapon-card">
-                    <div class="weapon-icon">🪣</div>
-                    <h3 class="weapon-title">The Sneak Bucket</h3>
-                    <p style="color: #ccc; font-size: 0.9rem;">Dumped from the terrace. Guaranteed to ruin someone's mood.</p>
-                    <div class="weapon-stats">
-                        Damage:
-                        <div class="stat-bar"><div class="stat-fill fill-damage" style="width: 100%;"></div></div>
-                        Range:
-                        <div class="stat-bar"><div class="stat-fill fill-range" style="width: 10%;"></div></div>
-                        Annoyance Level:
-                        <div class="stat-bar"><div class="stat-fill fill-annoy" style="width: 120%;"></div></div>
-                    </div>
-                </div>
-
-                <div class="weapon-card">
-                    <div class="weapon-icon">💨</div>
-                    <h3 class="weapon-title">Neon Gulal</h3>
-                    <p style="color: #ccc; font-size: 0.9rem;">For the civilized player. Smells good, washes off easy.</p>
-                    <div class="weapon-stats">
-                        Damage:
-                        <div class="stat-bar"><div class="stat-fill fill-damage" style="width: 20%;"></div></div>
-                        Range:
-                        <div class="stat-bar"><div class="stat-fill fill-range" style="width: 30%;"></div></div>
-                        Annoyance Level:
-                        <div class="stat-bar"><div class="stat-fill fill-annoy" style="width: 10%;"></div></div>
-                    </div>
-                </div>
-
             </div>
         </div>
-                    </section>
-            <footer style="background: #050505; color: var(--text-light); padding: 80px 20px 40px; text-align: center; border-top: 5px solid var(--neon-yellow); position: relative; overflow: hidden;">
+    </section>
+    <footer style="background: var(--bg-deep-dark); color: var(--text-light); padding: 5rem 1rem 2rem; text-align: center; border-top: 5px solid var(--gulal-purple); position: relative; overflow: hidden;">
         
-        <div style="position: absolute; top: -50px; left: -50px; width: 150px; height: 150px; background: var(--neon-pink); border-radius: 50%; filter: blur(50px); opacity: 0.3;"></div>
-        <div style="position: absolute; bottom: -50px; right: -50px; width: 200px; height: 200px; background: var(--neon-blue); border-radius: 50%; filter: blur(60px); opacity: 0.3;"></div>
+        <div style="position: absolute; top: -50px; left: -50px; width: 200px; height: 200px; background: var(--gulal-cyan); border-radius: 50%; filter: blur(60px); opacity: 0.2;"></div>
+        <div style="position: absolute; bottom: -50px; right: -50px; width: 250px; height: 250px; background: var(--gulal-pink); border-radius: 50%; filter: blur(80px); opacity: 0.2;"></div>
 
         <div class="container" style="position: relative; z-index: 10;">
-            <h2 class="crazy-text text-gradient-multicolor" style="font-size: 4rem; margin-bottom: 20px;">BURA NA MANO, HOLI HAI!</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 40px; color: #aaa;">Disclaimer: We are not responsible for ruined clothes, lost slippers, or the embarrassing dance moves you made after 4 glasses of Bhaang.</p>
+            <h2 class="color-text-gradient" style="font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 4rem); margin-bottom: 1rem;">BURA NA MANO, HOLI HAI!</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 3rem; color: #b2bec3; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Disclaimer: The creators of this website are not responsible for ruined white shirts, lost slippers, or the embarrassing dance moves you made after 4 glasses of Thandai. Play safe, respect boundaries, and spread love!
+            </p>
             
-            <div style="font-size: 2rem; display: flex; justify-content: center; gap: 30px; margin-bottom: 40px;">
-                <a href="#" style="color: var(--neon-pink); text-shadow: var(--glow-pink); transition: transform 0.3s;"><i class="fa-brands fa-instagram"></i></a>
-                <a href="#" style="color: var(--neon-blue); text-shadow: var(--glow-blue); transition: transform 0.3s;"><i class="fa-brands fa-twitter"></i></a>
-                <a href="#" style="color: var(--neon-yellow); text-shadow: 0 0 15px var(--neon-yellow); transition: transform 0.3s;"><i class="fa-brands fa-youtube"></i></a>
+            <div style="font-size: 2rem; display: flex; justify-content: center; gap: 2rem; margin-bottom: 3rem;">
+                <a href="#" style="color: var(--gulal-pink); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" style="color: var(--gulal-cyan); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);"><i class="fa-brands fa-twitter"></i></a>
+                <a href="#" style="color: var(--gulal-yellow); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);"><i class="fa-brands fa-youtube"></i></a>
             </div>
             
-            <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 20px;"></div>
+            <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin-bottom: 1.5rem;"></div>
             
-            <p style="font-weight: 700; color: #777;">&copy; 2026 The Holi Squad. Stay Colorful. Stay Safe.</p>
+            <p style="font-weight: 600; color: #636e72; font-size: 0.9rem;">&copy; 2026 The Holi Squad. Stay Colorful. Stay Safe.</p>
         </div>
     </footer>
 
@@ -1094,18 +1148,21 @@
         document.addEventListener("DOMContentLoaded", () => {
             
             // 1. PRELOADER LOGIC
-            const preloader = document.getElementById('holi-preloader');
-            // Wait for 1.5 seconds to show off the cool preloader, then fade out
+            const preloader = document.getElementById('preloader');
+            // Give the user a moment to see the dripping paint, then fade it out
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 setTimeout(() => {
                     preloader.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 500);
-            }, 1500);
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }, 800);
+            }, 1800);
 
-            // 2. NAVBAR SCROLL EFFECT
+            // 2. NAVBAR SCROLL & MOBILE MENU EFFECT
             const navbar = document.getElementById('navbar');
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('nav-links');
+
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
                     navbar.classList.add('scrolled');
@@ -1114,40 +1171,56 @@
                 }
             });
 
+            hamburger.addEventListener('click', () => {
+                hamburger.classList.toggle('active');
+                navLinks.classList.toggle('active');
+            });
+
+            // Close mobile menu when a link is clicked
+            document.querySelectorAll('.nav-item a').forEach(link => {
+                link.addEventListener('click', () => {
+                    hamburger.classList.remove('active');
+                    navLinks.classList.remove('active');
+                });
+            });
+
             // 3. COLOR THROWING LOGIC (CONFETTI)
+            // Matching our CSS variables for a cohesive look
             const holiColors = [
-                '#FF007F', // Neon Pink
-                '#39FF14', // Neon Green
-                '#FFFF00', // Neon Yellow
-                '#00FFFF', // Neon Blue
-                '#FF5E00', // Neon Orange
-                '#9D00FF'  // Neon Purple
+                '#FF007A', // Pink
+                '#FFD600', // Yellow
+                '#00F0FF', // Cyan
+                '#00FF66', // Green
+                '#B200FF', // Purple
+                '#FF5E00'  // Orange
             ];
 
             // Function to trigger a color explosion at specific coordinates
-            function triggerColorExplosion(x, y) {
+            function splashColor(x, y) {
                 confetti({
-                    particleCount: 150,
-                    spread: 100,
+                    particleCount: 120,
+                    spread: 80,
                     origin: { x: x, y: y },
                     colors: holiColors,
                     disableForReducedMotion: true,
-                    zIndex: 9999
+                    zIndex: 9999,
+                    scalar: 1.2 // Make the "powder" chunks slightly bigger
                 });
             }
 
             // Big button on Hero Section
-            const globalThrowBtn = document.getElementById('global-throw-btn');
-            if (globalThrowBtn) {
-                globalThrowBtn.addEventListener('click', (e) => {
+            const triggerSplatterBtn = document.getElementById('trigger-splatter');
+            if (triggerSplatterBtn) {
+                triggerSplatterBtn.addEventListener('click', (e) => {
                     e.stopPropagation(); // Prevent global click
-                    // Shoot colors from the middle of the screen
+                    // Shoot a massive amount of colors from the bottom center of the screen
                     confetti({
-                        particleCount: 300,
+                        particleCount: 400,
                         spread: 160,
-                        origin: { y: 0.6 },
+                        origin: { y: 0.8 },
                         colors: holiColors,
-                        startVelocity: 45
+                        startVelocity: 55,
+                        scalar: 1.5
                     });
                 });
             }
@@ -1155,7 +1228,7 @@
             // Interactive Screen Clicking (Throw colors wherever you click!)
             document.body.addEventListener('click', (e) => {
                 // Don't trigger if clicking on inputs, buttons, or links
-                if(['INPUT', 'BUTTON', 'A', 'I'].includes(e.target.tagName) || e.target.closest('.bhaang-slider')) {
+                if(['INPUT', 'BUTTON', 'A', 'I'].includes(e.target.tagName) || e.target.closest('.flip-card') || e.target.closest('.thandai-slider')) {
                     return;
                 }
                 
@@ -1163,74 +1236,64 @@
                 const x = e.clientX / window.innerWidth;
                 const y = e.clientY / window.innerHeight;
                 
-                triggerColorExplosion(x, y);
+                splashColor(x, y);
             });
 
-            // 4. BHAANG METER LOGIC
-            const bhaangInput = document.getElementById('bhaang-input');
-            const bhaangTitle = document.getElementById('bhaang-title');
-            const bhaangText = document.getElementById('bhaang-text');
-            const navBhaangMeter = document.getElementById('nav-bhaang-meter');
+            // 4. SPECIAL THANDAI METER LOGIC
+            const thandaiInput = document.getElementById('thandai-input');
+            const meterTitle = document.getElementById('meter-title');
+            const meterText = document.getElementById('meter-text');
 
-            const bhaangLevels = [
+            const thandaiLevels = [
                 {
-                    title: "Level 0: Totally Sober",
-                    desc: "You are boring. Go drink something colorful. Or at least eat a Gujiya.",
-                    color: "var(--neon-green)",
-                    shadow: "var(--glow-green)",
-                    navText: "Sober"
+                    title: "Level 0: Totally Normal",
+                    desc: "You haven't eaten a single Gujiya yet. Are you even celebrating Holi? Go grab some sweets!",
+                    color: "var(--gulal-orange)",
+                    shadow: "0 0 10px rgba(255, 94, 0, 0.4)"
                 },
                 {
-                    title: "Level 1: Just a Sip",
-                    desc: "Feeling a little light. The colors are starting to look a bit brighter. You smiled at someone you hate.",
-                    color: "var(--neon-blue)",
-                    shadow: "var(--glow-blue)",
-                    navText: "Tipsy"
+                    title: "Level 1: Sugar Rush",
+                    desc: "3 Gujiyas down. The colors look a little brighter. You are ready to throw your first water balloon.",
+                    color: "var(--gulal-yellow)",
+                    shadow: "0 0 15px rgba(255, 214, 0, 0.6)"
                 },
                 {
-                    title: "Level 2: In The Zone",
-                    desc: "Dancing aggressively to the Dhol. Everyone is your best friend. You are covered in 5 layers of mud.",
-                    color: "var(--neon-yellow)",
-                    shadow: "0 0 15px var(--neon-yellow), 0 0 30px var(--neon-yellow)",
-                    navText: "Vibing"
+                    title: "Level 2: The Vibe Check",
+                    desc: "One glass of Thandai in. You are dancing aggressively to the Dhol. Everyone is your best friend.",
+                    color: "var(--gulal-green)",
+                    shadow: "0 0 20px rgba(0, 255, 102, 0.8)"
                 },
                 {
                     title: "Level 3: Seeing Double",
                     desc: "Why is the street dog purple? Who am I? You are currently trying to apply gulal to a parked car.",
-                    color: "var(--neon-orange)",
-                    shadow: "0 0 15px var(--neon-orange), 0 0 30px var(--neon-orange)",
-                    navText: "Lost"
+                    color: "var(--gulal-cyan)",
+                    shadow: "0 0 25px rgba(0, 240, 255, 1)"
                 },
                 {
-                    title: "Level 4: Ascended",
-                    desc: "You are now communicating with colors telepathically. You have transcended the physical realm. Goodbye.",
-                    color: "var(--neon-pink)",
-                    shadow: "var(--glow-pink)",
-                    navText: "Ascended"
+                    title: "Level 4: Ascended State",
+                    desc: "You are now communicating with colors telepathically. You have transcended the physical realm. Happy Holi.",
+                    color: "var(--gulal-pink)",
+                    shadow: "0 0 30px rgba(255, 0, 122, 1)"
                 }
             ];
 
-            function updateBhaangMeter() {
-                const val = parseInt(bhaangInput.value);
-                const levelData = bhaangLevels[val];
+            function updateThandaiMeter() {
+                const val = parseInt(thandaiInput.value);
+                const levelData = thandaiLevels[val];
 
                 // Update UI Texts
-                bhaangTitle.innerText = levelData.title;
-                bhaangText.innerText = levelData.desc;
-                navBhaangMeter.querySelector('span').innerText = levelData.navText;
+                meterTitle.innerText = levelData.title;
+                meterText.innerText = levelData.desc;
 
                 // Update Colors and Glows dynamically
-                bhaangTitle.style.color = levelData.color;
-                bhaangTitle.style.textShadow = levelData.shadow;
-                
-                navBhaangMeter.style.color = levelData.color;
-                navBhaangMeter.style.borderColor = levelData.color;
-                navBhaangMeter.style.boxShadow = levelData.shadow;
+                meterTitle.style.color = levelData.color;
+                meterTitle.style.textShadow = levelData.shadow;
 
-                // Modify Slider Thumb Color (via CSS variable injection or modifying a style block)
-                document.documentElement.style.setProperty('--current-bhaang-color', levelData.color);
+                // Modify Slider Thumb Color via CSS variable injection
+                document.documentElement.style.setProperty('--current-thandai-color', levelData.color);
+                document.documentElement.style.setProperty('--current-thandai-shadow', levelData.shadow);
                 
-                // Add a little screen shake effect for higher levels
+                // Add a little screen shake effect for higher levels (Level 3 & 4)
                 if(val >= 3) {
                     document.body.classList.add('animate__animated', 'animate__headShake');
                     setTimeout(() => {
@@ -1242,38 +1305,37 @@
             // Override slider thumb color using the injected CSS variable
             const style = document.createElement('style');
             style.innerHTML = `
-                .bhaang-slider::-webkit-slider-thumb {
-                    background: var(--current-bhaang-color, var(--neon-green)) !important;
-                    box-shadow: 0 0 15px var(--current-bhaang-color, var(--neon-green)) !important;
+                .thandai-slider::-webkit-slider-thumb {
+                    background: var(--current-thandai-color, var(--gulal-orange)) !important;
+                    box-shadow: var(--current-thandai-shadow, 0 0 15px var(--gulal-orange)) !important;
                 }
             `;
             document.head.appendChild(style);
 
-            bhaangInput.addEventListener('input', updateBhaangMeter);
+            thandaiInput.addEventListener('input', updateThandaiMeter);
 
             // 5. SCROLL ANIMATION OBSERVER (For animate.css elements)
-            // This triggers animations only when they scroll into view
+            // Fixes the issue where elements animate before they are scrolled into view
             const observerOptions = {
                 root: null,
                 rootMargin: '0px',
-                threshold: 0.1
+                threshold: 0.15 // Trigger when 15% of the element is visible
             };
 
             const observer = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Elements already have the classes, we just ensure opacity is handled or re-trigger if needed.
-                        // Since we hardcoded 'animate__animated' in HTML, they might fire on load.
-                        // Let's ensure they are visible.
+                        // Element is in view, let the CSS animation run
                         entry.target.style.visibility = 'visible';
+                        // Stop observing once animated
                         observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
+            // Initially hide elements with animate__animated so they don't flash on load
             document.querySelectorAll('.animate__animated').forEach(el => {
-                // Optional: set initial visibility to hidden if you want them to pop in ONLY on scroll
-                // el.style.visibility = 'hidden'; 
+                el.style.visibility = 'hidden'; 
                 observer.observe(el);
             });
         });
