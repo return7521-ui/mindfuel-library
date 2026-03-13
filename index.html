@@ -3,267 +3,871 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Text to PDF Pro · Markdown + Hindi + symbols</title>
-  <!-- Professional fonts: Latin & Devanagari (Hindi, mantras) -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>PDF MASTER · Text to PDF Pro | Unlimited features</title>
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <!-- KaTeX for math -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
+  <!-- highlight.js for code -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <style>
-    /* --- modern reset & design system --- */
+    /* ----- RESET & GLOBAL ----- */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
+    :root {
+      --bg-primary: #f0f5fa;
+      --bg-card: rgba(255,255,255,0.85);
+      --text-primary: #1a2639;
+      --text-secondary: #2b3b58;
+      --border-light: #d4e0ec;
+      --accent: #1f5f9e;
+      --accent-light: #e3f0ff;
+      --shadow: 0 25px 50px -12px rgba(0,32,64,0.25);
+      --header-bg: #0c1b33;
+      --header-text: #ffffff;
+      --toolbar-bg: #f9fcff;
+      --panel-bg: #ffffffec;
+      --code-bg: #eaf1fb;
+      --success: #0e7240;
+      --warning: #b95b0d;
+    }
+
+    body.dark {
+      --bg-primary: #121b26;
+      --bg-card: #1e2a3acc;
+      --text-primary: #e7edf5;
+      --text-secondary: #cbd5e1;
+      --border-light: #33475f;
+      --accent: #4882c9;
+      --accent-light: #1d3c5e;
+      --shadow: 0 25px 50px -12px #000000;
+      --header-bg: #030b17;
+      --header-text: #e0e9f5;
+      --toolbar-bg: #1b283b;
+      --panel-bg: #1d2a3fef;
+      --code-bg: #1d2f44;
+      --success: #32b37f;
+      --warning: #f39c4b;
+    }
+
     body {
-      background: linear-gradient(145deg, #f0f4f8 0%, #e9eef4 100%);
-      font-family: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
-      color: #1a2639;
+      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      transition: background 0.2s, color 0.2s;
       line-height: 1.6;
       min-height: 100vh;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* main container */
+    .app {
+      max-width: 1800px;
+      width: 100%;
+      margin: 0 auto;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border-radius: 2.5rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-light);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----- HEADER ----- */
+    .app-header {
+      background: var(--header-bg);
+      color: var(--header-text);
+      padding: 1.2rem 2rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1.5rem;
     }
-
-    .card {
-      max-width: 1400px;
-      width: 100%;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(4px);
-      border-radius: 2.5rem;
-      box-shadow: 0 30px 60px -20px rgba(0, 20, 40, 0.25),
-                  0 0 0 1px rgba(156, 180, 204, 0.15) inset;
-      overflow: hidden;
-      transition: all 0.2s ease;
-    }
-
-    /* header */
-    .header {
-      background: #0f1a2f;
-      padding: 2rem 2.5rem;
-      color: white;
-    }
-    .header h1 {
-      font-weight: 600;
-      font-size: 2.4rem;
+    .logo h1 {
+      font-weight: 700;
+      font-size: 1.9rem;
       letter-spacing: -0.02em;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 10px;
     }
-    .header h1 span {
-      background: #2d3b58;
-      font-size: 1rem;
-      font-weight: 500;
+    .logo h1 i { color: #64b5f6; }
+    .badge {
+      background: #284e7c;
       padding: 0.2rem 1rem;
       border-radius: 40px;
-      letter-spacing: 0.3px;
-      color: #cbd5e1;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #cae0f5;
     }
-    .header p {
-      font-size: 1.1rem;
-      color: #a9c1d9;
-      margin-top: 0.5rem;
-      max-width: 700px;
+    .header-controls {
+      margin-left: auto;
+      display: flex;
+      gap: 0.6rem;
     }
-
-    /* main grid */
-    .workspace {
-      padding: 2rem 2.5rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      background: #ffffffd9;
-    }
-
-    /* panels */
-    .panel {
-      background: #f9fcff;
-      border-radius: 2rem;
-      padding: 1.6rem 1.8rem;
-      box-shadow: 0 8px 24px rgba(0, 30, 60, 0.05);
-      border: 1px solid #e2edf7;
-      transition: box-shadow 0.2s;
-    }
-    .panel:hover {
-      box-shadow: 0 16px 32px rgba(0, 35, 70, 0.08);
-    }
-
-    .panel h2 {
+    .icon-btn {
+      background: none;
+      border: none;
+      color: #c3d9f0;
       font-size: 1.4rem;
-      font-weight: 600;
-      color: #10345e;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.2rem;
-      border-bottom: 2px solid #dbe9f5;
-      padding-bottom: 0.6rem;
+      justify-content: center;
+      transition: 0.2s;
+    }
+    .icon-btn:hover {
+      background: #1f3d62;
+      color: white;
     }
 
-    /* editor textarea */
+    /* ----- TOOLBAR ----- */
+    .toolbar {
+      background: var(--toolbar-bg);
+      padding: 0.8rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 0.8rem;
+      border-bottom: 2px solid var(--border-light);
+    }
+    .tool-group {
+      display: flex;
+      gap: 0.3rem;
+      padding-right: 1rem;
+      border-right: 1px solid var(--border-light);
+    }
+    .tool-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      padding: 0.4rem 0.7rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.15s;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .tool-btn i { font-size: 1.1rem; }
+    .tool-btn:hover { background: var(--accent-light); color: var(--accent); }
+    .tool-btn.active { background: var(--accent); color: white; }
+
+    /* ----- MAIN EDITOR AREA (grid) ----- */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 280px;
+      gap: 1rem;
+      padding: 1.5rem 2rem;
+      background: var(--bg-card);
+    }
+    @media (max-width: 1300px) {
+      .main-grid { grid-template-columns: 1fr 1fr; }
+      .right-sidebar { grid-column: span 2; }
+    }
+    @media (max-width: 900px) {
+      .main-grid { grid-template-columns: 1fr; }
+      .right-sidebar { grid-column: span 1; }
+    }
+
+    /* left panel: editor */
+    .editor-panel, .preview-panel, .right-sidebar {
+      background: var(--panel-bg);
+      border-radius: 2rem;
+      border: 1px solid var(--border-light);
+      padding: 1.2rem 1.2rem 0.8rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+    }
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.8rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+    .panel-header i { margin-right: 0.4rem; color: var(--accent); }
+
     #editor {
       width: 100%;
-      height: 500px;
-      padding: 1.5rem;
-      font-family: 'Inter', 'Noto Sans Devanagari', 'SF Mono', 'Fira Code', monospace;
-      font-size: 1rem;
+      flex: 1;
+      min-height: 500px;
+      padding: 1.4rem;
+      font-family: 'Fira Code', 'Noto Sans Devanagari', monospace;
+      font-size: 0.95rem;
       line-height: 1.7;
-      background: white;
-      border: 2px solid #dde7f0;
+      background: var(--panel-bg);
+      color: var(--text-primary);
+      border: 2px solid var(--border-light);
       border-radius: 1.8rem;
       resize: vertical;
       outline: none;
       transition: 0.2s;
-      color: #0f2642;
     }
-    #editor:focus {
-      border-color: #3f6eb0;
-      box-shadow: 0 0 0 4px rgba(57, 106, 176, 0.15);
-    }
+    #editor:focus { border-color: var(--accent); }
 
-    /* live preview */
+    /* preview */
     .preview-box {
-      height: 500px;
+      flex: 1;
       overflow-y: auto;
-      background: white;
+      background: var(--panel-bg);
       border-radius: 1.8rem;
-      padding: 1.5rem;
-      border: 2px solid #dde7f0;
+      padding: 1.4rem;
+      border: 2px solid var(--border-light);
       font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
       line-height: 1.7;
       word-wrap: break-word;
     }
-    .preview-box > *:first-child { margin-top: 0; }
-    .preview-box > *:last-child { margin-bottom: 0; }
-
-    /* markdown preview styling */
-    .preview-box h1 { font-size: 2em; margin: 0.8em 0 0.4em; font-weight: 650; color: #0c1f38; }
-    .preview-box h2 { font-size: 1.6em; margin: 0.8em 0 0.4em; font-weight: 620; color: #153e6b; }
-    .preview-box h3 { font-size: 1.3em; margin: 0.6em 0 0.3em; font-weight: 600; }
-    .preview-box p { margin: 1em 0; }
-    .preview-box strong { font-weight: 700; color: #0f2b4f; }
-    .preview-box em { font-style: italic; }
-    .preview-box code { background: #e9f0f7; padding: 0.2em 0.5em; border-radius: 10px; font-size: 0.9em; font-family: 'SF Mono', monospace; }
-    .preview-box pre { background: #e9f0f7; padding: 1.2rem; border-radius: 20px; overflow-x: auto; border: 1px solid #cbddee; }
-    .preview-box pre code { background: none; padding: 0; }
-    .preview-box ul, .preview-box ol { padding-left: 2rem; margin: 1rem 0; }
-    .preview-box blockquote { border-left: 5px solid #577faa; background: #f0f7ff; padding: 0.8rem 1.5rem; border-radius: 20px; margin: 1.5rem 0; color: #1f3f62; }
-    .preview-box a { color: #1f5f9e; text-decoration: underline; text-underline-offset: 2px; }
+    /* preview styling */
+    .preview-box h1 { font-size: 2.2em; border-bottom: 2px solid var(--border-light); padding-bottom: 0.3rem; }
+    .preview-box h2 { font-size: 1.8em; }
+    .preview-box h3 { font-size: 1.5em; }
+    .preview-box strong { color: var(--accent); font-weight: 700; }
+    .preview-box code:not(pre code) { background: var(--code-bg); padding: 0.2em 0.6em; border-radius: 30px; }
+    .preview-box pre { background: var(--code-bg); padding: 1.2rem; border-radius: 24px; overflow-x: auto; }
+    .preview-box blockquote { border-left: 5px solid var(--accent); background: var(--accent-light); padding: 1rem 2rem; border-radius: 30px; }
+    .preview-box table { border-collapse: collapse; width: 100%; }
+    .preview-box th, .preview-box td { border: 1px solid var(--border-light); padding: 0.5rem; }
     .preview-box img { max-width: 100%; border-radius: 16px; }
 
-    /* button row */
-    .action-bar {
-      padding: 1.8rem 2.5rem 2.5rem;
-      background: white;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.2rem;
-      align-items: center;
-      border-top: 2px solid #eaf1f9;
+    /* right sidebar */
+    .right-sidebar {
+      gap: 1.5rem;
+      overflow-y: auto;
+      max-height: 700px;
     }
-
-    .btn {
-      background: #10345e;
-      color: white;
-      border: none;
-      padding: 0.9rem 2.2rem;
-      font-size: 1.1rem;
+    .sidebar-section {
+      background: var(--toolbar-bg);
+      border-radius: 1.8rem;
+      padding: 1.2rem;
+    }
+    .section-title {
       font-weight: 600;
-      border-radius: 60px;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      cursor: pointer;
-      transition: 0.2s;
-      box-shadow: 0 12px 20px -14px #0f2a4a;
-      border: 1px solid #26558b;
+      margin-bottom: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
-    .btn:hover {
-      background: #1b4380;
-      transform: translateY(-3px);
-      box-shadow: 0 20px 25px -10px #0b2744;
-    }
-    .btn:active { transform: translateY(0); }
-    .btn.secondary {
-      background: white;
-      color: #10345e;
-      border: 2px solid #c7ddf2;
-      box-shadow: none;
-    }
-    .btn.secondary:hover { background: #ecf5fd; border-color: #8eb9df; }
-
-    .spinner {
-      display: none;
-      width: 1.2rem;
-      height: 1.2rem;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: white;
-      animation: spin 0.9s linear infinite;
-    }
-    .btn.loading .spinner { display: inline-block; }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .footnote {
-      background: #e7f0fa;
-      border-radius: 40px;
-      padding: 0.8rem 2rem;
-      font-size: 0.95rem;
-      color: #1e3b60;
+    .stat-item {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.8rem 2rem;
+      justify-content: space-between;
+      padding: 0.4rem 0;
+      border-bottom: 1px dashed var(--border-light);
+    }
+    .symbol-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.5rem;
       margin-top: 0.5rem;
     }
-    .footnote kbd {
-      background: #cddef1;
-      padding: 0.2rem 0.9rem;
+    .symbol-btn {
+      background: var(--panel-bg);
+      border: 1px solid var(--border-light);
+      border-radius: 30px;
+      padding: 0.4rem;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+    .symbol-btn:hover { background: var(--accent); color: white; }
+
+    .pdf-opt-group {
+      margin: 0.7rem 0;
+    }
+    .pdf-opt-group label { display: block; font-weight: 500; margin-bottom: 0.3rem; }
+    .pdf-opt-group select, .pdf-opt-group input {
+      width: 100%;
+      padding: 0.5rem;
       border-radius: 40px;
-      font-family: 'Inter', monospace;
-      font-weight: 600;
-      color: #03223f;
+      border: 1px solid var(--border-light);
+      background: var(--panel-bg);
+      color: var(--text-primary);
     }
 
-    /* responsive */
-    @media (max-width: 800px) {
-      .workspace { grid-template-columns: 1fr; }
-      .header h1 { font-size: 2rem; }
+    /* footer */
+    .app-footer {
+      padding: 1rem 2rem;
+      border-top: 2px solid var(--border-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      background: var(--toolbar-bg);
+      font-size: 0.9rem;
     }
+    #statusMsg {
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* modals (hidden by default) */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+    .modal.active { display: flex; }
+    .modal-content {
+      background: var(--panel-bg);
+      border-radius: 3rem;
+      padding: 2rem;
+      max-width: 500px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+      border: 2px solid var(--border-light);
+    }
+    .modal-header { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; }
+
+    .btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      border: 1px solid transparent;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+    .btn-outline:hover { background: var(--accent); color: white; }
+    .btn:active { transform: scale(0.97); }
+
+    .spinner { display: inline-block; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-<div class="card">
-  <div class="header">
-    <h1>
-      ⚡ TEXT · TO · PDF PRO
-      <span>Markdown + हिन्दी</span>
-    </h1>
-    <p>Professional formatting with **bold**, *italic*, `code`, lists, links, mantras, and every symbol. Hindi & English fully supported. Download as print‑ready PDF.</p>
+<div class="app">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="logo">
+      <h1><i class="fas fa-file-pdf"></i> PDF MASTER <span class="badge">v3.0 · हिन्दी · मंत्र</span></h1>
+    </div>
+    <div class="header-controls">
+      <button class="icon-btn" id="themeToggle" title="Dark/Light"><i class="fas fa-moon"></i></button>
+      <button class="icon-btn" id="helpBtn" title="Help & shortcuts"><i class="fas fa-question"></i></button>
+      <button class="icon-btn" id="templatesBtn" title="Templates"><i class="fas fa-file-alt"></i></button>
+    </div>
+  </header>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="tool-group">
+      <button class="tool-btn" id="newBtn"><i class="fas fa-file"></i> New</button>
+      <button class="tool-btn" id="openBtn"><i class="fas fa-folder-open"></i> Open</button>
+      <button class="tool-btn" id="saveMdBtn"><i class="fas fa-save"></i> Save MD</button>
+      <button class="tool-btn" id="saveHtmlBtn"><i class="fas fa-code"></i> Save HTML</button>
+    </div>
+    <div class="tool-group">
+      <button class="tool-btn" id="boldBtn"><i class="fas fa-bold"></i></button>
+      <button class="tool-btn" id="italicBtn"><i class="fas fa-italic"></i></button>
+      <button class="tool-btn" id="codeBtn"><i class="fas fa-code"></i></button>
+      <button class="tool-btn" id="linkBtn"><i class="fas fa-link"></i></button>
+      <button class="tool-btn" id="imgBtn"><i class="fas fa-image"></i></button>
+      <button class="tool-btn" id="ulBtn"><i class="fas fa-list-ul"></i></button>
+      <button class="tool-btn" id="olBtn"><i class="fas fa-list-ol"></i></button>
+      <button class="tool-btn" id="h1Btn">H1</button>
+      <button class="tool-btn" id="h2Btn">H2</button>
+    </div>
+    <div class="tool-group">
+      <button class="tool-btn" id="searchBtn"><i class="fas fa-search"></i> Search</button>
+      <button class="tool-btn" id="replaceBtn"><i class="fas fa-exchange-alt"></i> Replace</button>
+    </div>
+    <div style="margin-left: auto;">
+      <button class="tool-btn" id="exportPdfBtn" style="background: var(--accent); color: white;"><i class="fas fa-download"></i> Export PDF</button>
+    </div>
   </div>
 
-  <div class="workspace">
-    <!-- INPUT PANEL -->
-    <div class="panel">
-      <h2>📝 EDITOR (Markdown syntax)</h2>
-      <textarea id="editor" placeholder="Type or paste your content... use **bold** or __bold__, *italic*, `code`, etc.&#10;हिन्दी, ॐ, मंत्र, ©®™✓✗★ all work."># ॐ नमः शिवाय
+  <!-- Main grid: Editor / Preview / Sidebar -->
+  <div class="main-grid">
+    <!-- LEFT: EDITOR -->
+    <div class="editor-panel">
+      <div class="panel-header"><span><i class="fas fa-pen"></i> MARKDOWN EDITOR (with हिन्दी support)</span> <span id="editorStats">0 words</span></div>
+      <textarea id="editor" placeholder="Type here... **bold** *italic* `code`  हिन्दी, ॐ, मंत्र, ©®™..."></textarea>
+    </div>
 
-This document demonstrates **professional** text-to-PDF conversion.
+    <!-- MIDDLE: PREVIEW -->
+    <div class="preview-panel">
+      <div class="panel-header"><span><i class="fas fa-eye"></i> LIVE PREVIEW (rich formatting)</span> <span id="previewStats">0 chars</span></div>
+      <div id="preview" class="preview-box"></div>
+    </div>
 
-## ✨ Features
-- **Bold** with `**` or `__`  
-- *Italic* with `*` or `_`  
-- `Inline code` and ```code blocks```
-- [Hyperlinks](https://example.com)  
-- हिन्दी समर्थन: **भारत**, *देवनागरी*, `संस्कृत मंत्र`  
-- Special symbols: ©®™✓✗★ ♠♣♥♦ «» ‹› ∑∏∫
+    <!-- RIGHT SIDEBAR (stats, symbols, pdf options) -->
+    <div class="right-sidebar">
+      <div class="sidebar-section">
+        <div class="section-title"><i class="fas fa-chart-simple"></i> Document stats</div>
+        <div class="stat-item"><span>Words:</span> <span id="wordCount">0</span></div>
+        <div class="stat-item"><span>Characters (no spaces):</span> <span id="charCountNoSpace">0</span></div>
+        <div class="stat-item"><span>Characters (with spaces):</span> <span id="charCountSpace">0</span></div>
+        <div class="stat-item"><span>Lines:</span> <span id="lineCount">0</span></div>
+        <div class="stat-item"><span>Paragraphs:</span> <span id="paraCount">0</span></div>
+      </div>
 
-> “The quick brown fox jumps over the lazy dog” — includes **Devanagari**: ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यम् भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥
+      <div class="sidebar-section">
+        <div class="section-title"><i class="fas fa-language"></i> Special / हिन्दी / मंत्र</div>
+        <div class="symbol-grid">
+          <button class="symbol-btn" data-sym="ॐ">ॐ</button>
+          <button class="symbol-btn" data-sym="।">।</button>
+          <button class="symbol-btn" data-sym="॥">॥</button>
+          <button class="symbol-btn" data-sym="श्री">श्री</button>
+          <button class="symbol-btn" data-sym="₹">₹</button>
+          <button class="symbol-btn" data-sym="©">©</button>
+          <button class="symbol-btn" data-sym="®">®</button>
+          <button class="symbol-btn" data-sym="™">™</button>
+          <button class="symbol-btn" data-sym="✓">✓</button>
+          <button class="symbol-btn" data-sym="★">★</button>
+          <button class="symbol-btn" data-sym="♥">♥</button>
+          <button class="symbol-btn" data-sym="☸">☸</button>
+          <button class="symbol-btn" data-sym="✉">✉</button>
+          <button class="symbol-btn" data-sym="⌨">⌨</button>
+          <button class="symbol-btn" data-sym="☀">☀</button>
+          <button class="symbol-btn" data-sym="☾">☾</button>
+        </div>
+        <div style="margin-top: 0.8rem;">
+          <input type="text" id="customSymbol" placeholder="Type any symbol" style="width:70%; padding:0.4rem;"> 
+          <button class="tool-btn" id="addCustomSym">+</button>
+        </div>
+      </div>
 
-## 📋 Example list
-- **Bold item** with *nested italic*  
-- हिन्दी आइटम: *कर्म* और **धर्म**  
-- `monospace` and _emphasis_
-          
+      <div class="sidebar-section">
+        <div class="section-title"><i class="fas fa-gear"></i> PDF export options</div>
+        <div class="pdf-opt-group">
+          <label>Page size</label>
+          <select id="pdfSize">
+            <option value="a4">A4</option>
+            <option value="letter">Letter</option>
+            <option value="legal">Legal</option>
+          </select>
+        </div>
+        <div class="pdf-opt-group">
+          <label>Orientation</label>
+          <select id="pdfOrientation">
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+          </select>
+        </div>
+        <div class="pdf-opt-group">
+          <label>Margin (in)</label>
+          <input type="number" id="pdfMargin" min="0" max="2" step="0.1" value="0.5">
+        </div>
+        <div class="pdf-opt-group">
+          <label>Scale (zoom)</label>
+          <input type="number" id="pdfScale" min="1" max="4" step="0.1" value="2">
+        </div>
+        <div class="pdf-opt-group">
+          <label><input type="checkbox" id="pdfBackground" checked> Include background</label>
+        </div>
+        <button class="btn" id="pdfExportBtn" style="width:100%;"><i class="fas fa-file-pdf"></i> Generate PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <span><i class="fas fa-info-circle"></i> <span id="statusMsg">Ready</span></span>
+    <span><i class="fas fa-keyboard"></i> Ctrl+B bold • Ctrl+I italic • Ctrl+K link • Ctrl+Enter PDF</span>
+  </footer>
+</div>
+
+<!-- Hidden file input for open -->
+<input type="file" id="fileInput" accept=".txt,.md,.markdown,text/plain" style="display:none;">
+
+<!-- Template Modal -->
+<div id="templateModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><i class="fas fa-template"></i> Templates</div>
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <button class="btn btn-outline" data-template="mantra">🔱 Sanskrit Mantra (हिन्दी)</button>
+      <button class="btn btn-outline" data-template="report">📊 Professional Report</button>
+      <button class="btn btn-outline" data-template="letter">✉ Formal Letter</button>
+      <button class="btn btn-outline" data-template="resume">📄 Resume (Markdown)</button>
+    </div>
+    <button class="btn" style="margin-top:20px;" id="closeTemplate">Close</button>
+  </div>
+</div>
+
+<!-- Help Modal -->
+<div id="helpModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header"><i class="fas fa-circle-question"></i> Help & shortcuts</div>
+    <ul style="list-style-type: none;">
+      <li><kbd>Ctrl+B</kbd> bold **text**</li>
+      <li><kbd>Ctrl+I</kbd> italic *text*</li>
+      <li><kbd>Ctrl+K</kbd> insert link</li>
+      <li><kbd>Ctrl+Shift+C</kbd> code block</li>
+      <li><kbd>Ctrl+Enter</kbd> export PDF</li>
+      <li><kbd>Ctrl+S</kbd> save as markdown</li>
+      <li><kbd>Ctrl+O</kbd> open file</li>
+      <li>Use ```language for code blocks</li>
+      <li>Inline math $...$ or $$...$$ (KaTeX)</li>
+      <li>Markdown tables, footnotes, etc.</li>
+    </ul>
+    <button class="btn" id="closeHelp">Got it</button>
+  </div>
+</div>
+
+<!-- SCRIPTS (massive feature set) -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
+<script>
+  (function() {
+    // ----- ELEMENTS -----
+    const editor = document.getElementById('editor');
+    const preview = document.getElementById('preview');
+    const wordSpan = document.getElementById('wordCount');
+    const charNoSpace = document.getElementById('charCountNoSpace');
+    const charSpace = document.getElementById('charCountSpace');
+    const lineSpan = document.getElementById('lineCount');
+    const paraSpan = document.getElementById('paraCount');
+    const statusMsg = document.getElementById('statusMsg');
+    const themeToggle = document.getElementById('themeToggle');
+    const helpBtn = document.getElementById('helpBtn');
+    const templatesBtn = document.getElementById('templatesBtn');
+    const newBtn = document.getElementById('newBtn');
+    const openBtn = document.getElementById('openBtn');
+    const saveMdBtn = document.getElementById('saveMdBtn');
+    const saveHtmlBtn = document.getElementById('saveHtmlBtn');
+    const boldBtn = document.getElementById('boldBtn');
+    const italicBtn = document.getElementById('italicBtn');
+    const codeBtn = document.getElementById('codeBtn');
+    const linkBtn = document.getElementById('linkBtn');
+    const imgBtn = document.getElementById('imgBtn');
+    const ulBtn = document.getElementById('ulBtn');
+    const olBtn = document.getElementById('olBtn');
+    const h1Btn = document.getElementById('h1Btn');
+    const h2Btn = document.getElementById('h2Btn');
+    const searchBtn = document.getElementById('searchBtn');
+    const replaceBtn = document.getElementById('replaceBtn');
+    const exportPdfBtn = document.getElementById('exportPdfBtn');
+    const pdfExportBtn = document.getElementById('pdfExportBtn');
+    const fileInput = document.getElementById('fileInput');
+    const templateModal = document.getElementById('templateModal');
+    const helpModal = document.getElementById('helpModal');
+    const closeTemplate = document.getElementById('closeTemplate');
+    const closeHelp = document.getElementById('closeHelp');
+    const symbolBtns = document.querySelectorAll('.symbol-btn');
+    const addCustomSym = document.getElementById('addCustomSym');
+    const customSymbol = document.getElementById('customSymbol');
+
+    // PDF options
+    const pdfSize = document.getElementById('pdfSize');
+    const pdfOrientation = document.getElementById('pdfOrientation');
+    const pdfMargin = document.getElementById('pdfMargin');
+    const pdfScale = document.getElementById('pdfScale');
+    const pdfBackground = document.getElementById('pdfBackground');
+
+    // ----- STATE -----
+    let lastEditorValue = '';
+    let autosaveTimer = null;
+
+    // ----- INITIAL CONTENT (rich sample) -----
+    const sample = `# ॐ नमः शिवाय
+
+This **professional** document demonstrates **unlimited features**:
+
+## ✨ Markdown + Hindi + Math + Code
+- **Bold** with \`**\` or \`__\`
+- *Italic* with \`*\` or \`_\`
+- \`Inline code\` and \`\`\`code blocks\`\`\` with syntax highlighting
+- हिन्दी समर्थन: **भारत**, *देवनागरी*, \`संस्कृत मंत्र\`
+- Special symbols: ©®™✓★ ♠♣♥♦ «» ∑∏∫
+- **Math**: $E = mc^2$ and $$\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}$$
+- Table:
+| Feature | Status |
+|---------|--------|
+| Hindi   | ✅     |
+| PDF     | ⚡      |
+
+> ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यम् भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥
+
+\`\`\`javascript
+// Code with syntax highlight
+function greet() {
+  console.log("नमस्ते जी!");
+}
+\`\`\`
+
+Ready to generate highest quality PDF with all options.`;
+    if (!editor.value) editor.value = sample;
+
+    // ----- MARKED CONFIG (with lang prefix) -----
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+      highlight: (code, lang) => {
+        if (lang && hljs.getLanguage(lang)) {
+          return hljs.highlight(code, { language: lang }).value;
+        }
+        return hljs.highlightAuto(code).value;
+      }
+    });
+
+    // ----- RENDER PREVIEW with KaTeX and sanitization -----
+    function renderPreview() {
+      const raw = editor.value;
+      // render markdown -> html
+      let html = marked.parse(raw);
+      // sanitize for security (but allow styling)
+      html = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
+      preview.innerHTML = html;
+      // highlight code blocks
+      document.querySelectorAll('#preview pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+      // render math with KaTeX
+      renderMathInElement(preview, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false
+      });
+      updateStats();
+    }
+
+    // ----- UPDATE STATISTICS -----
+    function updateStats() {
+      const text = editor.value;
+      const words = text.match(/\b\w+\b/g)?.length || 0;
+      const charsNoSpace = text.replace(/\s+/g, '').length;
+      const charsSpace = text.length;
+      const lines = text.split(/\r?\n/).length;
+      const paras = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
+      wordSpan.innerText = words;
+      charNoSpace.innerText = charsNoSpace;
+      charSpace.innerText = charsSpace;
+      lineSpan.innerText = lines;
+      paraSpan.innerText = paras;
+    }
+
+    // ----- AUTO SAVE TO LOCALSTORAGE -----
+    function autosave() {
+      localStorage.setItem('pdfmaster_draft', editor.value);
+      statusMsg.innerText = 'Autosaved at ' + new Date().toLocaleTimeString();
+    }
+    editor.addEventListener('input', () => {
+      clearTimeout(autosaveTimer);
+      autosaveTimer = setTimeout(() => {
+        renderPreview();
+        autosave();
+      }, 400);
+    });
+
+    // Load from localstorage if any
+    const draft = localStorage.getItem('pdfmaster_draft');
+    if (draft) editor.value = draft;
+    renderPreview();
+
+    // ----- TOOLBAR ACTIONS (insert markdown) -----
+    function insertAround(prefix, suffix = '') {
+      const start = editor.selectionStart;
+      const end = editor.selectionEnd;
+      const text = editor.value;
+      const selected = text.substring(start, end);
+      const replacement = prefix + selected + suffix;
+      editor.value = text.substring(0, start) + replacement + text.substring(end);
+      editor.selectionStart = editor.selectionEnd = start + replacement.length;
+      editor.focus();
+      renderPreview();
+    }
+
+    boldBtn.onclick = () => insertAround('**', '**');
+    italicBtn.onclick = () => insertAround('*', '*');
+    codeBtn.onclick = () => insertAround('`', '`');
+    linkBtn.onclick = () => insertAround('[', '](url)');
+    imgBtn.onclick = () => insertAround('![alt](', ')');
+    ulBtn.onclick = () => insertAround('\n- ', '');
+    olBtn.onclick = () => insertAround('\n1. ', '');
+    h1Btn.onclick = () => insertAround('# ', '');
+    h2Btn.onclick = () => insertAround('## ', '');
+
+    // symbol buttons
+    symbolBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        insertAround(btn.getAttribute('data-sym'), '');
+      });
+    });
+    addCustomSym.onclick = () => {
+      if (customSymbol.value) insertAround(customSymbol.value, '');
+    };
+
+    // search / replace simple
+    searchBtn.onclick = () => {
+      const term = prompt('Search for:');
+      if (!term) return;
+      const pos = editor.value.indexOf(term);
+      if (pos >= 0) {
+        editor.focus();
+        editor.setSelectionRange(pos, pos + term.length);
+      } else alert('Not found');
+    };
+    replaceBtn.onclick = () => {
+      const search = prompt('Find:');
+      if (!search) return;
+      const replace = prompt('Replace with:');
+      if (replace === null) return;
+      editor.value = editor.value.split(search).join(replace);
+      renderPreview();
+    };
+
+    // New
+    newBtn.onclick = () => {
+      if (confirm('Clear editor? unsaved changes lost.')) {
+        editor.value = '';
+        renderPreview();
+      }
+    };
+
+    // Open file
+    openBtn.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (ev) => {
+        editor.value = ev.target.result;
+        renderPreview();
+        statusMsg.innerText = `Loaded: ${file.name}`;
+      };
+      reader.readAsText(file);
+    };
+
+    // Save as markdown
+    saveMdBtn.onclick = () => {
+      const blob = new Blob([editor.value], { type: 'text/markdown' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'document.md';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    // Save as HTML (rendered)
+    saveHtmlBtn.onclick = () => {
+      const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Document</title><style>body { font-family: Inter, 'Noto Sans Devanagari'; padding:2rem; }</style></head><body>${preview.innerHTML}</body></html>`;
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'document.html';
+      a.click();
+      URL.revokeObjectURL(url);
+    };
+
+    // PDF GENERATION (with options)
+    async function generatePDF() {
+      statusMsg.innerText = '⏳ Generating PDF...';
+      const opt = {
+        margin: parseFloat(pdfMargin.value) || 0.5,
+        filename: 'converted_document.pdf',
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: { scale: parseFloat(pdfScale.value) || 2, letterRendering: true, useCORS: true, logging: false, backgroundColor: pdfBackground.checked ? null : '#ffffff' },
+        jsPDF: { unit: 'in', format: pdfSize.value, orientation: pdfOrientation.value }
+      };
+      const element = preview.cloneNode(true);
+      element.style.padding = '2rem';
+      element.style.background = pdfBackground.checked ? getComputedStyle(document.body).getPropertyValue('--panel-bg') : '#ffffff';
+      element.style.color = '#000';
+      element.style.fontFamily = "'Inter', 'Noto Sans Devanagari', sans-serif";
+      element.style.position = 'absolute';
+      element.style.left = '-9999px';
+      document.body.appendChild(element);
+
+      try {
+        await html2pdf().from(element).set(opt).save();
+        statusMsg.innerText = '✅ PDF exported successfully';
+      } catch (err) {
+        statusMsg.innerText = '❌ PDF error: ' + err.message;
+        console.error(err);
+      } finally {
+        element.remove();
+      }
+    }
+
+    exportPdfBtn.onclick = generatePDF;
+    pdfExportBtn.onclick = generatePDF;
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', (e) => {
+      if (e.ctrlKey || e.metaKey) {
+        if (e.key === 'b') { e.preventDefault(); boldBtn.click(); }
+        if (e.key === 'i') { e.preventDefault(); italicBtn.click(); }
+        if (e.key === 'k') { e.preventDefault(); linkBtn.click(); }
+        if (e.key === 's') { e.preventDefault(); saveMdBtn.click(); }
+        if (e.key === 'o') { e.preventDefault(); openBtn.click(); }
+        if (e.key === 'Enter') { e.preventDefault(); generatePDF(); }
+        if (e.key === 'Shift' && e.code === 'KeyC') { e.preventDefault(); codeBtn.click(); }
+      }
+    });
+
+    // Theme toggle
+    themeToggle.onclick = () => {
+      document.body.classList.toggle('dark');
+      const icon = themeToggle.querySelector('i');
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
+    };
+
+    // Modals
+    helpBtn.onclick = () => helpModal.classList.add('active');
+    closeHelp.onclick = () => helpModal.classList.remove('active');
+    templatesBtn.onclick = () => templateModal.classList.add('active');
+    closeTemplate.onclick = () => templateModal.classList.remove('active');
+    document.querySelectorAll('[data-template]').forEach(btn => {
+      btn.onclick = (e) => {
+        const t = e.target.getAttribute('data-template');
+        if (t === 'mantra') editor.value = `# ॐ भूर्भुवः स्वः\nतत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि।\nधियो यो नः प्रचोदयात् ॥\n\n**गायत्री मंत्र** हिन्दी में`;
+        if (t === 'report') editor.value = `# Quarterly Report\n\n- Revenue increased **20%**\n- New users: *5,000*`;
+        if (t === 'letter') editor.value = `# Formal Letter\n\nDear Sir/Madam,\n\n...`;
+        if (t === 'resume') editor.value = `# John Doe\n\n## Experience\n- **Company** (2019–present)`;
+        renderPreview();
+        templateModal.classList.remove('active');
+      };
+    });
+
+    // Click outside to close modal
+    window.onclick = (e) => {
+      if (e.target === helpModal) helpModal.classList.remove('active');
+      if (e.target === templateModal) templateModal.classList.remove('active');
+    };
+  })();
+</script>
+</body>
+</html>
