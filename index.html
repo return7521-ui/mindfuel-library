@@ -591,7 +591,6 @@
     const pdfBackground = document.getElementById('pdfBackground');
 
     // ----- STATE -----
-    let lastEditorValue = '';
     let autosaveTimer = null;
 
     // ----- INITIAL CONTENT (rich sample) -----
@@ -791,40 +790,70 @@ Ready to generate highest quality PDF with all options.`;
       URL.revokeObjectURL(url);
     };
 
-    // ----- PDF GENERATION (with options and light theme override) -----
+    // ----- PDF GENERATION (robust, with forced light theme and dimensions) -----
     async function generatePDF() {
       statusMsg.innerText = '⏳ Generating PDF...';
+
+      // Create a dedicated container for PDF export
+      const pdfContainer = document.createElement('div');
+      pdfContainer.id = 'pdf-export-container';
       
-      // Clone preview and prepare for PDF
-      const element = preview.cloneNode(true);
+      // Copy the rendered HTML from preview (including syntax highlighting and math)
+      pdfContainer.innerHTML = preview.innerHTML;
       
-      // Force light theme by overriding CSS variables on the clone
-      element.style.setProperty('--text-primary', '#000000');
-      element.style.setProperty('--text-secondary', '#1a2639');
-      element.style.setProperty('--border-light', '#d4e0ec');
-      element.style.setProperty('--accent', '#1f5f9e');
-      element.style.setProperty('--accent-light', '#e3f0ff');
-      element.style.setProperty('--panel-bg', '#ffffff');
-      element.style.setProperty('--code-bg', '#eaf1fb');
-      element.style.setProperty('--toolbar-bg', '#f9fcff');
+      // Apply comprehensive light theme via inline style block and direct styles
+      const style = document.createElement('style');
+      style.textContent = `
+        /* Reset all colors to light theme */
+        * {
+          color: #000000 !important;
+          background-color: transparent !important;
+        }
+        body, div, p, h1, h2, h3, h4, h5, h6, blockquote, pre, code, table, th, td, li, a, span {
+          background: none !important;
+        }
+        body {
+          background: #ffffff !important;
+          color: #000000 !important;
+          font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
+          line-height: 1.6 !important;
+          padding: 2rem !important;
+          margin: 0 !important;
+        }
+        pre, code {
+          background: #f5f5f5 !important;
+          color: #000000 !important;
+        }
+        blockquote {
+          background: #f9f9f9 !important;
+          border-left: 5px solid #1f5f9e !important;
+        }
+        table, th, td {
+          border: 1px solid #ccc !important;
+        }
+        a {
+          color: #1f5f9e !important;
+        }
+        /* Keep syntax highlighting colors readable (adjust if needed) */
+        .hljs {
+          background: #f5f5f5 !important;
+          color: #000 !important;
+        }
+      `;
+      pdfContainer.appendChild(style);
       
-      // Set explicit background and text color (fallback)
-      element.style.background = pdfBackground.checked ? '#ffffff' : '#ffffff';
-      element.style.color = '#000000';
+      // Also set inline style on container to ensure background
+      pdfContainer.style.background = '#ffffff';
+      pdfContainer.style.color = '#000000';
+      pdfContainer.style.padding = '2rem';
+      pdfContainer.style.fontFamily = "'Inter', 'Noto Sans Devanagari', sans-serif";
+      pdfContainer.style.position = 'absolute';
+      pdfContainer.style.left = '-9999px';
+      pdfContainer.style.top = '0';
+      pdfContainer.style.width = '800px';  // fixed width to ensure proper layout
+      pdfContainer.style.maxWidth = '100%';
       
-      // Layout styling
-      element.style.padding = '2rem';
-      element.style.margin = '0';
-      element.style.boxSizing = 'border-box';
-      element.style.position = 'absolute';
-      element.style.left = '-9999px';
-      element.style.top = '0';
-      element.style.width = '800px'; // fixed width for consistent capture
-      element.style.maxWidth = '100%';
-      element.style.overflow = 'visible';
-      element.style.fontFamily = "'Inter', 'Noto Sans Devanagari', sans-serif";
-      
-      document.body.appendChild(element);
+      document.body.appendChild(pdfContainer);
 
       // PDF options
       const opt = {
@@ -836,19 +865,19 @@ Ready to generate highest quality PDF with all options.`;
           letterRendering: true, 
           useCORS: true, 
           logging: false,
-          backgroundColor: pdfBackground.checked ? '#ffffff' : '#ffffff'
+          backgroundColor: '#ffffff'
         },
         jsPDF: { unit: 'in', format: pdfSize.value, orientation: pdfOrientation.value }
       };
 
       try {
-        await html2pdf().from(element).set(opt).save();
+        await html2pdf().from(pdfContainer).set(opt).save();
         statusMsg.innerText = '✅ PDF exported successfully';
       } catch (err) {
         statusMsg.innerText = '❌ PDF error: ' + err.message;
         console.error(err);
       } finally {
-        element.remove();
+        pdfContainer.remove();
       }
     }
 
