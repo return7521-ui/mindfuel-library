@@ -1,1975 +1,396 @@
 <!DOCTYPE html>
-<html lang="en" class="holi-2026-root">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
-    <meta name="theme-color" content="#030005">
-    
-    <title>HOLI 2026 | The Symphony of Splendor</title>
-    <meta name="description" content="A once-in-a-lifetime digital celebration of Holi 2026. Explore the mythology, the chaos, and the colors.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Architect | Precision Document Synthesis</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Rakkas&family=Syne:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        /* ==========================================================================
-           CORE VARIABLE ENGINE & PHENOMENOLOGY SYSTEM
-           ========================================================================== */
         :root {
-            /* Hyper-Saturated Holi 2026 Pigments */
-            --pigment-radium: #FF0055;
-            --pigment-cyan: #00F0FF;
-            --pigment-saffron: #FF6D00;
-            --pigment-lime: #39FF14;
-            --pigment-gulal: #D90429;
-            --pigment-jamun: #7209B7;
-            --pigment-gold: #FFD700;
-
-            /* Adaptive Canvas Backgrounds */
-            --canvas-void: #030005;
-            --canvas-surface: #0a0510;
-            --canvas-overlay: rgba(3, 0, 5, 0.75);
+            /* Industrial Precision Palette */
+            --accent-primary: #007AFF;
+            --accent-glow: rgba(0, 122, 255, 0.4);
+            --bg-deep: #050505;
+            --bg-surface: #111111;
+            --bg-card: #181818;
+            --text-main: #FFFFFF;
+            --text-muted: #888888;
+            --border-thin: rgba(255, 255, 255, 0.1);
             
-            /* Typography Variables */
-            --font-display: 'Rakkas', serif;
-            --font-kinetic: 'Syne', sans-serif;
-            --font-body: 'DM Sans', sans-serif;
-
-            /* Fluid Typography Engine (Scales perfectly from 320px to 2560px) */
-            --text-mega: clamp(4rem, 10vw + 1rem, 15rem);
-            --text-h1: clamp(2.5rem, 5vw + 1rem, 6rem);
-            --text-h2: clamp(2rem, 4vw + 1rem, 4rem);
-            --text-h3: clamp(1.5rem, 2.5vw + 0.5rem, 2.5rem);
-            --text-p: clamp(1rem, 1.2vw + 0.3rem, 1.25rem);
-            --text-micro: clamp(0.75rem, 0.8vw + 0.2rem, 0.9rem);
-
-            /* Motion & Physics */
-            --ease-elastic: cubic-bezier(0.68, -0.6, 0.32, 1.6);
-            --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
-            --ease-cinematic: cubic-bezier(0.87, 0, 0.13, 1);
-            --transition-snap: 0.2s var(--ease-smooth);
-            --transition-flow: 0.6s var(--ease-smooth);
-            --transition-epic: 1.2s var(--ease-cinematic);
-
-            /* Spatial System */
-            --space-xs: clamp(0.5rem, 1vw, 1rem);
-            --space-sm: clamp(1rem, 2vw, 2rem);
-            --space-md: clamp(2rem, 4vw, 4rem);
-            --space-lg: clamp(4rem, 8vw, 8rem);
-            --space-xl: clamp(8rem, 15vw, 15rem);
-
-            /* Optical Effects */
-            --blur-glass: blur(24px);
-            --glow-radium: 0 0 30px rgba(255, 0, 85, 0.6), 0 0 80px rgba(255, 0, 85, 0.3);
-            --glow-cyan: 0 0 30px rgba(0, 240, 255, 0.6), 0 0 80px rgba(0, 240, 255, 0.3);
-            --glow-jamun: 0 0 40px rgba(114, 9, 183, 0.6), 0 0 100px rgba(114, 9, 183, 0.4);
+            /* Typography Scale */
+            --font-brand: 'Syne', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-ui: 'Inter', sans-serif;
+            
+            --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+            --transition: 0.4s var(--ease-cinematic);
         }
 
-        /* ==========================================================================
-           RESET, SELECTION & ACCESSIBILITY
-           ========================================================================== */
-        *, *::before, *::after {
+        * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        ::selection {
-            background-color: var(--pigment-radium);
-            color: #fff;
-            text-shadow: none;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            background-color: var(--canvas-void);
+            outline: none;
         }
 
         body {
-            font-family: var(--font-body);
-            color: #ffffff;
-            background-color: var(--canvas-void);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: var(--font-ui);
             overflow-x: hidden;
-            width: 100vw;
-            /* Hide scrollbar strictly for the cinematic feel, will implement custom visual scroll later */
-            scrollbar-width: none; 
-            -ms-overflow-style: none;
+            line-height: 1.6;
         }
-        body::-webkit-scrollbar { display: none; }
 
-        /* Custom Kinetic Cursor */
-        body { cursor: none; } /* Hide default cursor to replace with custom canvas cursor in Part 5 */
-        a, button, [role="button"] { cursor: none; }
+        /* Custom Scrollbar for the Architect */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-deep); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
 
         /* ==========================================================================
-           PRELOADER: THE COLOR GATEWAY
-           (Requires user interaction to unlock HTML5 AudioContext)
+           1. LAYOUT ARCHITECTURE
            ========================================================================== */
-        #gatekeeper {
-            position: fixed;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            background: var(--canvas-void);
-            z-index: 999999;
+        .app-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        @media (max-width: 1024px) {
+            .app-container { grid-template-columns: 1fr; overflow-y: auto; height: auto; }
+        }
+
+        /* ==========================================================================
+           2. EDITOR INTERFACE (LEFT)
+           ========================================================================== */
+        .editor-pane {
+            padding: 40px;
+            background: var(--bg-surface);
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity var(--transition-epic), visibility var(--transition-epic);
+            border-right: 1px solid var(--border-thin);
+            height: 100vh;
         }
 
-        .gate-title {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h3);
-            font-weight: 800;
-            letter-spacing: 0.5em;
-            text-transform: uppercase;
-            color: #fff;
-            margin-bottom: var(--space-md);
-            opacity: 0.5;
-            animation: pulse-slow 3s infinite alternate;
-        }
-
-        .ignite-btn {
-            appearance: none;
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 100px;
-            padding: var(--space-sm) var(--space-md);
-            font-family: var(--font-display);
-            font-size: var(--text-h2);
-            color: #fff;
-            position: relative;
-            overflow: hidden;
-            transition: var(--transition-flow);
-        }
-
-        .ignite-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 0; height: 0;
-            background: radial-gradient(circle, var(--pigment-radium), var(--pigment-jamun));
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s var(--ease-elastic), height 0.6s var(--ease-elastic);
-            z-index: -1;
-        }
-
-        .ignite-btn:hover {
-            border-color: transparent;
-            transform: scale(1.05);
-            letter-spacing: 2px;
-            box-shadow: var(--glow-jamun);
-        }
-
-        .ignite-btn:hover::before {
-            width: 300px; height: 300px;
-        }
-
-        .headphone-notice {
-            margin-top: var(--space-md);
-            font-family: var(--font-body);
-            font-size: var(--text-micro);
-            color: var(--pigment-cyan);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            opacity: 0.7;
-        }
-
-        @keyframes pulse-slow {
-            0% { opacity: 0.3; filter: blur(2px); }
-            100% { opacity: 0.8; filter: blur(0px); text-shadow: 0 0 20px rgba(255,255,255,0.5); }
-        }
-
-        /* ==========================================================================
-           AUDIO ENGINE UI (FIXED NAVBAR)
-           ========================================================================== */
-        .audio-nav {
-            position: fixed;
-            top: 0; left: 0; width: 100vw;
-            padding: var(--space-sm) var(--space-md);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 9000;
-            pointer-events: none; /* Let clicks pass through empty space */
-        }
-
-        .audio-nav > * { pointer-events: auto; }
-
-        .logo-mark {
-            font-family: var(--font-display);
-            font-size: var(--text-h3);
-            color: #fff;
-            text-decoration: none;
-            mix-blend-mode: exclusion;
-        }
-
-        .sound-toggle {
+        .header-brand {
             display: flex;
             align-items: center;
             gap: 15px;
-            background: var(--canvas-overlay);
-            backdrop-filter: var(--blur-glass);
-            border: 1px solid var(--glass-border);
-            padding: 10px 20px;
-            border-radius: 50px;
-            color: #fff;
-            font-family: var(--font-kinetic);
-            font-size: var(--text-micro);
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: var(--transition-snap);
+            margin-bottom: 30px;
         }
 
-        .sound-toggle:hover {
-            background: rgba(255,255,255,0.1);
-            box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        }
-
-        .visualizer {
+        .logo-box {
+            width: 40px; height: 40px;
+            background: var(--accent-primary);
+            border-radius: 8px;
             display: flex;
-            align-items: flex-end;
-            gap: 3px;
-            height: 15px;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px var(--accent-glow);
         }
 
-        .vis-bar {
-            width: 3px;
-            background: var(--pigment-cyan);
-            border-radius: 3px;
-            transition: height 0.1s ease;
+        .brand-title {
+            font-family: var(--font-brand);
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .vis-bar:nth-child(1) { height: 30%; animation: vis 0.5s infinite alternate; }
-        .vis-bar:nth-child(2) { height: 100%; animation: vis 0.7s infinite alternate-reverse; }
-        .vis-bar:nth-child(3) { height: 60%; animation: vis 0.6s infinite alternate; }
-        .vis-bar:nth-child(4) { height: 80%; animation: vis 0.4s infinite alternate-reverse; }
-
-        .sound-toggle.muted .vis-bar {
-            height: 10% !important;
-            animation: none !important;
-            background: var(--text-muted);
+        .editor-container {
+            flex-grow: 1;
+            position: relative;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-thin);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        @keyframes vis {
-            0% { height: 20%; }
-            100% { height: 100%; }
+        /* The High-Performance Textarea */
+        #textInput {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border: none;
+            padding: 25px;
+            color: #ccc;
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            resize: none;
+            line-height: 1.8;
+            scrollbar-width: none;
         }
+
+        /* Formatting Toolbar */
+        .toolbar {
+            background: #202020;
+            padding: 10px 20px;
+            display: flex;
+            gap: 20px;
+            border-bottom: 1px solid var(--border-thin);
+        }
+
+        .tool-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+        }
+
+        .tool-btn:hover { color: #fff; transform: translateY(-2px); }
 
         /* ==========================================================================
-           SECTION 1: KINETIC HERO CANVAS
+           3. PREVIEW & SYNTHESIS PANE (RIGHT)
            ========================================================================== */
-        .hero-canvas {
-            position: relative;
-            width: 100vw;
+        .preview-pane {
+            padding: 40px;
+            background: var(--bg-deep);
+            display: flex;
+            flex-direction: column;
             height: 100vh;
+        }
+
+        .preview-header {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* The Virtual PDF Sheet */
+        .pdf-canvas-container {
+            flex-grow: 1;
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow-y: auto;
+            padding: 40px;
+            display: flex;
             justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            /* Subtly textured background */
-            background-image: radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
         }
 
-        /* Dynamic Fluid Blobs acting as background powder */
-        .fluid-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.5;
-            mix-blend-mode: screen;
-            animation: float-orb 20s infinite alternate cubic-bezier(0.45, 0.05, 0.55, 0.95);
-            z-index: 0;
-            pointer-events: none;
+        .pdf-page {
+            width: 100%;
+            max-width: 595px; /* A4 Ratio */
+            min-height: 842px;
+            background: white;
+            color: #333;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+            font-family: 'Times New Roman', serif;
+            word-wrap: break-word;
+            white-space: pre-wrap;
         }
 
-        .orb-1 { width: 50vw; height: 50vw; background: var(--pigment-radium); top: -10%; left: -10%; }
-        .orb-2 { width: 40vw; height: 40vw; background: var(--pigment-cyan); bottom: -10%; right: -5%; animation-duration: 25s; animation-direction: alternate-reverse; }
-        .orb-3 { width: 35vw; height: 35vw; background: var(--pigment-saffron); top: 40%; left: 40%; animation-duration: 30s; }
+        /* PDF Styling Elements (Rich Text) */
+        .pdf-page b, .pdf-page strong { font-weight: 700; color: #000; }
+        .pdf-page i, .pdf-page em { font-style: italic; }
+        .pdf-page h1 { font-size: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid #eee; }
+        .pdf-page h2 { font-size: 1.8rem; margin-top: 1.5rem; color: #444; }
+        .pdf-page ul { margin-left: 20px; margin-bottom: 15px; }
 
-        @keyframes float-orb {
-            0% { transform: translate(0, 0) scale(1) skew(0deg); }
-            50% { transform: translate(10vw, -10vh) scale(1.2) skew(10deg); opacity: 0.8; }
-            100% { transform: translate(-5vw, 15vh) scale(0.9) skew(-5deg); opacity: 0.4; }
-        }
-
-        /* Typography Container */
-        .hero-typography {
-            position: relative;
-            z-index: 10;
-            text-align: center;
+        /* ==========================================================================
+           4. ACTION CONTROLS
+           ========================================================================== */
+        .actions-row {
+            margin-top: 30px;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            gap: 15px;
         }
 
-        .year-badge {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h3);
-            font-weight: 600;
-            letter-spacing: 0.2em;
-            color: var(--pigment-gold);
-            margin-bottom: -1vw; /* Tight tracking with main title */
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fade-up 1s var(--ease-cinematic) forwards 0.5s;
-        }
-
-        /* Massive Distorted Title */
-        .massive-title {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-mega);
-            font-weight: 800;
-            line-height: 0.8;
+        .btn-main {
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-family: var(--font-brand);
+            font-size: 0.9rem;
             text-transform: uppercase;
-            color: transparent;
-            -webkit-text-stroke: 2px rgba(255,255,255,0.2);
-            position: relative;
-            opacity: 0;
-            transform: scale(0.9);
-            animation: hero-reveal 1.5s var(--ease-cinematic) forwards 0.8s;
-        }
-
-        /* Layered text for chromatic aberration effect */
-        .massive-title::before, .massive-title::after {
-            content: 'HOLI';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            color: transparent;
-            pointer-events: none;
-        }
-
-        .massive-title::before {
-            -webkit-text-stroke: 2px var(--pigment-radium);
-            transform: translate(-4px, -4px);
-            z-index: -1;
-            animation: glitch-anim-1 4s infinite linear alternate-reverse;
-        }
-
-        .massive-title::after {
-            -webkit-text-stroke: 2px var(--pigment-cyan);
-            transform: translate(4px, 4px);
-            z-index: -2;
-            animation: glitch-anim-2 5s infinite linear alternate-reverse;
-        }
-
-        .hero-subtitle {
-            font-family: var(--font-display);
-            font-size: var(--text-h2);
-            color: #fff;
-            margin-top: var(--space-md);
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fade-up 1s var(--ease-cinematic) forwards 1.2s;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-
-        .hero-scroll-indicator {
-            position: absolute;
-            bottom: var(--space-md);
-            left: 50%;
-            transform: translateX(-50%);
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: var(--transition);
             display: flex;
-            flex-direction: column;
             align-items: center;
             gap: 10px;
-            opacity: 0;
-            animation: fade-up 1s var(--ease-cinematic) forwards 2s;
-            z-index: 10;
         }
 
-        .scroll-text {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-micro);
-            letter-spacing: 0.2em;
+        .btn-download {
+            background: var(--accent-primary);
+            color: #fff;
+            border: none;
+            box-shadow: 0 10px 20px var(--accent-glow);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 30px var(--accent-glow);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--border-thin);
+            color: #fff;
+        }
+
+        .btn-outline:hover { background: rgba(255,255,255,0.05); }
+
+        /* ==========================================================================
+           5. CREATOR SIGNATURE (SHASHANK_404_)
+           ========================================================================== */
+        .creator-tag {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
             color: var(--text-muted);
-            text-transform: uppercase;
+            letter-spacing: 1px;
+            z-index: 100;
         }
 
-        .scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, var(--pigment-radium), transparent);
-            animation: scroll-stretch 2s infinite var(--ease-cinematic);
-            transform-origin: top;
-        }
-
-        /* Animations */
-        @keyframes fade-up {
-            to { opacity: 1; transform: translateY(0) scale(1); }
-        }
-
-        @keyframes hero-reveal {
-            to { opacity: 1; transform: scale(1); -webkit-text-stroke-color: #fff; }
-        }
-
-        @keyframes scroll-stretch {
-            0% { transform: scaleY(0); opacity: 0; }
-            50% { transform: scaleY(1); opacity: 1; }
-            100% { transform: scaleY(1) translateY(100%); opacity: 0; }
-        }
-
-        @keyframes glitch-anim-1 {
-            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(-4px, -4px); }
-            20% { clip-path: inset(20% 0 80% 0); transform: translate(4px, -2px); }
-            40% { clip-path: inset(60% 0 10% 0); transform: translate(-2px, 4px); }
-            60% { clip-path: inset(10% 0 50% 0); transform: translate(2px, -4px); }
-            80% { clip-path: inset(80% 0 5% 0); transform: translate(-4px, 2px); }
-        }
-
-        @keyframes glitch-anim-2 {
-            0%, 100% { clip-path: inset(0 0 0 0); transform: translate(4px, 4px); }
-            25% { clip-path: inset(40% 0 40% 0); transform: translate(-4px, 2px); }
-            50% { clip-path: inset(80% 0 10% 0); transform: translate(2px, -4px); }
-            75% { clip-path: inset(10% 0 70% 0); transform: translate(-2px, 4px); }
+        .creator-tag a {
+            color: var(--accent-primary);
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
 
-    <audio id="audio-bg" loop preload="auto">
-        <source src="https://assets.mixkit.co/music/preview/mixkit-tech-house-vibes-130.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="audio-splat" preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-water-splash-1311.mp3" type="audio/mpeg">
-    </audio>
-    <audio id="audio-whoosh" preload="auto">
-        <source src="https://assets.mixkit.co/sfx/preview/mixkit-fast-rocket-whoosh-1714.mp3" type="audio/mpeg">
-    </audio>
+    <div class="app-container">
+        <section class="editor-pane">
+            <header class="header-brand">
+                <div class="logo-box"><i class="fa-solid fa-file-pdf"></i></div>
+                <h1 class="brand-title">Architect</h1>
+            </header>
 
-    <div id="gatekeeper">
-        <div class="gate-title">System Initialization</div>
-        <button class="ignite-btn" id="btn-ignite">Ignite the Canvas</button>
-        <div class="headphone-notice">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1v-4h3v2z"></path><path d="M3 19a2 2 0 0 0 2 2h1v-4H3v2z"></path></svg>
-            Headphones highly recommended for maximum sensory impact.
-        </div>
-    </div>
-
-    <nav class="audio-nav">
-        <a href="#" class="logo-mark">H'26</a>
-        <button class="sound-toggle" id="btn-sound">
-            <div class="visualizer">
-                <div class="vis-bar"></div><div class="vis-bar"></div><div class="vis-bar"></div><div class="vis-bar"></div>
-            </div>
-            <span id="sound-label">AUDIO ON</span>
-        </button>
-    </nav>
-
-    <main id="smooth-scroll-container">
-
-        <section class="hero-canvas" id="hero">
-            <div class="fluid-orb orb-1"></div>
-            <div class="fluid-orb orb-2"></div>
-            <div class="fluid-orb orb-3"></div>
-
-            <div class="hero-typography">
-                <div class="year-badge">2026</div>
-                <h1 class="massive-title">HOLI</h1>
-                <h2 class="hero-subtitle">The Canvas Awakens</h2>
+            <div class="editor-container">
+                <div class="toolbar">
+                    <button class="tool-btn" onclick="insertFormat('**', '**')"><b>B</b></button>
+                    <button class="tool-btn" onclick="insertFormat('*', '*')"><i>I</i></button>
+                    <button class="tool-btn" onclick="insertFormat('# ', '')">H1</button>
+                    <button class="tool-btn" onclick="insertFormat('- ', '')"><i class="fa-solid fa-list"></i></button>
+                    <button class="tool-btn" onclick="insertFormat('> ', '')"><i class="fa-solid fa-quote-left"></i></button>
+                </div>
+                <textarea id="textInput" placeholder="Start your document synthesis here... Use *italic* or **bold** symbols."></textarea>
             </div>
 
-            <div class="hero-scroll-indicator">
-                <span class="scroll-text">Descend</span>
-                <div class="scroll-line"></div>
+            <div class="actions-row">
+                <button class="btn-main btn-download" id="generatePdf">
+                    <i class="fa-solid fa-bolt"></i> Synthesize PDF
+                </button>
+                <button class="btn-main btn-outline" id="clearEditor">
+                    Clear Workspace
+                </button>
             </div>
         </section>
 
-              <style>
-        /* ==========================================================================
-           SECTION 2: THE LORE (MYTHOLOGY & CULTURAL CONTEXT)
-           ========================================================================== */
-        .lore-section {
-            position: relative;
-            width: 100vw;
-            min-height: 150vh; /* Extra height for scroll-reveal dynamics */
-            background-color: var(--canvas-surface);
-            padding: var(--space-xl) 0;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 5;
-        }
-
-        /* Abstract texture overlay */
-        .lore-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)" opacity="0.04"/></svg>');
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .lore-header {
-            position: relative;
-            z-index: 10;
-            text-align: center;
-            margin-bottom: var(--space-xl);
-            width: 100%;
-        }
-
-        .lore-kicker {
-            font-family: var(--font-kinetic);
-            color: var(--pigment-saffron);
-            font-size: var(--text-p);
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            margin-bottom: var(--space-xs);
-            display: block;
-        }
-
-        .lore-title {
-            font-family: var(--font-display);
-            font-size: var(--text-h1);
-            color: #fff;
-            line-height: 1;
-            text-transform: uppercase;
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Animated underline mimicking a brush stroke */
-        .lore-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 8px;
-            background: linear-gradient(90deg, var(--pigment-gulal), var(--pigment-saffron), transparent);
-            border-radius: 4px;
-            transform-origin: left;
-            transform: scaleX(0);
-            transition: transform 1s var(--ease-cinematic);
-        }
-
-        /* Class added via JS intersection observer */
-        .lore-title.in-view::after {
-            transform: scaleX(1);
-        }
-
-        .lore-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: var(--space-md);
-            width: 100%;
-            max-width: 1400px;
-            padding: 0 var(--space-md);
-            position: relative;
-            z-index: 10;
-        }
-
-        /* Lore Cards - Asymmetric Layout */
-        .lore-card {
-            background: rgba(10, 5, 16, 0.6);
-            backdrop-filter: var(--blur-glass);
-            -webkit-backdrop-filter: var(--blur-glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 2px; /* Brutalist edge */
-            padding: var(--space-lg);
-            position: relative;
-            transition: var(--transition-flow);
-            transform: translateY(100px);
-            opacity: 0;
-        }
-
-        .lore-card.in-view {
-            transform: translateY(0);
-            opacity: 1;
-        }
-
-        /* Visual structural lines */
-        .lore-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 3px;
-            height: 0;
-            transition: height 0.8s var(--ease-cinematic);
-        }
-
-        .lore-card:hover {
-            background: rgba(15, 8, 24, 0.9);
-            transform: translateY(-10px);
-        }
-
-        .lore-card:hover::before { height: 100%; }
-
-        /* Card 1: Holika Dahan (Fire) */
-        .lore-card.fire {
-            grid-column: 1 / 8; /* Spans left */
-            margin-bottom: var(--space-md);
-        }
-
-        .lore-card.fire::before { background: linear-gradient(to bottom, var(--pigment-saffron), var(--pigment-gulal)); }
-        
-        .lore-card.fire:hover {
-            box-shadow: -20px 20px 60px rgba(255, 109, 0, 0.15);
-            border-color: rgba(255, 109, 0, 0.2);
-        }
-
-        /* Card 2: Radha Krishna (Colors) */
-        .lore-card.color {
-            grid-column: 5 / 13; /* Spans right, overlapping grid vertically */
-            margin-top: calc(var(--space-xl) * -0.5); 
-        }
-
-        .lore-card.color::before { background: linear-gradient(to bottom, var(--pigment-radium), var(--pigment-cyan)); }
-
-        .lore-card.color:hover {
-            box-shadow: 20px 20px 60px rgba(0, 240, 255, 0.15);
-            border-color: rgba(0, 240, 255, 0.2);
-        }
-
-        /* Typography inside cards */
-        .card-icon {
-            width: 64px;
-            height: 64px;
-            margin-bottom: var(--space-md);
-            transition: var(--transition-snap);
-        }
-
-        .lore-card:hover .card-icon {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        .card-title {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h2);
-            color: #fff;
-            margin-bottom: var(--space-sm);
-            line-height: 1.1;
-        }
-
-        .lore-card.fire .card-title { text-shadow: 0 0 20px rgba(255, 109, 0, 0.5); }
-        .lore-card.color .card-title { text-shadow: 0 0 20px rgba(0, 240, 255, 0.5); }
-
-        .card-text {
-            font-family: var(--font-body);
-            font-size: var(--text-p);
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.8;
-            font-weight: 400;
-        }
-
-        /* Abstract glowing particles in the background of this section */
-        .lore-particle {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(40px);
-            opacity: 0.3;
-            z-index: 1;
-            animation: drift 15s infinite alternate linear;
-            pointer-events: none;
-        }
-
-        .lp-1 { width: 300px; height: 300px; background: var(--pigment-gulal); top: 10%; left: -5%; }
-        .lp-2 { width: 400px; height: 400px; background: var(--pigment-jamun); bottom: 20%; right: -10%; animation-duration: 22s; }
-
-        @keyframes drift {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(100px, 150px); }
-        }
-
-        /* Responsive Breakpoints for Lore Grid */
-        @media (max-width: 1024px) {
-            .lore-card.fire { grid-column: 1 / 10; }
-            .lore-card.color { grid-column: 3 / 13; margin-top: 0; }
-        }
-
-        @media (max-width: 768px) {
-            .lore-grid { display: flex; flex-direction: column; gap: var(--space-lg); }
-            .lore-card { transform: translateY(50px); } /* Less drastic movement on mobile */
-            .lore-card.color { margin-top: 0; }
-        }
-    </style>
-
-    <section class="lore-section" id="lore">
-        
-        <div class="lore-particle lp-1"></div>
-        <div class="lore-particle lp-2"></div>
-
-        <div class="lore-header observe-me">
-            <span class="lore-kicker">Origin Protocol</span>
-            <h2 class="lore-title">The Legend</h2>
-        </div>
-
-        <div class="lore-grid">
+        <section class="preview-pane">
+            <div class="preview-header">
+                <span style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: var(--text-muted);">Real-time Synthesis Preview</span>
+                <span id="charCount" style="color: var(--accent-primary); font-family: var(--font-mono);">0 chars</span>
+            </div>
             
-            <article class="lore-card fire observe-me" style="transition-delay: 0.1s;">
-                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="var(--pigment-saffron)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>
-                </svg>
-                <h3 class="card-title">Ignition: The Pyre of Truth</h3>
-                <p class="card-text">
-                    Before the explosion of colors, there is the silent roaring of the flame. <strong>Holika Dahan</strong> marks the eve of the festival. Ancient texts speak of the demon king Hiranyakashipu, blinded by arrogance, who demanded absolute worship. His son, Prahlad, refused, remaining fiercely devoted to Lord Vishnu.
-                    <br><br>
-                    In a lethal scheme, the king’s sister, Holika, who possessed a cloak immune to fire, dragged Prahlad into a blazing pyre. But the cosmos favors the righteous. A gust of wind transferred the cloak to Prahlad. Holika burned. The fire we light today is not just wood; it is the incineration of ego, malice, and winter's decay. We burn the past to paint the future.
-                </p>
-            </article>
-
-            <article class="lore-card color observe-me" style="transition-delay: 0.3s;">
-                <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="var(--pigment-cyan)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
-                </svg>
-                <h3 class="card-title">Saturation: The Divine Prank</h3>
-                <p class="card-text">
-                    The chaotic barrage of pigments? You can attribute that to a divine glitch in decorum. In the pastoral lands of Vrindavan, a young, blue-skinned Lord Krishna felt a twinge of jealousy over the fair complexion of his beloved Radha.
-                    <br><br>
-                    His mother, Yashoda, playfully suggested a brilliant hack: <em>"Just smear her face with whatever color you desire."</em> Krishna took the advice literally. Armed with vibrant hues, he and his friends ambushed Radha and the Gopis. What started as a mischievous prank evolved into a timeless tradition. Under the thick layer of neon Gulal, societal hierarchies crash. We are all rendered beautifully unrecognizable, equalized by the canvas of love.
-                </p>
-            </article>
-
-        </div>
-    </section>
-
-      <style>
-        /* ==========================================================================
-           SECTION 3: THE SQUAD MATRIX (HOLI PERSONALITIES)
-           ========================================================================== */
-        .squad-section {
-            position: relative;
-            width: 100vw;
-            padding: var(--space-xl) 0;
-            background-color: var(--canvas-void);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(57, 255, 20, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 85% 30%, rgba(114, 9, 183, 0.05) 0%, transparent 50%);
-            z-index: 5;
-        }
-
-        .squad-header {
-            text-align: center;
-            margin-bottom: var(--space-lg);
-            padding: 0 var(--space-md);
-        }
-
-        .squad-title {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h1);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: var(--space-xs);
-        }
-
-        .squad-subtitle {
-            font-family: var(--font-body);
-            font-size: var(--text-p);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .squad-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: var(--space-md);
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 var(--space-md);
-            perspective: 1500px; /* Crucial for 3D effect */
-        }
-
-        /* 3D Holographic Card Architecture */
-        .squad-card {
-            position: relative;
-            height: 450px;
-            transform-style: preserve-3d;
-            transition: transform 0.8s var(--ease-elastic);
-            cursor: none; /* Custom cursor takes over */
-            opacity: 0;
-            transform: translateY(50px) rotateX(10deg);
-        }
-
-        .squad-card.in-view {
-            opacity: 1;
-            transform: translateY(0) rotateX(0deg);
-        }
-
-        .squad-card:hover {
-            transform: translateY(-15px) rotateY(180deg);
-            z-index: 10;
-        }
-
-        .squad-face {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            border-radius: 12px;
-            padding: var(--space-md);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: rgba(10, 5, 15, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            backdrop-filter: var(--blur-glass);
-            overflow: hidden;
-        }
-
-        /* Front of the card */
-        .squad-front {
-            text-align: center;
-        }
-
-        .squad-icon {
-            font-size: 4rem;
-            margin-bottom: var(--space-sm);
-            filter: drop-shadow(0 0 15px rgba(255,255,255,0.2));
-            transition: transform 0.5s var(--ease-elastic);
-        }
-
-        .squad-card:hover .squad-icon {
-            transform: scale(1.2) translateY(-10px);
-        }
-
-        .squad-role {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h3);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: var(--space-xs);
-        }
-
-        .squad-hint {
-            font-family: var(--font-body);
-            font-size: var(--text-micro);
-            color: var(--pigment-cyan);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            opacity: 0.6;
-            animation: pulse-slow 2s infinite;
-        }
-
-        /* Back of the card (The Reveal) */
-        .squad-back {
-            transform: rotateY(180deg);
-            background: var(--canvas-surface);
-            text-align: left;
-            align-items: flex-start;
-            justify-content: flex-start;
-        }
-
-        /* Holographic overlay simulating foil cards */
-        .squad-back::before {
-            content: '';
-            position: absolute;
-            top: -50%; left: -50%;
-            width: 200%; height: 200%;
-            background: linear-gradient(
-                45deg, 
-                transparent 40%, 
-                rgba(255, 255, 255, 0.1) 45%, 
-                rgba(255, 255, 255, 0.4) 50%, 
-                rgba(255, 255, 255, 0.1) 55%, 
-                transparent 60%
-            );
-            mix-blend-mode: color-dodge;
-            transform: rotate(45deg) translateY(100%);
-            transition: transform 0.8s var(--ease-smooth);
-            pointer-events: none;
-            z-index: 5;
-        }
-
-        .squad-card:hover .squad-back::before {
-            transform: rotate(45deg) translateY(-100%);
-        }
-
-        .back-title {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h3);
-            margin-bottom: var(--space-xs);
-            line-height: 1.1;
-        }
-
-        .back-desc {
-            font-family: var(--font-body);
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-            margin-bottom: var(--space-sm);
-        }
-
-        /* RPG-Style Stat Bars */
-        .stat-group {
-            width: 100%;
-            margin-top: auto;
-        }
-
-        .stat-row {
-            margin-bottom: 10px;
-        }
-
-        .stat-label {
-            font-family: var(--font-kinetic);
-            font-size: 0.75rem;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .stat-bar-bg {
-            width: 100%;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .stat-fill {
-            height: 100%;
-            border-radius: 2px;
-            transform-origin: left;
-            transform: scaleX(0);
-            transition: transform 1s var(--ease-elastic) 0.3s;
-        }
-
-        .squad-card:hover .stat-fill {
-            transform: scaleX(1);
-        }
-
-        /* Specific Persona Color Mapping */
-        .persona-sniper .squad-front { border-bottom: 3px solid var(--pigment-cyan); }
-        .persona-sniper .squad-icon { color: var(--pigment-cyan); text-shadow: var(--glow-cyan); }
-        .persona-sniper .back-title { color: var(--pigment-cyan); }
-        .persona-sniper .stat-fill { background: var(--pigment-cyan); box-shadow: 0 0 10px var(--pigment-cyan); }
-
-        .persona-tank .squad-front { border-bottom: 3px solid var(--pigment-saffron); }
-        .persona-tank .squad-icon { color: var(--pigment-saffron); text-shadow: 0 0 20px var(--pigment-saffron); }
-        .persona-tank .back-title { color: var(--pigment-saffron); }
-        .persona-tank .stat-fill { background: var(--pigment-saffron); box-shadow: 0 0 10px var(--pigment-saffron); }
-
-        .persona-vip .squad-front { border-bottom: 3px solid var(--pigment-radium); }
-        .persona-vip .squad-icon { color: var(--pigment-radium); text-shadow: var(--glow-radium); }
-        .persona-vip .back-title { color: var(--pigment-radium); }
-        .persona-vip .stat-fill { background: var(--pigment-radium); box-shadow: 0 0 10px var(--pigment-radium); }
-
-        .persona-dj .squad-front { border-bottom: 3px solid var(--pigment-jamun); }
-        .persona-dj .squad-icon { color: var(--pigment-jamun); text-shadow: var(--glow-jamun); }
-        .persona-dj .back-title { color: var(--pigment-jamun); }
-        .persona-dj .stat-fill { background: var(--pigment-jamun); box-shadow: 0 0 10px var(--pigment-jamun); }
-
-        /* ==========================================================================
-           SECTION 4: THE ARSENAL (WEAPONRY & GEAR)
-           ========================================================================== */
-        .arsenal-section {
-            padding: var(--space-xl) 0;
-            background: var(--canvas-surface);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            position: relative;
-        }
-
-        .arsenal-header {
-            text-align: center;
-            margin-bottom: var(--space-lg);
-        }
-
-        .arsenal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--space-sm);
-            padding: 0 var(--space-md);
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .weapon-card {
-            background: var(--canvas-void);
-            padding: var(--space-md);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.03);
-            display: flex;
-            align-items: center;
-            gap: var(--space-sm);
-            transition: var(--transition-snap);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: translateX(-30px);
-        }
-
-        .weapon-card.in-view {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .weapon-card::after {
-            content: '';
-            position: absolute;
-            top: 0; right: 0;
-            width: 4px; height: 100%;
-            background: var(--pigment-gold);
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.4s var(--ease-elastic);
-        }
-
-        .weapon-card:hover {
-            background: rgba(20, 10, 30, 0.8);
-            transform: translateX(10px);
-            border-color: rgba(255,255,255,0.1);
-        }
-
-        .weapon-card:hover::after { transform: scaleY(1); }
-
-        .weapon-icon-wrap {
-            width: 80px; height: 80px;
-            flex-shrink: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255,255,255,0.02);
-            border-radius: 50%;
-            font-size: 2.5rem;
-            color: #fff;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-        }
-
-        .weapon-card:hover .weapon-icon-wrap {
-            color: var(--pigment-gold);
-            text-shadow: 0 0 15px var(--pigment-gold);
-            background: rgba(255, 215, 0, 0.1);
-        }
-
-        .weapon-info h4 {
-            font-family: var(--font-kinetic);
-            font-size: 1.25rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .weapon-info p {
-            font-family: var(--font-body);
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-    </style>
-
-    <section class="squad-section" id="squad">
-        <div class="squad-header observe-me">
-            <h2 class="squad-title">The Squad Matrix</h2>
-            <p class="squad-subtitle">Every battlefield has its archetypes. Scan the perimeter, identify the hostiles, and tag your allies. Which one are you?</p>
-        </div>
-
-        <div class="squad-grid">
-            
-            <div class="squad-card persona-sniper observe-me" style="transition-delay: 0.1s;">
-                <div class="squad-face squad-front">
-                    <i class="fa-solid fa-crosshairs squad-icon"></i>
-                    <h3 class="squad-role">The Aerial Sniper</h3>
-                    <span class="squad-hint">[ System Override: Hover ]</span>
-                </div>
-                <div class="squad-face squad-back">
-                    <h3 class="back-title">High Altitude Threat</h3>
-                    <p class="back-desc">Operates strictly from 3rd-floor balconies. Armed with 500 precision-filled water balloons. Never engages in ground combat. Lethal accuracy.</p>
-                    
-                    <div class="stat-group">
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Accuracy</span><span>98%</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 98%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Mobility</span><span>15%</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 15%;"></div></div>
-                        </div>
+            <div class="pdf-canvas-container">
+                <div class="pdf-page" id="pdfPreview">
                     </div>
-                </div>
             </div>
-
-            <div class="squad-card persona-tank observe-me" style="transition-delay: 0.2s;">
-                <div class="squad-face squad-front">
-                    <i class="fa-solid fa-biohazard squad-icon"></i>
-                    <h3 class="squad-role">The Juggernaut</h3>
-                    <span class="squad-hint">[ System Override: Hover ]</span>
-                </div>
-                <div class="squad-face squad-back">
-                    <h3 class="back-title">Unrecognizable Entity</h3>
-                    <p class="back-desc">Covered entirely in permanent silver paint, mud, and engine oil by 8:30 AM. Their own iPhone FaceID rejects them. Do not engage head-on.</p>
-                    
-                    <div class="stat-group">
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Destruction</span><span>MAX</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 100%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Identification</span><span>0%</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 5%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="squad-card persona-vip observe-me" style="transition-delay: 0.3s;">
-                <div class="squad-face squad-front">
-                    <i class="fa-regular fa-gem squad-icon"></i>
-                    <h3 class="squad-role">The V.I.P.</h3>
-                    <span class="squad-hint">[ System Override: Hover ]</span>
-                </div>
-                <div class="squad-face squad-back">
-                    <h3 class="back-title">The "Tika Only"</h3>
-                    <p class="back-desc">Arrives in fresh white designer clothes. Politely requests a small dot of organic dry color on the cheek. Inevitably ends up in the deepest mud pool by noon.</p>
-                    
-                    <div class="stat-group">
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Aesthetics (Initial)</span><span>100%</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 100%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Survival Rate</span><span>12%</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 12%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="squad-card persona-dj observe-me" style="transition-delay: 0.4s;">
-                <div class="squad-face squad-front">
-                    <i class="fa-solid fa-compact-disc squad-icon"></i>
-                    <h3 class="squad-role">The Vibe Director</h3>
-                    <span class="squad-hint">[ System Override: Hover ]</span>
-                </div>
-                <div class="squad-face squad-back">
-                    <h3 class="back-title">Acoustic Warfare</h3>
-                    <p class="back-desc">Controls the 2000W Bluetooth speaker. Will play "Rang Barse" and "Balam Pichkari" precisely 47 times in a row. Essential for maintaining troop morale.</p>
-                    
-                    <div class="stat-group">
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Volume Level</span><span>11/10</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 100%;"></div></div>
-                        </div>
-                        <div class="stat-row">
-                            <div class="stat-label"><span>Playlist Variety</span><span>5%</span></div>
-                            <div class="stat-bar-bg"><div class="stat-fill" style="width: 5%;"></div></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="arsenal-section" id="arsenal">
-        <div class="arsenal-header observe-me">
-            <h2 class="squad-title" style="font-size: var(--text-h2);">Festival Arsenal</h2>
-            <p class="squad-subtitle">Know your tools. Master your craft.</p>
-        </div>
-
-        <div class="arsenal-grid">
-            
-            <div class="weapon-card observe-me" style="transition-delay: 0.1s;">
-                <div class="weapon-icon-wrap"><i class="fa-solid fa-gun"></i></div>
-                <div class="weapon-info">
-                    <h4>The Pichkari MK-II</h4>
-                    <p>Standard issue assault mechanism. Reliable mid-range pressure. Requires frequent reloads at the base bucket.</p>
-                </div>
-            </div>
-
-            <div class="weapon-card observe-me" style="transition-delay: 0.2s;">
-                <div class="weapon-icon-wrap"><i class="fa-solid fa-bomb"></i></div>
-                <div class="weapon-info">
-                    <h4>Water Balloon (Cryo)</h4>
-                    <p>High-impact projectile. Psychological warfare. Best utilized with ice-cold water for maximum shock value.</p>
-                </div>
-            </div>
-
-            <div class="weapon-card observe-me" style="transition-delay: 0.3s;">
-                <div class="weapon-icon-wrap"><i class="fa-solid fa-cloud"></i></div>
-                <div class="weapon-info">
-                    <h4>Neon Gulal (Dry)</h4>
-                    <p>Area-of-effect (AoE) blinding powder. Culturally respectful, visually stunning. Highly effective in close-quarters combat.</p>
-                </div>
-            </div>
-
-            <div class="weapon-card observe-me" style="transition-delay: 0.4s;">
-                <div class="weapon-icon-wrap"><i class="fa-solid fa-bucket"></i></div>
-                <div class="weapon-info">
-                    <h4>The Sneak Bucket</h4>
-                    <p>Devastating close-range payload. Dumped from terraces or right behind the target. Unblockable damage.</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-     <style>
-        /* ==========================================================================
-           SECTION 5: SURVIVAL PROTOCOL (THE NEON TIMELINE)
-           ========================================================================== */
-        .protocol-section {
-            background-color: var(--canvas-void);
-            padding: var(--space-xl) 0;
-            position: relative;
-            z-index: 5;
-            overflow: hidden;
-            border-top: 2px dashed rgba(0, 240, 255, 0.3);
-        }
-
-        /* Tactical Grid Background */
-        .protocol-section::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
-            background-size: 40px 40px;
-            z-index: 0;
-            pointer-events: none;
-            transform: perspective(500px) rotateX(60deg) scale(2);
-            transform-origin: top center;
-            opacity: 0.4;
-        }
-
-        .protocol-header {
-            text-align: center;
-            margin-bottom: var(--space-xl);
-            position: relative;
-            z-index: 10;
-        }
-
-        .protocol-title {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h1);
-            color: #fff;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
-        }
-
-        .timeline-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            padding: 0 var(--space-md);
-            z-index: 10;
-        }
-
-        /* The Central Energy Spine */
-        .timeline-spine {
-            position: absolute;
-            top: 0; bottom: 0; left: 50%;
-            width: 4px;
-            background: linear-gradient(to bottom, var(--pigment-cyan), var(--pigment-lime), var(--pigment-radium));
-            transform: translateX(-50%);
-            border-radius: 4px;
-            box-shadow: 0 0 15px var(--pigment-cyan);
-        }
-
-        .protocol-step {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            margin-bottom: var(--space-lg);
-            position: relative;
-        }
-
-        .protocol-step:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-
-        /* The Glowing Node */
-        .protocol-node {
-            width: 24px;
-            height: 24px;
-            background: var(--canvas-void);
-            border: 4px solid var(--pigment-cyan);
-            border-radius: 50%;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 5;
-            box-shadow: 0 0 20px var(--pigment-cyan);
-            transition: var(--transition-snap);
-        }
-
-        .protocol-step:nth-child(2) .protocol-node { border-color: var(--pigment-lime); box-shadow: 0 0 20px var(--pigment-lime); }
-        .protocol-step:nth-child(3) .protocol-node { border-color: var(--pigment-saffron); box-shadow: 0 0 20px var(--pigment-saffron); }
-        .protocol-step:nth-child(4) .protocol-node { border-color: var(--pigment-radium); box-shadow: 0 0 20px var(--pigment-radium); }
-
-        .protocol-step:hover .protocol-node {
-            background: #fff;
-            transform: translateX(-50%) scale(1.5);
-        }
-
-        .protocol-content {
-            width: 45%;
-            background: rgba(10, 5, 20, 0.7);
-            backdrop-filter: var(--blur-glass);
-            -webkit-backdrop-filter: var(--blur-glass);
-            padding: var(--space-md);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            position: relative;
-            opacity: 0;
-            transform: translateX(-50px);
-            transition: all 0.8s var(--ease-elastic);
-        }
-
-        .protocol-step:nth-child(even) .protocol-content {
-            transform: translateX(50px);
-        }
-
-        .protocol-step.in-view .protocol-content {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .protocol-content::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
-            z-index: -1;
-            border-radius: 16px;
-        }
-
-        .protocol-step:hover .protocol-content {
-            border-color: rgba(255,255,255,0.3);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
-            transform: translateY(-5px);
-        }
-
-        .step-number {
-            font-family: var(--font-display);
-            font-size: 5rem;
-            color: rgba(255,255,255,0.03);
-            position: absolute;
-            top: -20px; right: 20px;
-            line-height: 1;
-            pointer-events: none;
-        }
-
-        .protocol-step:nth-child(even) .step-number {
-            right: auto; left: 20px;
-        }
-
-        .protocol-content h3 {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h3);
-            color: #fff;
-            margin-bottom: var(--space-xs);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .protocol-content p {
-            font-family: var(--font-body);
-            font-size: var(--text-p);
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        /* Mobile Adjustments for Protocol */
-        @media (max-width: 900px) {
-            .timeline-spine { left: 40px; }
-            .protocol-node { left: 40px; }
-            .protocol-step, .protocol-step:nth-child(even) { flex-direction: column; align-items: flex-end; }
-            .protocol-content { width: calc(100% - 80px); }
-            .protocol-step:nth-child(even) .step-number { left: auto; right: 20px; }
-        }
-
-        /* ==========================================================================
-           SECTION 6: THANDAI OVERDRIVE METER (INTERACTIVE SLIDER)
-           ========================================================================== */
-        .overdrive-section {
-            background: radial-gradient(circle at center, #1a0b2e 0%, var(--canvas-void) 100%);
-            padding: var(--space-xl) 0;
-            text-align: center;
-            position: relative;
-            z-index: 5;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .overdrive-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(5, 2, 10, 0.8);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: var(--space-lg) var(--space-md);
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.8), 0 20px 50px rgba(0,0,0,0.5);
-            backdrop-filter: var(--blur-glass);
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            transform: scale(0.95);
-            transition: all 1s var(--ease-cinematic);
-        }
-
-        .overdrive-container.in-view {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Dynamic HUD Glow behind the meter */
-        .hud-glow {
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 100%; height: 100%;
-            background: radial-gradient(circle, var(--current-meter-color, var(--pigment-cyan)) 0%, transparent 70%);
-            transform: translate(-50%, -50%);
-            opacity: 0.1;
-            transition: background 0.5s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .overdrive-title {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h2);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: var(--space-xs);
-            position: relative;
-            z-index: 2;
-        }
-
-        /* The Dynamic Display Text */
-        .meter-display {
-            font-family: var(--font-display);
-            font-size: clamp(3rem, 6vw, 5rem);
-            min-height: 1.2em;
-            color: var(--current-meter-color, var(--pigment-cyan));
-            text-shadow: var(--current-meter-shadow, var(--glow-cyan));
-            transition: color 0.4s ease, text-shadow 0.4s ease;
-            text-transform: uppercase;
-            line-height: 1;
-            margin: var(--space-sm) 0;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Highly Customized Input Range Slider */
-        .cyber-slider {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 100%;
-            height: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 6px;
-            outline: none;
-            margin: var(--space-md) 0;
-            position: relative;
-            z-index: 10;
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
-        }
-
-        .cyber-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #fff;
-            cursor: ew-resize;
-            border: 4px solid var(--current-meter-color, var(--pigment-cyan));
-            box-shadow: 0 0 20px var(--current-meter-color, var(--pigment-cyan));
-            transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .cyber-slider::-moz-range-thumb {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: #fff;
-            cursor: ew-resize;
-            border: 4px solid var(--current-meter-color, var(--pigment-cyan));
-            box-shadow: 0 0 20px var(--current-meter-color, var(--pigment-cyan));
-            transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .cyber-slider::-webkit-slider-thumb:active {
-            transform: scale(1.3);
-        }
-        .cyber-slider::-moz-range-thumb:active {
-            transform: scale(1.3);
-        }
-
-        .meter-desc {
-            font-family: var(--font-body);
-            font-size: var(--text-p);
-            color: var(--text-muted);
-            min-height: 3em;
-            position: relative;
-            z-index: 2;
-        }
-
-    </style>
-
-    <section class="protocol-section" id="survival">
-        <div class="protocol-header observe-me">
-            <h2 class="protocol-title">Survival Protocol</h2>
-            <p style="font-family: var(--font-body); color: var(--text-muted); font-size: var(--text-p); max-width: 600px; margin: 10px auto 0;">To survive the chaos of Holi 2026, strict adherence to these tactical guidelines is mandatory. Failure is permanent.</p>
-        </div>
-
-        <div class="timeline-wrapper">
-            <div class="timeline-spine"></div>
-            
-            <div class="protocol-step observe-me">
-                <div class="protocol-node"></div>
-                <div class="protocol-content">
-                    <div class="step-number">01</div>
-                    <h3 style="color: var(--pigment-cyan);">The Viscous Shield</h3>
-                    <p>Submerge yourself in mustard or coconut oil prior to deployment. Hair, skin, nails. This hydrophobic tactical layer ensures that aggressive, permanent magenta pigments slide right off your chassis.</p>
-                </div>
-            </div>
-
-            <div class="protocol-step observe-me">
-                <div class="protocol-node"></div>
-                <div class="protocol-content">
-                    <div class="step-number">02</div>
-                    <h3 style="color: var(--pigment-lime);">Sacrificial Armor</h3>
-                    <p>Do not wear white unless you wish to be heavily targeted by enemy snipers. Equip the oldest, most structurally compromised clothing in your inventory. Consider these items permanently decommissioned post-mission.</p>
-                </div>
-            </div>
-
-            <div class="protocol-step observe-me">
-                <div class="protocol-node"></div>
-                <div class="protocol-content">
-                    <div class="step-number">03</div>
-                    <h3 style="color: var(--pigment-saffron);">Hardware Lockdown</h3>
-                    <p>Seal all communication devices in heavy-duty waterproof casings. If your hardware lacks IP68 certification, leave it at base camp. No 4K 60fps reel is worth total motherboard failure via water balloon.</p>
-                </div>
-            </div>
-
-            <div class="protocol-step observe-me">
-                <div class="protocol-node"></div>
-                <div class="protocol-content">
-                    <div class="step-number">04</div>
-                    <h3 style="color: var(--pigment-radium);">Evasion & Retreat</h3>
-                    <p>Map out all "Safe Zones" (locked doors, elevated areas). When the horde approaches armed with eggs, mud, and permanent silver dye—initiate immediate, unquestioning retreat. Do not look back.</p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-    <section class="overdrive-section" id="overdrive">
-        <div class="overdrive-container observe-me">
-            <div class="hud-glow"></div>
-            
-            <h2 class="overdrive-title">Thandai Overdrive</h2>
-            <p style="color: var(--text-muted); font-family: var(--font-body); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px;">Calibrate your festive neural network</p>
-            
-            <div class="meter-display" id="meter-title">System Baseline</div>
-            
-            <input type="range" min="0" max="4" value="0" class="cyber-slider" id="overdrive-input" aria-label="Thandai Overdrive Level">
-            
-            <div class="meter-desc" id="meter-text">
-                Zero Gujiyas consumed. Your system is dangerously sober. Please refuel immediately to synchronize with the festival matrix.
-            </div>
-        </div>
-    </section>
-
-      <style>
-        /* ==========================================================================
-           SECTION 7: EXCLUSIVE CREATOR FOOTER
-           ========================================================================== */
-        .creator-footer {
-            background-color: var(--canvas-void);
-            padding: var(--space-xl) var(--space-md) var(--space-md);
-            position: relative;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            overflow: hidden;
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        /* Massive background glow */
-        .creator-footer::before {
-            content: '';
-            position: absolute;
-            bottom: -50%; left: 50%;
-            width: 100vw; height: 100vw;
-            max-width: 1000px; max-height: 1000px;
-            background: radial-gradient(circle, rgba(255, 0, 85, 0.15) 0%, transparent 70%);
-            transform: translateX(-50%);
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        .footer-glitch {
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h2);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            position: relative;
-            z-index: 2;
-            margin-bottom: var(--space-xs);
-        }
-
-        .footer-sub {
-            font-family: var(--font-body);
-            font-size: var(--text-p);
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto var(--space-lg);
-            position: relative;
-            z-index: 2;
-            line-height: 1.6;
-        }
-
-        /* The Only Social Link - Masterfully Designed */
-        .insta-architect {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255, 0, 85, 0.05);
-            border: 2px solid var(--pigment-radium);
-            color: #fff;
-            padding: 20px 50px;
-            border-radius: 100px;
-            font-family: var(--font-kinetic);
-            font-size: var(--text-h3);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-            z-index: 2;
-            transition: all 0.5s var(--ease-elastic);
-            box-shadow: 0 0 20px rgba(255, 0, 85, 0.2);
-            backdrop-filter: var(--blur-glass);
-        }
-
-        .insta-architect::before {
-            content: '';
-            position: absolute;
-            top: 50%; left: 50%;
-            width: 0; height: 0;
-            background: var(--pigment-radium);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s var(--ease-elastic), height 0.6s var(--ease-elastic);
-            z-index: -1;
-        }
-
-        .insta-architect:hover {
-            color: #fff;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: var(--glow-radium);
-            letter-spacing: 2px;
-        }
-
-        .insta-architect:hover::before {
-            width: 400px; height: 400px;
-        }
-
-        .insta-icon {
-            font-size: 2rem;
-            color: var(--pigment-radium);
-            transition: color 0.3s;
-        }
-
-        .insta-architect:hover .insta-icon {
-            color: #fff;
-            animation: burst 0.5s forwards;
-        }
-
-        @keyframes burst {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.3) rotate(10deg); }
-            100% { transform: scale(1) rotate(0deg); }
-        }
-
-        .footer-bottom {
-            margin-top: var(--space-xl);
-            width: 100%;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            padding-top: var(--space-md);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            position: relative;
-            z-index: 2;
-        }
-
-        .copyright {
-            font-family: var(--font-kinetic);
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* ==========================================================================
-           CUSTOM KINETIC CURSOR
-           ========================================================================== */
-        .kinetic-cursor {
-            position: fixed;
-            top: 0; left: 0;
-            width: 20px; height: 20px;
-            background: var(--pigment-cyan);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999999;
-            mix-blend-mode: difference;
-            transition: width 0.2s, height 0.2s, background 0.2s;
-            box-shadow: 0 0 10px var(--pigment-cyan);
-        }
-
-        .kinetic-cursor.active {
-            width: 50px; height: 50px;
-            background: var(--pigment-radium);
-            box-shadow: 0 0 20px var(--pigment-radium);
-        }
-
-        /* Hide cursor on mobile devices */
-        @media (max-width: 768px) {
-            .kinetic-cursor { display: none; }
-            body { cursor: auto; }
-            a, button, [role="button"] { cursor: pointer; }
-        }
-    </style>
-
-    <footer class="creator-footer">
-        <h2 class="footer-glitch observe-me">System Architect</h2>
-        <p class="footer-sub observe-me" style="transition-delay: 0.1s;">This digital festival engine was conceived, designed, and engineered from scratch to celebrate the chaos, culture, and colors of Holi 2026. Stay colorful. Stay safe.</p>
-        
-        <a href="https://instagram.com/shashank_404_" target="_blank" class="insta-architect observe-me" style="transition-delay: 0.2s;">
-            <i class="fa-brands fa-instagram insta-icon"></i>
-            @shashank_404_
-        </a>
-
-        <div class="footer-bottom">
-            <span class="copyright">&copy; 2026. All Protocols Reserved.</span>
-        </div>
-    </footer>
-
-    <div class="kinetic-cursor" id="custom-cursor"></div>
-
-    </main> <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        </section>
+    </div>
+
+    <div class="creator-tag">
+        ENGINEERED BY <a href="https://instagram.com/shashank_404_">@SHASHANK_404_</a>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            
-            // --- 1. THE GATEKEEPER & AUDIO ENGINE ---
-            const gatekeeper = document.getElementById('gatekeeper');
-            const btnIgnite = document.getElementById('btn-ignite');
-            const audioBg = document.getElementById('audio-bg');
-            const audioSplat = document.getElementById('audio-splat');
-            const btnSound = document.getElementById('btn-sound');
-            const soundLabel = document.getElementById('sound-label');
-            
-            // Audio Context & State
-            let isMuted = false;
-            // Balance the mix
-            audioBg.volume = 0.5;
-            audioSplat.volume = 0.7;
+        /**
+         * PDF ARCHITECT ENGINE v1.0
+         * Logic for Real-time Markdown Parsing and High-DPI PDF Generation
+         */
 
-            // Ignite the Experience
-            btnIgnite.addEventListener('click', () => {
-                // Unlock AudioContext and play background track
-                audioBg.play().catch(err => console.warn("Audio autoplay blocked by browser policy."));
-                
-                // Trigger cinematic exit
-                gatekeeper.style.opacity = '0';
-                gatekeeper.style.visibility = 'hidden';
-                
-                // Fire an initial celebratory burst
-                setTimeout(() => {
-                    fireColorSplat(0.5, 0.8, 200, 100);
-                }, 500);
-            });
+        const textInput = document.getElementById('textInput');
+        const pdfPreview = document.getElementById('pdfPreview');
+        const charCount = document.getElementById('charCount');
 
-            // Toggle Audio Nav
-            btnSound.addEventListener('click', () => {
-                isMuted = !isMuted;
-                if(isMuted) {
-                    audioBg.pause();
-                    btnSound.classList.add('muted');
-                    soundLabel.innerText = "AUDIO OFF";
-                } else {
-                    audioBg.play();
-                    btnSound.classList.remove('muted');
-                    soundLabel.innerText = "AUDIO ON";
-                }
-            });
-
-            // --- 2. CUSTOM KINETIC CURSOR ---
-            const cursor = document.getElementById('custom-cursor');
-            let mouseX = window.innerWidth / 2;
-            let mouseY = window.innerHeight / 2;
-            let cursorX = mouseX;
-            let cursorY = mouseY;
-
-            // Lerp function for smooth cursor trailing
-            const lerp = (start, end, amt) => (1 - amt) * start + amt * end;
-
-            window.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-            });
-
-            // Interactive states for cursor
-            window.addEventListener('mousedown', () => cursor.classList.add('active'));
-            window.addEventListener('mouseup', () => cursor.classList.remove('active'));
-
-            // Animation Loop for Cursor
-            const renderCursor = () => {
-                cursorX = lerp(cursorX, mouseX, 0.2);
-                cursorY = lerp(cursorY, mouseY, 0.2);
-                cursor.style.transform = `translate(${cursorX}px, ${cursorY}px)`;
-                requestAnimationFrame(renderCursor);
-            };
-            requestAnimationFrame(renderCursor);
-
-            // --- 3. THE PHYSICS-BASED COLOR ENGINE (CONFETTI) ---
-            const holiPigments = [
-                '#FF0055', '#00F0FF', '#FF6D00', '#39FF14', '#D90429', '#7209B7', '#FFD700'
-            ];
-
-            function fireColorSplat(x, y, particleCount = 100, spread = 70) {
-                // Play Splat Sound (if not muted)
-                if(!isMuted) {
-                    // Clone the audio node to allow rapid overlapping clicks
-                    let splatClone = audioSplat.cloneNode();
-                    splatClone.volume = 0.5;
-                    splatClone.play().catch(e => {});
-                }
-
-                confetti({
-                    particleCount: particleCount,
-                    spread: spread,
-                    origin: { x: x, y: y },
-                    colors: holiPigments,
-                    disableForReducedMotion: true,
-                    zIndex: 9000,
-                    scalar: 1.2,
-                    gravity: 1.2,
-                    ticks: 200
-                });
-            }
-
-            // Global Click Event: Splatter color wherever the user clicks
-            document.body.addEventListener('click', (e) => {
-                // Do not fire if clicking an interactive element
-                if (
-                    e.target.closest('button') || 
-                    e.target.closest('a') || 
-                    e.target.closest('input') ||
-                    e.target.closest('.squad-card') ||
-                    e.target.closest('#gatekeeper')
-                ) {
-                    return;
-                }
-                
-                // Convert pixels to relative values for the canvas-confetti library
-                const x = e.clientX / window.innerWidth;
-                const y = e.clientY / window.innerHeight;
-                
-                fireColorSplat(x, y);
-            });
-
-            // --- 4. THANDAI OVERDRIVE METER LOGIC ---
-            const overdriveInput = document.getElementById('overdrive-input');
-            const meterTitle = document.getElementById('meter-title');
-            const meterText = document.getElementById('meter-text');
-
-            const overdriveStates = [
-                {
-                    title: "System Baseline",
-                    desc: "Zero Gujiyas consumed. Your system is dangerously sober. Please refuel immediately to synchronize with the festival matrix.",
-                    color: "var(--pigment-cyan)",
-                    shadow: "0 0 20px rgba(0, 240, 255, 0.6)"
-                },
-                {
-                    title: "Ignition: Level 1",
-                    desc: "Sugar levels rising. Motor functions increasing. You are officially ready to deploy your first tactical water balloon.",
-                    color: "var(--pigment-lime)",
-                    shadow: "0 0 25px rgba(57, 255, 20, 0.7)"
-                },
-                {
-                    title: "Vibe Protocol: Active",
-                    desc: "One glass of Thandai absorbed. Audio receptors syncing heavily with the Dhol beats. Target acquisition locked.",
-                    color: "var(--pigment-gold)",
-                    shadow: "0 0 30px rgba(255, 215, 0, 0.8)"
-                },
-                {
-                    title: "Sensory Overload",
-                    desc: "Why is the neighbor's dog glowing neon purple? Visual cortex compromised. You are currently attempting to apply gulal to a parked vehicle.",
-                    color: "var(--pigment-saffron)",
-                    shadow: "0 0 40px rgba(255, 109, 0, 0.9)"
-                },
-                {
-                    title: "Ascension Achieved",
-                    desc: "Total sensory overdrive. You are now communicating with colors telepathically. You have transcended the physical matrix. Happy Holi.",
-                    color: "var(--pigment-radium)",
-                    shadow: "0 0 50px rgba(255, 0, 85, 1)"
-                }
-            ];
-
-            function syncOverdrive() {
-                const state = parseInt(overdriveInput.value);
-                const data = overdriveStates[state];
-
-                // Update text
-                meterTitle.innerText = data.title;
-                meterText.innerText = data.desc;
-
-                // Update styling via CSS Variables dynamically injected to the root
-                document.documentElement.style.setProperty('--current-meter-color', data.color);
-                document.documentElement.style.setProperty('--current-meter-shadow', data.shadow);
-                
-                // Execute screen shake for high levels
-                if(state >= 3) {
-                    document.body.classList.remove('animate__animated', 'animate__headShake');
-                    void document.body.offsetWidth; // Trigger reflow to restart animation
-                    document.body.classList.add('animate__animated', 'animate__headShake');
-                    
-                    // Fire massive confetti burst
-                    fireColorSplat(0.5, 1, 250, 120);
-                }
-            }
-
-            overdriveInput.addEventListener('input', syncOverdrive);
-            syncOverdrive(); // Init
-
-            // --- 5. CINEMATIC SCROLL OBSERVER ---
-            // Triggers elements to animate only when they enter the viewport
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px 0px -10% 0px', // Trigger slightly before the bottom
-                threshold: 0.1
-            };
-
-            const scrollObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('in-view');
-                        // Optional: Stop observing after it animates once
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
-
-            document.querySelectorAll('.observe-me, .lore-card, .squad-card, .weapon-card, .protocol-step, .overdrive-container, .lore-title').forEach(el => {
-                scrollObserver.observe(el);
-            });
-
+        // Configure Marked for Symbol Support (*, **, #, -, etc)
+        marked.setOptions({
+            breaks: true,
+            gfm: true
         });
+
+        // Real-time Parser
+        textInput.addEventListener('input', () => {
+            const rawText = textInput.value;
+            pdfPreview.innerHTML = marked.parse(rawText);
+            charCount.innerText = `${rawText.length} chars`;
+        });
+
+        // Insert Markdown Symbols into Selection
+        function insertFormat(start, end) {
+            const startPos = textInput.selectionStart;
+            const endPos = textInput.selectionEnd;
+            const selection = textInput.value.substring(startPos, endPos);
+            const replacement = start + selection + end;
+            
+            textInput.value = textInput.value.substring(0, startPos) + replacement + textInput.value.substring(endPos);
+            textInput.dispatchEvent(new Event('input'));
+            textInput.focus();
+        }
+
+        // High-Quality PDF Synthesis
+        document.getElementById('generatePdf').addEventListener('click', () => {
+            if (!textInput.value.trim()) {
+                alert("The workspace is empty. Synthesizing air is not yet supported.");
+                return;
+            }
+
+            const element = document.getElementById('pdfPreview');
+            const opt = {
+                margin:       [1, 1, 1, 1], // Inches
+                filename:     'Architect_Document.pdf',
+                image:        { type: 'jpeg', quality: 1.0 }, // Maximum Quality
+                html2canvas:  { 
+                    scale: 4, // Ultra-High DPI Scaling
+                    useCORS: true, 
+                    letterRendering: true 
+                },
+                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Start Synthesis Animation Effect (Optional visual)
+            const btn = document.getElementById('generatePdf');
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Synthesizing...';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Synthesize PDF';
+            });
+        });
+
+        // Workspace Clear
+        document.getElementById('clearEditor').addEventListener('click', () => {
+            if(confirm("Wipe all document data? This cannot be undone.")) {
+                textInput.value = '';
+                pdfPreview.innerHTML = '';
+                charCount.innerText = '0 chars';
+            }
+        });
+
+        // Initial Placeholder text to showcase symbols
+        textInput.value = "# PDF Architect 2026\n\n**Professional High-Quality PDF Generator**\n\n- Support for **Bold** using `**` symbols.\n- Support for *Italic* using `*` symbols.\n- Clean A4 Typography.\n- Ultra-DPI 4.0 Scaling.\n\n> Engineered for high-performance synthesis.\n\nDesigned by **@shashank_404_**";
+        textInput.dispatchEvent(new Event('input'));
+
     </script>
 </body>
-</html>
+    </html>
+    
