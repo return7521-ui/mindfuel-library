@@ -536,7 +536,7 @@
   </div>
 </div>
 
-<!-- SCRIPTS (massive feature set) -->
+<!-- SCRIPTS -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
@@ -638,16 +638,12 @@ Ready to generate highest quality PDF with all options.`;
     // ----- RENDER PREVIEW with KaTeX and sanitization -----
     function renderPreview() {
       const raw = editor.value;
-      // render markdown -> html
       let html = marked.parse(raw);
-      // sanitize for security (but allow styling)
       html = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
       preview.innerHTML = html;
-      // highlight code blocks
       document.querySelectorAll('#preview pre code').forEach((block) => {
         hljs.highlightElement(block);
       });
-      // render math with KaTeX
       renderMathInElement(preview, {
         delimiters: [
           { left: '$$', right: '$$', display: true },
@@ -675,7 +671,7 @@ Ready to generate highest quality PDF with all options.`;
       paraSpan.innerText = paras;
     }
 
-    // ----- AUTO SAVE TO LOCALSTORAGE -----
+    // ----- AUTO SAVE -----
     function autosave() {
       localStorage.setItem('pdfmaster_draft', editor.value);
       statusMsg.innerText = 'Autosaved at ' + new Date().toLocaleTimeString();
@@ -688,12 +684,11 @@ Ready to generate highest quality PDF with all options.`;
       }, 400);
     });
 
-    // Load from localstorage if any
     const draft = localStorage.getItem('pdfmaster_draft');
     if (draft) editor.value = draft;
     renderPreview();
 
-    // ----- TOOLBAR ACTIONS (insert markdown) -----
+    // ----- TOOLBAR ACTIONS -----
     function insertAround(prefix, suffix = '') {
       const start = editor.selectionStart;
       const end = editor.selectionEnd;
@@ -716,7 +711,6 @@ Ready to generate highest quality PDF with all options.`;
     h1Btn.onclick = () => insertAround('# ', '');
     h2Btn.onclick = () => insertAround('## ', '');
 
-    // symbol buttons
     symbolBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         insertAround(btn.getAttribute('data-sym'), '');
@@ -726,7 +720,6 @@ Ready to generate highest quality PDF with all options.`;
       if (customSymbol.value) insertAround(customSymbol.value, '');
     };
 
-    // search / replace simple
     searchBtn.onclick = () => {
       const term = prompt('Search for:');
       if (!term) return;
@@ -745,7 +738,6 @@ Ready to generate highest quality PDF with all options.`;
       renderPreview();
     };
 
-    // New
     newBtn.onclick = () => {
       if (confirm('Clear editor? unsaved changes lost.')) {
         editor.value = '';
@@ -753,7 +745,6 @@ Ready to generate highest quality PDF with all options.`;
       }
     };
 
-    // Open file
     openBtn.onclick = () => fileInput.click();
     fileInput.onchange = (e) => {
       const file = e.target.files[0];
@@ -767,7 +758,6 @@ Ready to generate highest quality PDF with all options.`;
       reader.readAsText(file);
     };
 
-    // Save as markdown
     saveMdBtn.onclick = () => {
       const blob = new Blob([editor.value], { type: 'text/markdown' });
       const url = URL.createObjectURL(blob);
@@ -778,7 +768,6 @@ Ready to generate highest quality PDF with all options.`;
       URL.revokeObjectURL(url);
     };
 
-    // Save as HTML (rendered)
     saveHtmlBtn.onclick = () => {
       const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Document</title><style>body { font-family: Inter, 'Noto Sans Devanagari'; padding:2rem; }</style></head><body>${preview.innerHTML}</body></html>`;
       const blob = new Blob([htmlContent], { type: 'text/html' });
@@ -790,21 +779,21 @@ Ready to generate highest quality PDF with all options.`;
       URL.revokeObjectURL(url);
     };
 
-    // ----- PDF GENERATION (robust, with forced light theme and dimensions) -----
+    // ----- ROBUST PDF GENERATION (completely rewritten) -----
     async function generatePDF() {
-      statusMsg.innerText = '⏳ Generating PDF...';
+      statusMsg.innerText = '⏳ Preparing PDF...';
 
-      // Create a dedicated container for PDF export
+      // Create a dedicated container
       const pdfContainer = document.createElement('div');
       pdfContainer.id = 'pdf-export-container';
       
-      // Copy the rendered HTML from preview (including syntax highlighting and math)
+      // Copy the rendered HTML from preview (including all formatting)
       pdfContainer.innerHTML = preview.innerHTML;
-      
-      // Apply comprehensive light theme via inline style block and direct styles
+
+      // Create a style element to enforce light theme and proper fonts
       const style = document.createElement('style');
       style.textContent = `
-        /* Reset all colors to light theme */
+        /* Force all text to black, background to white */
         * {
           color: #000000 !important;
           background-color: transparent !important;
@@ -818,11 +807,13 @@ Ready to generate highest quality PDF with all options.`;
           font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
           line-height: 1.6 !important;
           padding: 2rem !important;
-          margin: 0 !important;
+          margin: 0 auto !important;
+          max-width: 800px !important;  /* comfortable reading width */
         }
         pre, code {
           background: #f5f5f5 !important;
           color: #000000 !important;
+          border-radius: 8px !important;
         }
         blockquote {
           background: #f9f9f9 !important;
@@ -834,26 +825,35 @@ Ready to generate highest quality PDF with all options.`;
         a {
           color: #1f5f9e !important;
         }
-        /* Keep syntax highlighting colors readable (adjust if needed) */
+        /* Keep syntax highlighting readable */
         .hljs {
           background: #f5f5f5 !important;
           color: #000 !important;
         }
       `;
       pdfContainer.appendChild(style);
-      
-      // Also set inline style on container to ensure background
+
+      // Set container inline styles to ensure white background and block display
       pdfContainer.style.background = '#ffffff';
       pdfContainer.style.color = '#000000';
       pdfContainer.style.padding = '2rem';
       pdfContainer.style.fontFamily = "'Inter', 'Noto Sans Devanagari', sans-serif";
+      pdfContainer.style.maxWidth = '800px';
+      pdfContainer.style.margin = '0 auto';
+      pdfContainer.style.boxSizing = 'border-box';
       pdfContainer.style.position = 'absolute';
       pdfContainer.style.left = '-9999px';
       pdfContainer.style.top = '0';
-      pdfContainer.style.width = '800px';  // fixed width to ensure proper layout
-      pdfContainer.style.maxWidth = '100%';
-      
+      pdfContainer.style.width = '800px';          // fixed width for consistent capture
+      pdfContainer.style.overflow = 'visible';      // don't clip content
+
       document.body.appendChild(pdfContainer);
+
+      // Force a reflow to ensure all styles are applied and fonts loaded
+      pdfContainer.offsetHeight; // read a property to force layout
+
+      // Wait a tiny bit for any async rendering (like math) to settle
+      await new Promise(resolve => setTimeout(resolve, 150));
 
       // PDF options
       const opt = {
@@ -865,17 +865,28 @@ Ready to generate highest quality PDF with all options.`;
           letterRendering: true, 
           useCORS: true, 
           logging: false,
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          windowWidth: 800,        // help canvas capture at correct width
         },
-        jsPDF: { unit: 'in', format: pdfSize.value, orientation: pdfOrientation.value }
+        jsPDF: { unit: 'in', format: pdfSize.value, orientation: pdfOrientation.value },
+        pagebreak: { mode: ['css', 'legacy'] }     // better page breaking
       };
 
       try {
+        statusMsg.innerText = '⏳ Generating PDF...';
         await html2pdf().from(pdfContainer).set(opt).save();
         statusMsg.innerText = '✅ PDF exported successfully';
       } catch (err) {
         statusMsg.innerText = '❌ PDF error: ' + err.message;
-        console.error(err);
+        console.error('PDF error:', err);
+        // fallback: try with lower scale
+        try {
+          opt.html2canvas.scale = 1.5;
+          await html2pdf().from(pdfContainer).set(opt).save();
+          statusMsg.innerText = '✅ PDF exported (fallback scale)';
+        } catch (fallbackErr) {
+          statusMsg.innerText = '❌ PDF failed: ' + fallbackErr.message;
+        }
       } finally {
         pdfContainer.remove();
       }
@@ -922,7 +933,6 @@ Ready to generate highest quality PDF with all options.`;
       };
     });
 
-    // Click outside to close modal
     window.onclick = (e) => {
       if (e.target === helpModal) helpModal.classList.remove('active');
       if (e.target === templateModal) templateModal.classList.remove('active');
