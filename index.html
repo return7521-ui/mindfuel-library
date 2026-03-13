@@ -1,396 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF Architect | Precision Document Synthesis</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text to PDF Pro · Markdown + Hindi + symbols</title>
+  <!-- Professional fonts: Latin & Devanagari (Hindi, mantras) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..700;1,14..32,400..700&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* --- modern reset & design system --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <style>
-        :root {
-            /* Industrial Precision Palette */
-            --accent-primary: #007AFF;
-            --accent-glow: rgba(0, 122, 255, 0.4);
-            --bg-deep: #050505;
-            --bg-surface: #111111;
-            --bg-card: #181818;
-            --text-main: #FFFFFF;
-            --text-muted: #888888;
-            --border-thin: rgba(255, 255, 255, 0.1);
-            
-            /* Typography Scale */
-            --font-brand: 'Syne', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-ui: 'Inter', sans-serif;
-            
-            --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
-            --transition: 0.4s var(--ease-cinematic);
-        }
+    body {
+      background: linear-gradient(145deg, #f0f4f8 0%, #e9eef4 100%);
+      font-family: 'Inter', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+      color: #1a2639;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
+    .card {
+      max-width: 1400px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(4px);
+      border-radius: 2.5rem;
+      box-shadow: 0 30px 60px -20px rgba(0, 20, 40, 0.25),
+                  0 0 0 1px rgba(156, 180, 204, 0.15) inset;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
 
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: var(--font-ui);
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
+    /* header */
+    .header {
+      background: #0f1a2f;
+      padding: 2rem 2.5rem;
+      color: white;
+    }
+    .header h1 {
+      font-weight: 600;
+      font-size: 2.4rem;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .header h1 span {
+      background: #2d3b58;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+      color: #cbd5e1;
+    }
+    .header p {
+      font-size: 1.1rem;
+      color: #a9c1d9;
+      margin-top: 0.5rem;
+      max-width: 700px;
+    }
 
-        /* Custom Scrollbar for the Architect */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-deep); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+    /* main grid */
+    .workspace {
+      padding: 2rem 2.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      background: #ffffffd9;
+    }
 
-        /* ==========================================================================
-           1. LAYOUT ARCHITECTURE
-           ========================================================================== */
-        .app-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-        }
+    /* panels */
+    .panel {
+      background: #f9fcff;
+      border-radius: 2rem;
+      padding: 1.6rem 1.8rem;
+      box-shadow: 0 8px 24px rgba(0, 30, 60, 0.05);
+      border: 1px solid #e2edf7;
+      transition: box-shadow 0.2s;
+    }
+    .panel:hover {
+      box-shadow: 0 16px 32px rgba(0, 35, 70, 0.08);
+    }
 
-        @media (max-width: 1024px) {
-            .app-container { grid-template-columns: 1fr; overflow-y: auto; height: auto; }
-        }
+    .panel h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #10345e;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 2px solid #dbe9f5;
+      padding-bottom: 0.6rem;
+    }
 
-        /* ==========================================================================
-           2. EDITOR INTERFACE (LEFT)
-           ========================================================================== */
-        .editor-pane {
-            padding: 40px;
-            background: var(--bg-surface);
-            display: flex;
-            flex-direction: column;
-            border-right: 1px solid var(--border-thin);
-            height: 100vh;
-        }
+    /* editor textarea */
+    #editor {
+      width: 100%;
+      height: 500px;
+      padding: 1.5rem;
+      font-family: 'Inter', 'Noto Sans Devanagari', 'SF Mono', 'Fira Code', monospace;
+      font-size: 1rem;
+      line-height: 1.7;
+      background: white;
+      border: 2px solid #dde7f0;
+      border-radius: 1.8rem;
+      resize: vertical;
+      outline: none;
+      transition: 0.2s;
+      color: #0f2642;
+    }
+    #editor:focus {
+      border-color: #3f6eb0;
+      box-shadow: 0 0 0 4px rgba(57, 106, 176, 0.15);
+    }
 
-        .header-brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
+    /* live preview */
+    .preview-box {
+      height: 500px;
+      overflow-y: auto;
+      background: white;
+      border-radius: 1.8rem;
+      padding: 1.5rem;
+      border: 2px solid #dde7f0;
+      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
+      line-height: 1.7;
+      word-wrap: break-word;
+    }
+    .preview-box > *:first-child { margin-top: 0; }
+    .preview-box > *:last-child { margin-bottom: 0; }
 
-        .logo-box {
-            width: 40px; height: 40px;
-            background: var(--accent-primary);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
+    /* markdown preview styling */
+    .preview-box h1 { font-size: 2em; margin: 0.8em 0 0.4em; font-weight: 650; color: #0c1f38; }
+    .preview-box h2 { font-size: 1.6em; margin: 0.8em 0 0.4em; font-weight: 620; color: #153e6b; }
+    .preview-box h3 { font-size: 1.3em; margin: 0.6em 0 0.3em; font-weight: 600; }
+    .preview-box p { margin: 1em 0; }
+    .preview-box strong { font-weight: 700; color: #0f2b4f; }
+    .preview-box em { font-style: italic; }
+    .preview-box code { background: #e9f0f7; padding: 0.2em 0.5em; border-radius: 10px; font-size: 0.9em; font-family: 'SF Mono', monospace; }
+    .preview-box pre { background: #e9f0f7; padding: 1.2rem; border-radius: 20px; overflow-x: auto; border: 1px solid #cbddee; }
+    .preview-box pre code { background: none; padding: 0; }
+    .preview-box ul, .preview-box ol { padding-left: 2rem; margin: 1rem 0; }
+    .preview-box blockquote { border-left: 5px solid #577faa; background: #f0f7ff; padding: 0.8rem 1.5rem; border-radius: 20px; margin: 1.5rem 0; color: #1f3f62; }
+    .preview-box a { color: #1f5f9e; text-decoration: underline; text-underline-offset: 2px; }
+    .preview-box img { max-width: 100%; border-radius: 16px; }
 
-        .brand-title {
-            font-family: var(--font-brand);
-            font-size: 1.5rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+    /* button row */
+    .action-bar {
+      padding: 1.8rem 2.5rem 2.5rem;
+      background: white;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
+      align-items: center;
+      border-top: 2px solid #eaf1f9;
+    }
 
-        .editor-container {
-            flex-grow: 1;
-            position: relative;
-            background: var(--bg-card);
-            border-radius: 12px;
-            border: 1px solid var(--border-thin);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
+    .btn {
+      background: #10345e;
+      color: white;
+      border: none;
+      padding: 0.9rem 2.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 60px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 12px 20px -14px #0f2a4a;
+      border: 1px solid #26558b;
+    }
+    .btn:hover {
+      background: #1b4380;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 25px -10px #0b2744;
+    }
+    .btn:active { transform: translateY(0); }
+    .btn.secondary {
+      background: white;
+      color: #10345e;
+      border: 2px solid #c7ddf2;
+      box-shadow: none;
+    }
+    .btn.secondary:hover { background: #ecf5fd; border-color: #8eb9df; }
 
-        /* The High-Performance Textarea */
-        #textInput {
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: none;
-            padding: 25px;
-            color: #ccc;
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            resize: none;
-            line-height: 1.8;
-            scrollbar-width: none;
-        }
+    .spinner {
+      display: none;
+      width: 1.2rem;
+      height: 1.2rem;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 0.9s linear infinite;
+    }
+    .btn.loading .spinner { display: inline-block; }
 
-        /* Formatting Toolbar */
-        .toolbar {
-            background: #202020;
-            padding: 10px 20px;
-            display: flex;
-            gap: 20px;
-            border-bottom: 1px solid var(--border-thin);
-        }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-        .tool-btn {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.9rem;
-        }
+    .footnote {
+      background: #e7f0fa;
+      border-radius: 40px;
+      padding: 0.8rem 2rem;
+      font-size: 0.95rem;
+      color: #1e3b60;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 2rem;
+      margin-top: 0.5rem;
+    }
+    .footnote kbd {
+      background: #cddef1;
+      padding: 0.2rem 0.9rem;
+      border-radius: 40px;
+      font-family: 'Inter', monospace;
+      font-weight: 600;
+      color: #03223f;
+    }
 
-        .tool-btn:hover { color: #fff; transform: translateY(-2px); }
-
-        /* ==========================================================================
-           3. PREVIEW & SYNTHESIS PANE (RIGHT)
-           ========================================================================== */
-        .preview-pane {
-            padding: 40px;
-            background: var(--bg-deep);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-
-        .preview-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        /* The Virtual PDF Sheet */
-        .pdf-canvas-container {
-            flex-grow: 1;
-            background: #2a2a2a;
-            border-radius: 12px;
-            overflow-y: auto;
-            padding: 40px;
-            display: flex;
-            justify-content: center;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
-        }
-
-        .pdf-page {
-            width: 100%;
-            max-width: 595px; /* A4 Ratio */
-            min-height: 842px;
-            background: white;
-            color: #333;
-            padding: 60px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-            font-family: 'Times New Roman', serif;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-        }
-
-        /* PDF Styling Elements (Rich Text) */
-        .pdf-page b, .pdf-page strong { font-weight: 700; color: #000; }
-        .pdf-page i, .pdf-page em { font-style: italic; }
-        .pdf-page h1 { font-size: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid #eee; }
-        .pdf-page h2 { font-size: 1.8rem; margin-top: 1.5rem; color: #444; }
-        .pdf-page ul { margin-left: 20px; margin-bottom: 15px; }
-
-        /* ==========================================================================
-           4. ACTION CONTROLS
-           ========================================================================== */
-        .actions-row {
-            margin-top: 30px;
-            display: flex;
-            gap: 15px;
-        }
-
-        .btn-main {
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-family: var(--font-brand);
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn-download {
-            background: var(--accent-primary);
-            color: #fff;
-            border: none;
-            box-shadow: 0 10px 20px var(--accent-glow);
-        }
-
-        .btn-download:hover {
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 30px var(--accent-glow);
-        }
-
-        .btn-outline {
-            background: transparent;
-            border: 2px solid var(--border-thin);
-            color: #fff;
-        }
-
-        .btn-outline:hover { background: rgba(255,255,255,0.05); }
-
-        /* ==========================================================================
-           5. CREATOR SIGNATURE (SHASHANK_404_)
-           ========================================================================== */
-        .creator-tag {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            z-index: 100;
-        }
-
-        .creator-tag a {
-            color: var(--accent-primary);
-            text-decoration: none;
-        }
-    </style>
+    /* responsive */
+    @media (max-width: 800px) {
+      .workspace { grid-template-columns: 1fr; }
+      .header h1 { font-size: 2rem; }
+    }
+  </style>
 </head>
 <body>
+<div class="card">
+  <div class="header">
+    <h1>
+      ⚡ TEXT · TO · PDF PRO
+      <span>Markdown + हिन्दी</span>
+    </h1>
+    <p>Professional formatting with **bold**, *italic*, `code`, lists, links, mantras, and every symbol. Hindi & English fully supported. Download as print‑ready PDF.</p>
+  </div>
 
-    <div class="app-container">
-        <section class="editor-pane">
-            <header class="header-brand">
-                <div class="logo-box"><i class="fa-solid fa-file-pdf"></i></div>
-                <h1 class="brand-title">Architect</h1>
-            </header>
+  <div class="workspace">
+    <!-- INPUT PANEL -->
+    <div class="panel">
+      <h2>📝 EDITOR (Markdown syntax)</h2>
+      <textarea id="editor" placeholder="Type or paste your content... use **bold** or __bold__, *italic*, `code`, etc.&#10;हिन्दी, ॐ, मंत्र, ©®™✓✗★ all work."># ॐ नमः शिवाय
 
-            <div class="editor-container">
-                <div class="toolbar">
-                    <button class="tool-btn" onclick="insertFormat('**', '**')"><b>B</b></button>
-                    <button class="tool-btn" onclick="insertFormat('*', '*')"><i>I</i></button>
-                    <button class="tool-btn" onclick="insertFormat('# ', '')">H1</button>
-                    <button class="tool-btn" onclick="insertFormat('- ', '')"><i class="fa-solid fa-list"></i></button>
-                    <button class="tool-btn" onclick="insertFormat('> ', '')"><i class="fa-solid fa-quote-left"></i></button>
-                </div>
-                <textarea id="textInput" placeholder="Start your document synthesis here... Use *italic* or **bold** symbols."></textarea>
-            </div>
+This document demonstrates **professional** text-to-PDF conversion.
 
-            <div class="actions-row">
-                <button class="btn-main btn-download" id="generatePdf">
-                    <i class="fa-solid fa-bolt"></i> Synthesize PDF
-                </button>
-                <button class="btn-main btn-outline" id="clearEditor">
-                    Clear Workspace
-                </button>
-            </div>
-        </section>
+## ✨ Features
+- **Bold** with `**` or `__`  
+- *Italic* with `*` or `_`  
+- `Inline code` and ```code blocks```
+- [Hyperlinks](https://example.com)  
+- हिन्दी समर्थन: **भारत**, *देवनागरी*, `संस्कृत मंत्र`  
+- Special symbols: ©®™✓✗★ ♠♣♥♦ «» ‹› ∑∏∫
 
-        <section class="preview-pane">
-            <div class="preview-header">
-                <span style="text-transform: uppercase; font-size: 0.8rem; letter-spacing: 2px; color: var(--text-muted);">Real-time Synthesis Preview</span>
-                <span id="charCount" style="color: var(--accent-primary); font-family: var(--font-mono);">0 chars</span>
-            </div>
-            
-            <div class="pdf-canvas-container">
-                <div class="pdf-page" id="pdfPreview">
-                    </div>
-            </div>
-        </section>
-    </div>
+> “The quick brown fox jumps over the lazy dog” — includes **Devanagari**: ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यम् भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥
 
-    <div class="creator-tag">
-        ENGINEERED BY <a href="https://instagram.com/shashank_404_">@SHASHANK_404_</a>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
-
-    <script>
-        /**
-         * PDF ARCHITECT ENGINE v1.0
-         * Logic for Real-time Markdown Parsing and High-DPI PDF Generation
-         */
-
-        const textInput = document.getElementById('textInput');
-        const pdfPreview = document.getElementById('pdfPreview');
-        const charCount = document.getElementById('charCount');
-
-        // Configure Marked for Symbol Support (*, **, #, -, etc)
-        marked.setOptions({
-            breaks: true,
-            gfm: true
-        });
-
-        // Real-time Parser
-        textInput.addEventListener('input', () => {
-            const rawText = textInput.value;
-            pdfPreview.innerHTML = marked.parse(rawText);
-            charCount.innerText = `${rawText.length} chars`;
-        });
-
-        // Insert Markdown Symbols into Selection
-        function insertFormat(start, end) {
-            const startPos = textInput.selectionStart;
-            const endPos = textInput.selectionEnd;
-            const selection = textInput.value.substring(startPos, endPos);
-            const replacement = start + selection + end;
-            
-            textInput.value = textInput.value.substring(0, startPos) + replacement + textInput.value.substring(endPos);
-            textInput.dispatchEvent(new Event('input'));
-            textInput.focus();
-        }
-
-        // High-Quality PDF Synthesis
-        document.getElementById('generatePdf').addEventListener('click', () => {
-            if (!textInput.value.trim()) {
-                alert("The workspace is empty. Synthesizing air is not yet supported.");
-                return;
-            }
-
-            const element = document.getElementById('pdfPreview');
-            const opt = {
-                margin:       [1, 1, 1, 1], // Inches
-                filename:     'Architect_Document.pdf',
-                image:        { type: 'jpeg', quality: 1.0 }, // Maximum Quality
-                html2canvas:  { 
-                    scale: 4, // Ultra-High DPI Scaling
-                    useCORS: true, 
-                    letterRendering: true 
-                },
-                jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
-            };
-
-            // Start Synthesis Animation Effect (Optional visual)
-            const btn = document.getElementById('generatePdf');
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Synthesizing...';
-            
-            html2pdf().set(opt).from(element).save().then(() => {
-                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Synthesize PDF';
-            });
-        });
-
-        // Workspace Clear
-        document.getElementById('clearEditor').addEventListener('click', () => {
-            if(confirm("Wipe all document data? This cannot be undone.")) {
-                textInput.value = '';
-                pdfPreview.innerHTML = '';
-                charCount.innerText = '0 chars';
-            }
-        });
-
-        // Initial Placeholder text to showcase symbols
-        textInput.value = "# PDF Architect 2026\n\n**Professional High-Quality PDF Generator**\n\n- Support for **Bold** using `**` symbols.\n- Support for *Italic* using `*` symbols.\n- Clean A4 Typography.\n- Ultra-DPI 4.0 Scaling.\n\n> Engineered for high-performance synthesis.\n\nDesigned by **@shashank_404_**";
-        textInput.dispatchEvent(new Event('input'));
-
-    </script>
-</body>
-    </html>
-    
+## 📋 Example list
+- **Bold item** with *nested italic*  
+- हिन्दी आइटम: *कर्म* और **धर्म**  
+- `monospace` and _emphasis_
+          
