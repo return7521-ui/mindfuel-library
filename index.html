@@ -1,157 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Future Sustainable City</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Sustainable City</title>
 
-  <style>
-    body {
-      margin: 0;
-      overflow-x: hidden;
-      font-family: Arial, sans-serif;
-      background: #000;
-      color: white;
-    }
+<style>
+  body {
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background: black;
+    color: white;
+  }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-    }
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
 
-    .scroll-container {
-      height: 500vh;
-      width: 100%;
-    }
+  .scroll-container {
+    height: 600vh;
+  }
 
-    .overlay {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 10;
-      max-width: 300px;
-    }
+  .ui {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+  }
 
-    .card {
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(10px);
-      padding: 15px;
-      border-radius: 12px;
-      margin-bottom: 10px;
-      transition: 0.3s;
-    }
+  .card {
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(15px);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
 
-    .card:hover {
-      transform: scale(1.05);
-    }
+  .title {
+    font-size: 22px;
+    font-weight: bold;
+  }
 
-    .title {
-      font-size: 20px;
-      font-weight: bold;
-    }
+  .progress-bar {
+    width: 200px;
+    height: 5px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
 
-    .subtitle {
-      font-size: 14px;
-      opacity: 0.8;
-    }
-  </style>
+  .progress {
+    height: 100%;
+    width: 0%;
+    background: lime;
+  }
+</style>
 </head>
 
 <body>
 
-<div class="overlay">
+<div class="ui">
   <div class="card">
-    <div class="title">🌍 Future City</div>
-    <div class="subtitle">Scroll to transform the world</div>
+    <div class="title">🌍 Future City Engine</div>
+    <div>Scroll to evolve the planet</div>
+    <div class="progress-bar"><div class="progress"></div></div>
   </div>
 </div>
 
 <div class="scroll-container"></div>
 
 <script type="module">
+
 import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js";
+import { EffectComposer } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/postprocessing/EffectComposer.js";
+import { RenderPass } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/postprocessing/UnrealBloomPass.js";
 
-let scene = new THREE.Scene();
-let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+// ================= SCENE =================
+const scene = new THREE.Scene();
 
-let renderer = new THREE.WebGLRenderer({ antialias: true });
+const camera = new THREE.PerspectiveCamera(70, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.set(0, 6, 12);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(window.devicePixelRatio);
 document.body.appendChild(renderer.domElement);
 
-camera.position.z = 5;
+// ================= POST PROCESSING =================
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, camera));
 
-// Lighting
-const light = new THREE.DirectionalLight(0xffffff, 2);
-light.position.set(5, 5, 5);
-scene.add(light);
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(window.innerWidth, window.innerHeight),
+  0.8,
+  0.4,
+  0.2
+);
+composer.addPass(bloomPass);
 
-// Geometry (city blocks)
-const geometry = new THREE.BoxGeometry();
-let buildings = [];
+// ================= LIGHTING =================
+const sun = new THREE.DirectionalLight(0xffffff, 2);
+sun.position.set(10, 20, 10);
+scene.add(sun);
 
-for (let i = 0; i < 50; i++) {
-  let material = new THREE.MeshStandardMaterial({ color: 0x444444 });
-  let cube = new THREE.Mesh(geometry, material);
+const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+scene.add(ambient);
 
-  cube.position.x = (Math.random() - 0.5) * 20;
-  cube.position.y = Math.random() * 5;
-  cube.position.z = (Math.random() - 0.5) * 20;
+// ================= CITY GENERATION =================
+const buildings = [];
+const trees = [];
 
-  cube.scale.y = Math.random() * 5 + 1;
+function createBuilding(x, z) {
+  const height = Math.random() * 5 + 2;
 
-  scene.add(cube);
-  buildings.push(cube);
-}
-
-// Background color transition
-function updateEnvironment(progress) {
-  // Sky color transition (polluted → clean)
-  let r = 0.1 + progress * 0.2;
-  let g = 0.1 + progress * 0.5;
-  let b = 0.1 + progress * 0.7;
-  renderer.setClearColor(new THREE.Color(r, g, b));
-
-  // Building color transition
-  buildings.forEach((bld) => {
-    bld.material.color.setRGB(
-      0.3 + progress * 0.2,
-      0.3 + progress * 0.7,
-      0.3 + progress * 0.3
-    );
-
-    // Grow greenery
-    bld.scale.y = 1 + progress * 6;
+  const geometry = new THREE.BoxGeometry(1, height, 1);
+  const material = new THREE.MeshStandardMaterial({
+    color: 0x333333,
+    metalness: 0.6,
+    roughness: 0.5
   });
+
+  const mesh = new THREE.Mesh(geometry, material);
+  mesh.position.set(x, height/2, z);
+
+  scene.add(mesh);
+  buildings.push(mesh);
 }
 
-// Scroll interaction
-window.addEventListener("scroll", () => {
-  let scrollY = window.scrollY;
-  let maxScroll = document.body.scrollHeight - window.innerHeight;
-  let progress = scrollY / maxScroll;
+function createTree(x, z) {
+  const trunk = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.1, 0.1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x8b5a2b })
+  );
 
-  updateEnvironment(progress);
+  const leaves = new THREE.Mesh(
+    new THREE.SphereGeometry(0.6),
+    new THREE.MeshStandardMaterial({ color: 0x00ff88 })
+  );
+
+  trunk.position.set(x, 0.5, z);
+  leaves.position.set(x, 1.5, z);
+
+  scene.add(trunk);
+  scene.add(leaves);
+
+  trees.push(leaves);
+}
+
+// generate grid city
+for (let x = -10; x < 10; x += 2) {
+  for (let z = -10; z < 10; z += 2) {
+    createBuilding(x, z);
+
+    if (Math.random() > 0.7) {
+      createTree(x, z);
+    }
+  }
+}
+
+// ================= GROUND =================
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(200, 200),
+  new THREE.MeshStandardMaterial({ color: 0x111111 })
+);
+ground.rotation.x = -Math.PI/2;
+scene.add(ground);
+
+// ================= SKY SYSTEM =================
+const skyColor = new THREE.Color(0x111111);
+
+// ================= SCROLL SYSTEM =================
+let progress = 0;
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+  const max = document.body.scrollHeight - window.innerHeight;
+  progress = scrollY / max;
+
+  document.querySelector(".progress").style.width = (progress*100)+"%";
 });
 
-// Animation loop
+// ================= ENVIRONMENT EVOLUTION =================
+function evolveCity() {
+
+  // SKY TRANSITION
+  skyColor.setRGB(
+    0.05 + progress * 0.2,
+    0.05 + progress * 0.5,
+    0.05 + progress * 0.9
+  );
+  renderer.setClearColor(skyColor);
+
+  // SUN COLOR (pollution → clean)
+  sun.intensity = 0.5 + progress * 2;
+
+  // BUILDINGS EVOLVE
+  buildings.forEach((b) => {
+    b.scale.y = 1 + progress * 2;
+
+    b.material.color.setRGB(
+      0.2 + progress * 0.2,
+      0.2 + progress * 0.6,
+      0.2 + progress * 0.3
+    );
+  });
+
+  // TREES GROW
+  trees.forEach((t) => {
+    t.scale.setScalar(progress * 1.5);
+  });
+
+  // CAMERA CINEMATIC MOTION
+  camera.position.x = Math.sin(progress * Math.PI) * 10;
+  camera.position.z = 12 - progress * 8;
+  camera.lookAt(0,0,0);
+}
+
+// ================= HOTSPOT SYSTEM =================
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+
+window.addEventListener("click", (event) => {
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+
+  const intersects = raycaster.intersectObjects(buildings);
+
+  if (intersects.length > 0) {
+    const obj = intersects[0].object;
+    obj.material.color.set(0x00ffcc);
+  }
+});
+
+// ================= ANIMATION LOOP =================
 function animate() {
   requestAnimationFrame(animate);
 
-  buildings.forEach((b) => {
-    b.rotation.y += 0.001;
-  });
+  evolveCity();
 
-  renderer.render(scene, camera);
+  composer.render();
 }
+
 animate();
 
-// Resize
+// ================= RESIZE =================
 window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.aspect = window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
 </script>
 
 </body>
