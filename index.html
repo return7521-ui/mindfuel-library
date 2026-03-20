@@ -1,943 +1,475 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF MASTER · Text to PDF Pro | Unlimited features</title>
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400..800;1,14..32,400..800&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Fira+Code:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-  <!-- KaTeX for math -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css">
-  <!-- highlight.js for code -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
-  <style>
-    /* ----- RESET & GLOBAL ----- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Earth Odyssey | Interactive 3D Continents</title>
+    <!-- Inline CSS for immediate styling (for production, move to style.css) -->
+    <style>
+        /* ----- GLOBAL DARK THEME & RESET ----- */
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', 'Poppins', 'Orbitron', 'Montserrat', sans-serif;
+            color: #ffffff;
+        }
 
-    :root {
-      --bg-primary: #f0f5fa;
-      --bg-card: rgba(255,255,255,0.85);
-      --text-primary: #1a2639;
-      --text-secondary: #2b3b58;
-      --border-light: #d4e0ec;
-      --accent: #1f5f9e;
-      --accent-light: #e3f0ff;
-      --shadow: 0 25px 50px -12px rgba(0,32,64,0.25);
-      --header-bg: #0c1b33;
-      --header-text: #ffffff;
-      --toolbar-bg: #f9fcff;
-      --panel-bg: #ffffffec;
-      --code-bg: #eaf1fb;
-      --success: #0e7240;
-      --warning: #b95b0d;
-    }
-
-    body.dark {
-      --bg-primary: #121b26;
-      --bg-card: #1e2a3acc;
-      --text-primary: #e7edf5;
-      --text-secondary: #cbd5e1;
-      --border-light: #33475f;
-      --accent: #4882c9;
-      --accent-light: #1d3c5e;
-      --shadow: 0 25px 50px -12px #000000;
-      --header-bg: #030b17;
-      --header-text: #e0e9f5;
-      --toolbar-bg: #1b283b;
-      --panel-bg: #1d2a3fef;
-      --code-bg: #1d2f44;
-      --success: #32b37f;
-      --warning: #f39c4b;
-    }
-
-    body {
-      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      transition: background 0.2s, color 0.2s;
-      line-height: 1.6;
-      min-height: 100vh;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* main container */
-    .app {
-      max-width: 1800px;
-      width: 100%;
-      margin: 0 auto;
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      border-radius: 2.5rem;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--border-light);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ----- HEADER ----- */
-    .app-header {
-      background: var(--header-bg);
-      color: var(--header-text);
-      padding: 1.2rem 2rem;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-    .logo h1 {
-      font-weight: 700;
-      font-size: 1.9rem;
-      letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .logo h1 i { color: #64b5f6; }
-    .badge {
-      background: #284e7c;
-      padding: 0.2rem 1rem;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #cae0f5;
-    }
-    .header-controls {
-      margin-left: auto;
-      display: flex;
-      gap: 0.6rem;
-    }
-    .icon-btn {
-      background: none;
-      border: none;
-      color: #c3d9f0;
-      font-size: 1.4rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      border-radius: 50%;
-      width: 3rem;
-      height: 3rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: 0.2s;
-    }
-    .icon-btn:hover {
-      background: #1f3d62;
-      color: white;
-    }
-
-    /* ----- TOOLBAR ----- */
-    .toolbar {
-      background: var(--toolbar-bg);
-      padding: 0.8rem 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 0.5rem 0.8rem;
-      border-bottom: 2px solid var(--border-light);
-    }
-    .tool-group {
-      display: flex;
-      gap: 0.3rem;
-      padding-right: 1rem;
-      border-right: 1px solid var(--border-light);
-    }
-    .tool-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-secondary);
-      font-size: 1.2rem;
-      padding: 0.4rem 0.7rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: 0.15s;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-    .tool-btn i { font-size: 1.1rem; }
-    .tool-btn:hover { background: var(--accent-light); color: var(--accent); }
-    .tool-btn.active { background: var(--accent); color: white; }
-
-    /* ----- MAIN EDITOR AREA (grid) ----- */
-    .main-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 280px;
-      gap: 1rem;
-      padding: 1.5rem 2rem;
-      background: var(--bg-card);
-    }
-    @media (max-width: 1300px) {
-      .main-grid { grid-template-columns: 1fr 1fr; }
-      .right-sidebar { grid-column: span 2; }
-    }
-    @media (max-width: 900px) {
-      .main-grid { grid-template-columns: 1fr; }
-      .right-sidebar { grid-column: span 1; }
-    }
-
-    /* left panel: editor */
-    .editor-panel, .preview-panel, .right-sidebar {
-      background: var(--panel-bg);
-      border-radius: 2rem;
-      border: 1px solid var(--border-light);
-      padding: 1.2rem 1.2rem 0.8rem 1.2rem;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.02);
-    }
-    .panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.8rem;
-      color: var(--text-secondary);
-      font-weight: 600;
-    }
-    .panel-header i { margin-right: 0.4rem; color: var(--accent); }
-
-    #editor {
-      width: 100%;
-      flex: 1;
-      min-height: 500px;
-      padding: 1.4rem;
-      font-family: 'Fira Code', 'Noto Sans Devanagari', monospace;
-      font-size: 0.95rem;
-      line-height: 1.7;
-      background: var(--panel-bg);
-      color: var(--text-primary);
-      border: 2px solid var(--border-light);
-      border-radius: 1.8rem;
-      resize: vertical;
-      outline: none;
-      transition: 0.2s;
-    }
-    #editor:focus { border-color: var(--accent); }
-
-    /* preview */
-    .preview-box {
-      flex: 1;
-      overflow-y: auto;
-      background: var(--panel-bg);
-      border-radius: 1.8rem;
-      padding: 1.4rem;
-      border: 2px solid var(--border-light);
-      font-family: 'Inter', 'Noto Sans Devanagari', sans-serif;
-      line-height: 1.7;
-      word-wrap: break-word;
-    }
-    /* preview styling */
-    .preview-box h1 { font-size: 2.2em; border-bottom: 2px solid var(--border-light); padding-bottom: 0.3rem; }
-    .preview-box h2 { font-size: 1.8em; }
-    .preview-box h3 { font-size: 1.5em; }
-    .preview-box strong { color: var(--accent); font-weight: 700; }
-    .preview-box code:not(pre code) { background: var(--code-bg); padding: 0.2em 0.6em; border-radius: 30px; }
-    .preview-box pre { background: var(--code-bg); padding: 1.2rem; border-radius: 24px; overflow-x: auto; }
-    .preview-box blockquote { border-left: 5px solid var(--accent); background: var(--accent-light); padding: 1rem 2rem; border-radius: 30px; }
-    .preview-box table { border-collapse: collapse; width: 100%; }
-    .preview-box th, .preview-box td { border: 1px solid var(--border-light); padding: 0.5rem; }
-    .preview-box img { max-width: 100%; border-radius: 16px; }
-
-    /* right sidebar */
-    .right-sidebar {
-      gap: 1.5rem;
-      overflow-y: auto;
-      max-height: 700px;
-    }
-    .sidebar-section {
-      background: var(--toolbar-bg);
-      border-radius: 1.8rem;
-      padding: 1.2rem;
-    }
-    .section-title {
-      font-weight: 600;
-      margin-bottom: 0.8rem;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .stat-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.4rem 0;
-      border-bottom: 1px dashed var(--border-light);
-    }
-    .symbol-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.5rem;
-      margin-top: 0.5rem;
-    }
-    .symbol-btn {
-      background: var(--panel-bg);
-      border: 1px solid var(--border-light);
-      border-radius: 30px;
-      padding: 0.4rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: 0.1s;
-    }
-    .symbol-btn:hover { background: var(--accent); color: white; }
-
-    .pdf-opt-group {
-      margin: 0.7rem 0;
-    }
-    .pdf-opt-group label { display: block; font-weight: 500; margin-bottom: 0.3rem; }
-    .pdf-opt-group select, .pdf-opt-group input {
-      width: 100%;
-      padding: 0.5rem;
-      border-radius: 40px;
-      border: 1px solid var(--border-light);
-      background: var(--panel-bg);
-      color: var(--text-primary);
-    }
-
-    /* footer */
-    .app-footer {
-      padding: 1rem 2rem;
-      border-top: 2px solid var(--border-light);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      background: var(--toolbar-bg);
-      font-size: 0.9rem;
-    }
-    #statusMsg {
-      color: var(--accent);
-      font-weight: 500;
-    }
-
-    /* modals (hidden by default) */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(5px);
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-    .modal.active { display: flex; }
-    .modal-content {
-      background: var(--panel-bg);
-      border-radius: 3rem;
-      padding: 2rem;
-      max-width: 500px;
-      width: 90%;
-      max-height: 80vh;
-      overflow-y: auto;
-      border: 2px solid var(--border-light);
-    }
-    .modal-header { font-size: 1.6rem; font-weight: 700; margin-bottom: 1rem; }
-
-    .btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 0.7rem 1.8rem;
-      border-radius: 60px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: 0.2s;
-      border: 1px solid transparent;
-    }
-    .btn-outline {
-      background: transparent;
-      border: 1px solid var(--accent);
-      color: var(--accent);
-    }
-    .btn-outline:hover { background: var(--accent); color: white; }
-    .btn:active { transform: scale(0.97); }
-
-    .spinner { display: inline-block; animation: spin 1s linear infinite; }
-    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-  </style>
+        /* Info Panel - Sleek Glassmorphism Card */
+        .info-panel {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            max-width: 320px;
+            background: rgba(10, 20, 30, 0.75);
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 16px 24px;
+            border-left: 4px solid #ff3366;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 10;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+        .info-panel h3 {
+            margin: 0 0 6px 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #fff, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        .info-panel p {
+            margin: 0;
+            font-size: 0.95rem;
+            line-height: 1.4;
+            color: #f0f0f0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        .info-panel .continent-name {
+            font-weight: bold;
+            color: #ffaa66;
+        }
+        /* subtle hint */
+        .hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(6px);
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-family: monospace;
+            letter-spacing: 1px;
+            color: #ccc;
+            z-index: 10;
+            pointer-events: none;
+        }
+        /* Title Overlay */
+        .title {
+            position: fixed;
+            top: 24px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            background: transparent;
+            text-shadow: 0 0 12px rgba(0,0,0,0.7);
+            pointer-events: none;
+            z-index: 10;
+            letter-spacing: 3px;
+            color: #ffffffcc;
+        }
+        .title span {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 600px) {
+            .info-panel { max-width: 260px; padding: 12px 18px; bottom: 20px; left: 20px; }
+            .info-panel h3 { font-size: 1.2rem; }
+            .title span { font-size: 0.7rem; }
+        }
+        /* loader (optional, appears while texture loads) */
+        .loader {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #0a0f1a;
+            padding: 14px 28px;
+            border-radius: 60px;
+            color: white;
+            font-family: monospace;
+            z-index: 100;
+            border: 1px solid #ff3366;
+            backdrop-filter: blur(8px);
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+    </style>
 </head>
 <body>
-<div class="app">
-  <!-- Header -->
-  <header class="app-header">
-    <div class="logo">
-      <h1><i class="fas fa-file-pdf"></i> PDF MASTER <span class="badge">v3.0 · हिन्दी · मंत्र</span></h1>
+    <div class="title"><span>✦ EARTH ODYSSEY • DISCOVER THE WORLD ✦</span></div>
+    <div class="info-panel" id="infoPanel">
+        <h3>✨ CONTINENTS</h3>
+        <p>🌍 <span class="continent-name">Click on any glowing hotspot</span> — discover each continent's story.</p>
     </div>
-    <div class="header-controls">
-      <button class="icon-btn" id="themeToggle" title="Dark/Light"><i class="fas fa-moon"></i></button>
-      <button class="icon-btn" id="helpBtn" title="Help & shortcuts"><i class="fas fa-question"></i></button>
-      <button class="icon-btn" id="templatesBtn" title="Templates"><i class="fas fa-file-alt"></i></button>
-    </div>
-  </header>
+    <div class="hint">✨ HOVER to highlight | CLICK for insights ✨</div>
+    <div id="loadingOverlay" class="loader">🌐 LOADING EARTH TEXTURE ...</div>
 
-  <!-- Toolbar -->
-  <div class="toolbar">
-    <div class="tool-group">
-      <button class="tool-btn" id="newBtn"><i class="fas fa-file"></i> New</button>
-      <button class="tool-btn" id="openBtn"><i class="fas fa-folder-open"></i> Open</button>
-      <button class="tool-btn" id="saveMdBtn"><i class="fas fa-save"></i> Save MD</button>
-      <button class="tool-btn" id="saveHtmlBtn"><i class="fas fa-code"></i> Save HTML</button>
-    </div>
-    <div class="tool-group">
-      <button class="tool-btn" id="boldBtn"><i class="fas fa-bold"></i></button>
-      <button class="tool-btn" id="italicBtn"><i class="fas fa-italic"></i></button>
-      <button class="tool-btn" id="codeBtn"><i class="fas fa-code"></i></button>
-      <button class="tool-btn" id="linkBtn"><i class="fas fa-link"></i></button>
-      <button class="tool-btn" id="imgBtn"><i class="fas fa-image"></i></button>
-      <button class="tool-btn" id="ulBtn"><i class="fas fa-list-ul"></i></button>
-      <button class="tool-btn" id="olBtn"><i class="fas fa-list-ol"></i></button>
-      <button class="tool-btn" id="h1Btn">H1</button>
-      <button class="tool-btn" id="h2Btn">H2</button>
-    </div>
-    <div class="tool-group">
-      <button class="tool-btn" id="searchBtn"><i class="fas fa-search"></i> Search</button>
-      <button class="tool-btn" id="replaceBtn"><i class="fas fa-exchange-alt"></i> Replace</button>
-    </div>
-    <div style="margin-left: auto;">
-      <button class="tool-btn" id="exportPdfBtn" style="background: var(--accent); color: white;"><i class="fas fa-download"></i> Export PDF</button>
-    </div>
-  </div>
-
-  <!-- Main grid: Editor / Preview / Sidebar -->
-  <div class="main-grid">
-    <!-- LEFT: EDITOR -->
-    <div class="editor-panel">
-      <div class="panel-header"><span><i class="fas fa-pen"></i> MARKDOWN EDITOR (with हिन्दी support)</span> <span id="editorStats">0 words</span></div>
-      <textarea id="editor" placeholder="Type here... **bold** *italic* `code`  हिन्दी, ॐ, मंत्र, ©®™..."></textarea>
-    </div>
-
-    <!-- MIDDLE: PREVIEW -->
-    <div class="preview-panel">
-      <div class="panel-header"><span><i class="fas fa-eye"></i> LIVE PREVIEW (rich formatting)</span> <span id="previewStats">0 chars</span></div>
-      <div id="preview" class="preview-box"></div>
-    </div>
-
-    <!-- RIGHT SIDEBAR (stats, symbols, pdf options) -->
-    <div class="right-sidebar">
-      <div class="sidebar-section">
-        <div class="section-title"><i class="fas fa-chart-simple"></i> Document stats</div>
-        <div class="stat-item"><span>Words:</span> <span id="wordCount">0</span></div>
-        <div class="stat-item"><span>Characters (no spaces):</span> <span id="charCountNoSpace">0</span></div>
-        <div class="stat-item"><span>Characters (with spaces):</span> <span id="charCountSpace">0</span></div>
-        <div class="stat-item"><span>Lines:</span> <span id="lineCount">0</span></div>
-        <div class="stat-item"><span>Paragraphs:</span> <span id="paraCount">0</span></div>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="section-title"><i class="fas fa-language"></i> Special / हिन्दी / मंत्र</div>
-        <div class="symbol-grid">
-          <button class="symbol-btn" data-sym="ॐ">ॐ</button>
-          <button class="symbol-btn" data-sym="।">।</button>
-          <button class="symbol-btn" data-sym="॥">॥</button>
-          <button class="symbol-btn" data-sym="श्री">श्री</button>
-          <button class="symbol-btn" data-sym="₹">₹</button>
-          <button class="symbol-btn" data-sym="©">©</button>
-          <button class="symbol-btn" data-sym="®">®</button>
-          <button class="symbol-btn" data-sym="™">™</button>
-          <button class="symbol-btn" data-sym="✓">✓</button>
-          <button class="symbol-btn" data-sym="★">★</button>
-          <button class="symbol-btn" data-sym="♥">♥</button>
-          <button class="symbol-btn" data-sym="☸">☸</button>
-          <button class="symbol-btn" data-sym="✉">✉</button>
-          <button class="symbol-btn" data-sym="⌨">⌨</button>
-          <button class="symbol-btn" data-sym="☀">☀</button>
-          <button class="symbol-btn" data-sym="☾">☾</button>
-        </div>
-        <div style="margin-top: 0.8rem;">
-          <input type="text" id="customSymbol" placeholder="Type any symbol" style="width:70%; padding:0.4rem;"> 
-          <button class="tool-btn" id="addCustomSym">+</button>
-        </div>
-      </div>
-
-      <div class="sidebar-section">
-        <div class="section-title"><i class="fas fa-gear"></i> PDF export options</div>
-        <div class="pdf-opt-group">
-          <label>Page size</label>
-          <select id="pdfSize">
-            <option value="a4">A4</option>
-            <option value="letter">Letter</option>
-            <option value="legal">Legal</option>
-          </select>
-        </div>
-        <div class="pdf-opt-group">
-          <label>Orientation</label>
-          <select id="pdfOrientation">
-            <option value="portrait">Portrait</option>
-            <option value="landscape">Landscape</option>
-          </select>
-        </div>
-        <div class="pdf-opt-group">
-          <label>Margin (in)</label>
-          <input type="number" id="pdfMargin" min="0" max="2" step="0.1" value="0.5">
-        </div>
-        <div class="pdf-opt-group">
-          <label>Scale (zoom)</label>
-          <input type="number" id="pdfScale" min="1" max="4" step="0.1" value="2">
-        </div>
-        <div class="pdf-opt-group">
-          <label><input type="checkbox" id="pdfBackground" checked> Include background</label>
-        </div>
-        <button class="btn" id="pdfExportBtn" style="width:100%;"><i class="fas fa-file-pdf"></i> Generate PDF</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer class="app-footer">
-    <span><i class="fas fa-info-circle"></i> <span id="statusMsg">Ready</span></span>
-    <span><i class="fas fa-keyboard"></i> Ctrl+B bold • Ctrl+I italic • Ctrl+K link • Ctrl+Enter PDF</span>
-  </footer>
-</div>
-
-<!-- Hidden file input for open -->
-<input type="file" id="fileInput" accept=".txt,.md,.markdown,text/plain" style="display:none;">
-
-<!-- Template Modal -->
-<div id="templateModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header"><i class="fas fa-template"></i> Templates</div>
-    <div style="display:flex; flex-direction:column; gap:10px;">
-      <button class="btn btn-outline" data-template="mantra">🔱 Sanskrit Mantra (हिन्दी)</button>
-      <button class="btn btn-outline" data-template="report">📊 Professional Report</button>
-      <button class="btn btn-outline" data-template="letter">✉ Formal Letter</button>
-      <button class="btn btn-outline" data-template="resume">📄 Resume (Markdown)</button>
-    </div>
-    <button class="btn" style="margin-top:20px;" id="closeTemplate">Close</button>
-  </div>
-</div>
-
-<!-- Help Modal -->
-<div id="helpModal" class="modal">
-  <div class="modal-content">
-    <div class="modal-header"><i class="fas fa-circle-question"></i> Help & shortcuts</div>
-    <ul style="list-style-type: none;">
-      <li><kbd>Ctrl+B</kbd> bold **text**</li>
-      <li><kbd>Ctrl+I</kbd> italic *text*</li>
-      <li><kbd>Ctrl+K</kbd> insert link</li>
-      <li><kbd>Ctrl+Shift+C</kbd> code block</li>
-      <li><kbd>Ctrl+Enter</kbd> export PDF</li>
-      <li><kbd>Ctrl+S</kbd> save as markdown</li>
-      <li><kbd>Ctrl+O</kbd> open file</li>
-      <li>Use ```language for code blocks</li>
-      <li>Inline math $...$ or $$...$$ (KaTeX)</li>
-      <li>Markdown tables, footnotes, etc.</li>
-    </ul>
-    <button class="btn" id="closeHelp">Got it</button>
-  </div>
-</div>
-
-<!-- SCRIPTS -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/contrib/auto-render.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
-<script>
-  (function() {
-    // ----- ELEMENTS -----
-    const editor = document.getElementById('editor');
-    const preview = document.getElementById('preview');
-    const wordSpan = document.getElementById('wordCount');
-    const charNoSpace = document.getElementById('charCountNoSpace');
-    const charSpace = document.getElementById('charCountSpace');
-    const lineSpan = document.getElementById('lineCount');
-    const paraSpan = document.getElementById('paraCount');
-    const statusMsg = document.getElementById('statusMsg');
-    const themeToggle = document.getElementById('themeToggle');
-    const helpBtn = document.getElementById('helpBtn');
-    const templatesBtn = document.getElementById('templatesBtn');
-    const newBtn = document.getElementById('newBtn');
-    const openBtn = document.getElementById('openBtn');
-    const saveMdBtn = document.getElementById('saveMdBtn');
-    const saveHtmlBtn = document.getElementById('saveHtmlBtn');
-    const boldBtn = document.getElementById('boldBtn');
-    const italicBtn = document.getElementById('italicBtn');
-    const codeBtn = document.getElementById('codeBtn');
-    const linkBtn = document.getElementById('linkBtn');
-    const imgBtn = document.getElementById('imgBtn');
-    const ulBtn = document.getElementById('ulBtn');
-    const olBtn = document.getElementById('olBtn');
-    const h1Btn = document.getElementById('h1Btn');
-    const h2Btn = document.getElementById('h2Btn');
-    const searchBtn = document.getElementById('searchBtn');
-    const replaceBtn = document.getElementById('replaceBtn');
-    const exportPdfBtn = document.getElementById('exportPdfBtn');
-    const pdfExportBtn = document.getElementById('pdfExportBtn');
-    const fileInput = document.getElementById('fileInput');
-    const templateModal = document.getElementById('templateModal');
-    const helpModal = document.getElementById('helpModal');
-    const closeTemplate = document.getElementById('closeTemplate');
-    const closeHelp = document.getElementById('closeHelp');
-    const symbolBtns = document.querySelectorAll('.symbol-btn');
-    const addCustomSym = document.getElementById('addCustomSym');
-    const customSymbol = document.getElementById('customSymbol');
-
-    // PDF options
-    const pdfSize = document.getElementById('pdfSize');
-    const pdfOrientation = document.getElementById('pdfOrientation');
-    const pdfMargin = document.getElementById('pdfMargin');
-    const pdfScale = document.getElementById('pdfScale');
-    const pdfBackground = document.getElementById('pdfBackground');
-
-    // ----- STATE -----
-    let autosaveTimer = null;
-
-    // ----- INITIAL CONTENT (rich sample) -----
-    const sample = `# ॐ नमः शिवाय
-
-This **professional** document demonstrates **unlimited features**:
-
-## ✨ Markdown + Hindi + Math + Code
-- **Bold** with \`**\` or \`__\`
-- *Italic* with \`*\` or \`_\`
-- \`Inline code\` and \`\`\`code blocks\`\`\` with syntax highlighting
-- हिन्दी समर्थन: **भारत**, *देवनागरी*, \`संस्कृत मंत्र\`
-- Special symbols: ©®™✓★ ♠♣♥♦ «» ∑∏∫
-- **Math**: $E = mc^2$ and $$\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}$$
-- Table:
-| Feature | Status |
-|---------|--------|
-| Hindi   | ✅     |
-| PDF     | ⚡      |
-
-> ॐ भूर्भुवः स्वः तत्सवितुर्वरेण्यम् भर्गो देवस्य धीमहि धियो यो नः प्रचोदयात् ॥
-
-\`\`\`javascript
-// Code with syntax highlight
-function greet() {
-  console.log("नमस्ते जी!");
-}
-\`\`\`
-
-Ready to generate highest quality PDF with all options.`;
-    if (!editor.value) editor.value = sample;
-
-    // ----- MARKED CONFIG (with lang prefix) -----
-    marked.setOptions({
-      breaks: true,
-      gfm: true,
-      highlight: (code, lang) => {
-        if (lang && hljs.getLanguage(lang)) {
-          return hljs.highlight(code, { language: lang }).value;
+    <!-- Three.js Core & Add-ons -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+            }
         }
-        return hljs.highlightAuto(code).value;
-      }
-    });
+    </script>
 
-    // ----- RENDER PREVIEW with KaTeX and sanitization -----
-    function renderPreview() {
-      const raw = editor.value;
-      let html = marked.parse(raw);
-      html = DOMPurify.sanitize(html, { USE_PROFILES: { html: true } });
-      preview.innerHTML = html;
-      document.querySelectorAll('#preview pre code').forEach((block) => {
-        hljs.highlightElement(block);
-      });
-      renderMathInElement(preview, {
-        delimiters: [
-          { left: '$$', right: '$$', display: true },
-          { left: '$', right: '$', display: false },
-          { left: '\\(', right: '\\)', display: false },
-          { left: '\\[', right: '\\]', display: true }
-        ],
-        throwOnError: false
-      });
-      updateStats();
-    }
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-    // ----- UPDATE STATISTICS -----
-    function updateStats() {
-      const text = editor.value;
-      const words = text.match(/\b\w+\b/g)?.length || 0;
-      const charsNoSpace = text.replace(/\s+/g, '').length;
-      const charsSpace = text.length;
-      const lines = text.split(/\r?\n/).length;
-      const paras = text.split(/\n\s*\n/).filter(p => p.trim().length > 0).length;
-      wordSpan.innerText = words;
-      charNoSpace.innerText = charsNoSpace;
-      charSpace.innerText = charsSpace;
-      lineSpan.innerText = lines;
-      paraSpan.innerText = paras;
-    }
+        // --- SETUP SCENE, CAMERA, RENDERER (Dark immersive space) ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x030318); // deep cosmic
+        scene.fog = new THREE.FogExp2(0x030318, 0.0003); // subtle fog for depth
 
-    // ----- AUTO SAVE -----
-    function autosave() {
-      localStorage.setItem('pdfmaster_draft', editor.value);
-      statusMsg.innerText = 'Autosaved at ' + new Date().toLocaleTimeString();
-    }
-    editor.addEventListener('input', () => {
-      clearTimeout(autosaveTimer);
-      autosaveTimer = setTimeout(() => {
-        renderPreview();
-        autosave();
-      }, 400);
-    });
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0.5, 7);
+        camera.lookAt(0, 0, 0);
 
-    const draft = localStorage.getItem('pdfmaster_draft');
-    if (draft) editor.value = draft;
-    renderPreview();
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true; // subtle shadows
+        document.body.appendChild(renderer.domElement);
 
-    // ----- TOOLBAR ACTIONS -----
-    function insertAround(prefix, suffix = '') {
-      const start = editor.selectionStart;
-      const end = editor.selectionEnd;
-      const text = editor.value;
-      const selected = text.substring(start, end);
-      const replacement = prefix + selected + suffix;
-      editor.value = text.substring(0, start) + replacement + text.substring(end);
-      editor.selectionStart = editor.selectionEnd = start + replacement.length;
-      editor.focus();
-      renderPreview();
-    }
+        // --- ORBIT CONTROLS (enables interactive exploration while Earth rotates) ---
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;      // smooth inertia
+        controls.dampingFactor = 0.05;
+        controls.autoRotate = false;
+        controls.enableZoom = true;
+        controls.zoomSpeed = 1.2;
+        controls.rotateSpeed = 0.8;
+        controls.target.set(0, 0, 0);
 
-    boldBtn.onclick = () => insertAround('**', '**');
-    italicBtn.onclick = () => insertAround('*', '*');
-    codeBtn.onclick = () => insertAround('`', '`');
-    linkBtn.onclick = () => insertAround('[', '](url)');
-    imgBtn.onclick = () => insertAround('![alt](', ')');
-    ulBtn.onclick = () => insertAround('\n- ', '');
-    olBtn.onclick = () => insertAround('\n1. ', '');
-    h1Btn.onclick = () => insertAround('# ', '');
-    h2Btn.onclick = () => insertAround('## ', '');
+        // --- LIGHTS: atmospheric & dramatic ---
+        // Ambient light soft fill
+        const ambientLight = new THREE.AmbientLight(0x222222);
+        scene.add(ambientLight);
+        // Main directional light (sunlight)
+        const mainLight = new THREE.DirectionalLight(0xffeedd, 1.2);
+        mainLight.position.set(5, 3, 5);
+        mainLight.castShadow = true;
+        mainLight.receiveShadow = false;
+        mainLight.shadow.mapSize.width = 1024;
+        mainLight.shadow.mapSize.height = 1024;
+        scene.add(mainLight);
+        // Fill light from below to illuminate darker side
+        const fillLight = new THREE.PointLight(0x4466cc, 0.4);
+        fillLight.position.set(0, -3, 0);
+        scene.add(fillLight);
+        // Back rim light for edges
+        const rimLight = new THREE.PointLight(0xffaa66, 0.5);
+        rimLight.position.set(-2, 1, -3);
+        scene.add(rimLight);
+        
+        // small point light near earth for hotspot glow effect
+        const warmGlow = new THREE.PointLight(0xff8844, 0.6);
+        warmGlow.position.set(1, 1, 2);
+        scene.add(warmGlow);
 
-    symbolBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        insertAround(btn.getAttribute('data-sym'), '');
-      });
-    });
-    addCustomSym.onclick = () => {
-      if (customSymbol.value) insertAround(customSymbol.value, '');
-    };
-
-    searchBtn.onclick = () => {
-      const term = prompt('Search for:');
-      if (!term) return;
-      const pos = editor.value.indexOf(term);
-      if (pos >= 0) {
-        editor.focus();
-        editor.setSelectionRange(pos, pos + term.length);
-      } else alert('Not found');
-    };
-    replaceBtn.onclick = () => {
-      const search = prompt('Find:');
-      if (!search) return;
-      const replace = prompt('Replace with:');
-      if (replace === null) return;
-      editor.value = editor.value.split(search).join(replace);
-      renderPreview();
-    };
-
-    newBtn.onclick = () => {
-      if (confirm('Clear editor? unsaved changes lost.')) {
-        editor.value = '';
-        renderPreview();
-      }
-    };
-
-    openBtn.onclick = () => fileInput.click();
-    fileInput.onchange = (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        editor.value = ev.target.result;
-        renderPreview();
-        statusMsg.innerText = `Loaded: ${file.name}`;
-      };
-      reader.readAsText(file);
-    };
-
-    saveMdBtn.onclick = () => {
-      const blob = new Blob([editor.value], { type: 'text/markdown' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'document.md';
-      a.click();
-      URL.revokeObjectURL(url);
-    };
-
-    saveHtmlBtn.onclick = () => {
-      const htmlContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Document</title><style>body { font-family: Inter, 'Noto Sans Devanagari'; padding:2rem; }</style></head><body>${preview.innerHTML}</body></html>`;
-      const blob = new Blob([htmlContent], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'document.html';
-      a.click();
-      URL.revokeObjectURL(url);
-    };
-
-    // ----- ROBUST PDF GENERATION (completely rewritten) -----
-    async function generatePDF() {
-      statusMsg.innerText = '⏳ Preparing PDF...';
-
-      // Create a dedicated container
-      const pdfContainer = document.createElement('div');
-      pdfContainer.id = 'pdf-export-container';
-      
-      // Copy the rendered HTML from preview (including all formatting)
-      pdfContainer.innerHTML = preview.innerHTML;
-
-      // Create a style element to enforce light theme and proper fonts
-      const style = document.createElement('style');
-      style.textContent = `
-        /* Force all text to black, background to white */
-        * {
-          color: #000000 !important;
-          background-color: transparent !important;
+        // --- STARFIELD BACKGROUND (Particle System) ---
+        const starGeometry = new THREE.BufferGeometry();
+        const starCount = 1800;
+        const starPositions = new Float32Array(starCount * 3);
+        for (let i = 0; i < starCount; i++) {
+            starPositions[i*3] = (Math.random() - 0.5) * 800;
+            starPositions[i*3+1] = (Math.random() - 0.5) * 500;
+            starPositions[i*3+2] = (Math.random() - 0.5) * 200 - 80;
         }
-        body, div, p, h1, h2, h3, h4, h5, h6, blockquote, pre, code, table, th, td, li, a, span {
-          background: none !important;
+        starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
+        const starMaterial = new THREE.PointsMaterial({ color: 0xffffff, size: 0.25, transparent: true, opacity: 0.7 });
+        const stars = new THREE.Points(starGeometry, starMaterial);
+        scene.add(stars);
+        
+        // second layer tiny stars
+        const starGeometry2 = new THREE.BufferGeometry();
+        const starCount2 = 800;
+        const starPositions2 = new Float32Array(starCount2 * 3);
+        for (let i = 0; i < starCount2; i++) {
+            starPositions2[i*3] = (Math.random() - 0.5) * 1200;
+            starPositions2[i*3+1] = (Math.random() - 0.5) * 800;
+            starPositions2[i*3+2] = (Math.random() - 0.5) * 300 - 150;
         }
-        body {
-          background: #ffffff !important;
-          color: #000000 !important;
-          font-family: 'Inter', 'Noto Sans Devanagari', sans-serif !important;
-          line-height: 1.6 !important;
-          padding: 2rem !important;
-          margin: 0 auto !important;
-          max-width: 800px !important;  /* comfortable reading width */
+        starGeometry2.setAttribute('position', new THREE.BufferAttribute(starPositions2, 3));
+        const starMaterial2 = new THREE.PointsMaterial({ color: 0xaaccff, size: 0.15, transparent: true, opacity: 0.5 });
+        const stars2 = new THREE.Points(starGeometry2, starMaterial2);
+        scene.add(stars2);
+        
+        // --- EARTH GROUP (rotates to simulate planet spin, holds both earth and hotspots) ---
+        const earthGroup = new THREE.Group();
+        scene.add(earthGroup);
+        
+        // Earth radius
+        const earthRadius = 2.0;
+        const hotspotRadius = 0.095;
+        const hotspotOffset = 0.022; // slightly above surface
+        
+        // --- LOAD EARTH TEXTURE (high-res, beautiful) ---
+        const textureLoader = new THREE.TextureLoader();
+        // Using reliable high-res earth map from Three.js examples (diffuse + clouds effect)
+        const earthMap = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
+        const earthSpecularMap = textureLoader.load('https://threejs.org/examples/textures/planets/earth_specular_2048.jpg');
+        const earthNormalMap = textureLoader.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg');
+        const cloudMap = textureLoader.load('https://threejs.org/examples/textures/planets/earth_clouds_1024.png');
+        
+        // Earth material (Phong for specular highlights)
+        const earthMaterial = new THREE.MeshPhongMaterial({
+            map: earthMap,
+            specularMap: earthSpecularMap,
+            specular: new THREE.Color('grey'),
+            shininess: 5,
+            normalMap: earthNormalMap,
+            normalScale: new THREE.Vector2(0.8, 0.8)
+        });
+        
+        const earthMesh = new THREE.Mesh(new THREE.SphereGeometry(earthRadius, 128, 128), earthMaterial);
+        earthGroup.add(earthMesh);
+        
+        // --- CLOUDS LAYER (transparent rotating slightly faster for ethereal effect) ---
+        const cloudMaterial = new THREE.MeshPhongMaterial({
+            map: cloudMap,
+            transparent: true,
+            opacity: 0.12,
+            blending: THREE.AdditiveBlending
+        });
+        const cloudMesh = new THREE.Mesh(new THREE.SphereGeometry(earthRadius + 0.02, 128, 128), cloudMaterial);
+        earthGroup.add(cloudMesh);
+        
+        // --- HOTSPOT DEFINITIONS: continent name, latitude, longitude, captivating description ---
+        const continentsData = [
+            { name: "NORTH AMERICA", lat: 45.0, lon: -100.0, desc: "🏔️ From the icy tundra of Canada to the vibrant cultures of the USA and Mexico. Home to towering skyscrapers, vast forests, and the Grand Canyon." },
+            { name: "SOUTH AMERICA", lat: -15.0, lon: -60.0, desc: "🌿 The Amazon rainforest, the Andes mountains, and rich heritage. A land of biodiversity, tango, and ancient Incan wonders." },
+            { name: "EUROPE", lat: 50.0, lon: 10.0, desc: "🏰 A tapestry of history, art, and innovation. From the Alps to Mediterranean coasts, castles, and timeless architecture." },
+            { name: "AFRICA", lat: 0.0, lon: 20.0, desc: "🦁 The cradle of humankind — savannas, Sahara desert, vibrant wildlife, and rhythmic beats. A continent of unmatched spirit." },
+            { name: "ASIA", lat: 30.0, lon: 100.0, desc: "🐉 The largest continent, diverse traditions, Himalayan peaks, futuristic cities, and ancient philosophies. Mystical and dynamic." },
+            { name: "AUSTRALIA", lat: -25.0, lon: 135.0, desc: "🦘 Land down under, unique marsupials, the Great Barrier Reef, vast outback, and indigenous culture over 60,000 years old." },
+            { name: "ANTARCTICA", lat: -82.0, lon: 0.0, desc: "❄️ The frozen frontier — pristine ice sheets, scientific research, and the planet's last true wilderness. Icy guardian of climate." }
+        ];
+        
+        // Helper: convert lat/lon to Vector3 (radius + offset)
+        function getPosition(lat, lon, radiusOffset = 0) {
+            const phi = (90 - lat) * Math.PI / 180;
+            const theta = lon * Math.PI / 180;
+            const r = earthRadius + radiusOffset;
+            const x = r * Math.sin(phi) * Math.cos(theta);
+            const y = r * Math.cos(phi);
+            const z = r * Math.sin(phi) * Math.sin(theta);
+            return new THREE.Vector3(x, y, z);
         }
-        pre, code {
-          background: #f5f5f5 !important;
-          color: #000000 !important;
-          border-radius: 8px !important;
+        
+        // Store hotspot meshes for interactions
+        const hotspots = [];
+        
+        // Create glowing hotspots with modern look: emissive spheres + tiny halo ring
+        continentsData.forEach(continent => {
+            const pos = getPosition(continent.lat, continent.lon, hotspotOffset);
+            // Core glowing sphere
+            const sphereMat = new THREE.MeshStandardMaterial({
+                color: 0xff3366,
+                emissive: 0xcc2244,
+                emissiveIntensity: 0.65,
+                roughness: 0.3,
+                metalness: 0.1
+            });
+            const marker = new THREE.Mesh(new THREE.SphereGeometry(hotspotRadius, 24, 24), sphereMat);
+            marker.position.copy(pos);
+            marker.userData = {
+                type: 'hotspot',
+                continentName: continent.name,
+                description: continent.desc,
+                originalColor: 0xff3366,
+                originalEmissive: 0xcc2244
+            };
+            earthGroup.add(marker);
+            
+            // add a subtle ring / orbitlet around hotspot to increase visibility
+            const ringGeo = new THREE.TorusGeometry(hotspotRadius * 1.3, 0.018, 16, 40);
+            const ringMat = new THREE.MeshStandardMaterial({ color: 0xffaa88, emissive: 0x442200, emissiveIntensity: 0.4 });
+            const ring = new THREE.Mesh(ringGeo, ringMat);
+            ring.position.copy(pos);
+            ring.userData = { parentHotspot: true };
+            earthGroup.add(ring);
+            
+            // store both marker and ring (optional for hover fx)
+            marker.ringRef = ring;
+            hotspots.push(marker);
+        });
+        
+        // --- ADD EXTRA ATMOSPHERIC GLOW (custom back outer glow) ---
+        const glowMaterial = new THREE.MeshPhongMaterial({
+            color: 0x2266aa,
+            transparent: true,
+            opacity: 0.08,
+            side: THREE.BackSide
+        });
+        const atmosphereGlow = new THREE.Mesh(new THREE.SphereGeometry(earthRadius + 0.08, 64, 64), glowMaterial);
+        earthGroup.add(atmosphereGlow);
+        
+        // --- INTERACTIVITY: Raycaster for hover and click ---
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        
+        // DOM elements for description panel
+        const infoPanel = document.getElementById('infoPanel');
+        const panelTitle = infoPanel.querySelector('h3');
+        const panelDesc = infoPanel.querySelector('p');
+        
+        // Helper to update info panel content
+        function updatePanel(continent, description) {
+            panelTitle.innerHTML = `🌍 ${continent}`;
+            panelDesc.innerHTML = `<span class="continent-name">${continent}</span><br>${description}`;
+            // add a subtle pop animation
+            infoPanel.style.transform = 'scale(1.02)';
+            setTimeout(() => { infoPanel.style.transform = 'scale(1)'; }, 180);
         }
-        blockquote {
-          background: #f9f9f9 !important;
-          border-left: 5px solid #1f5f9e !important;
+        
+        // reset panel to default after some time? we keep selected until next click (more intuitive)
+        // But for user-friendliness, we set default after 6 seconds? Instead better to keep permanent but show new clicks.
+        // Default welcome if no click? but we already have default, we will override on click.
+        
+        // Hover effect: highlight hotspots + cursor change
+        let currentHovered = null;
+        
+        function onMouseMove(event) {
+            // calculate mouse position in normalized coordinates
+            mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+            mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(hotspots);
+            
+            if (intersects.length > 0) {
+                const hit = intersects[0].object;
+                if (currentHovered !== hit) {
+                    // reset previous hovered style
+                    if (currentHovered) {
+                        currentHovered.material.color.setHex(currentHovered.userData.originalColor);
+                        currentHovered.material.emissiveIntensity = 0.65;
+                        if (currentHovered.ringRef) currentHovered.ringRef.material.emissiveIntensity = 0.3;
+                    }
+                    currentHovered = hit;
+                    // highlight
+                    hit.material.color.setHex(0xffaa77);
+                    hit.material.emissiveIntensity = 1.2;
+                    if (hit.ringRef) hit.ringRef.material.emissiveIntensity = 0.8;
+                    document.body.style.cursor = 'pointer';
+                }
+            } else {
+                if (currentHovered) {
+                    currentHovered.material.color.setHex(currentHovered.userData.originalColor);
+                    currentHovered.material.emissiveIntensity = 0.65;
+                    if (currentHovered.ringRef) currentHovered.ringRef.material.emissiveIntensity = 0.4;
+                    currentHovered = null;
+                    document.body.style.cursor = 'auto';
+                }
+            }
         }
-        table, th, td {
-          border: 1px solid #ccc !important;
+        
+        function onClick(event) {
+            mouse.x = (event.clientX / renderer.domElement.clientWidth) * 2 - 1;
+            mouse.y = -(event.clientY / renderer.domElement.clientHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+            const intersects = raycaster.intersectObjects(hotspots);
+            
+            if (intersects.length > 0) {
+                const hotspotObj = intersects[0].object;
+                const continent = hotspotObj.userData.continentName;
+                const description = hotspotObj.userData.description;
+                updatePanel(continent, description);
+                // small extra: pulse effect on selected hotspot
+                hotspotObj.material.emissiveIntensity = 1.5;
+                setTimeout(() => {
+                    if (hotspotObj === currentHovered) return;
+                    hotspotObj.material.emissiveIntensity = 0.65;
+                }, 300);
+            }
         }
-        a {
-          color: #1f5f9e !important;
+        
+        // --- ANIMATION LOOP: rotate Earth group, clouds, stars subtle motion ---
+        let earthRotationSpeed = 0.0022;
+        let cloudRotationSpeed = 0.0026;
+        
+        // remove loading overlay after texture and scene stable
+        setTimeout(() => {
+            const loaderDiv = document.getElementById('loadingOverlay');
+            if (loaderDiv) {
+                loaderDiv.style.opacity = '0';
+                setTimeout(() => { if(loaderDiv) loaderDiv.remove(); }, 1000);
+            }
+        }, 1500);
+        
+        // also ensure if texture fails, still functional
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Rotate Earth Group for constant rotation (realistic spin)
+            earthGroup.rotation.y += earthRotationSpeed;
+            // rotate clouds slightly faster for drifting illusion
+            cloudMesh.rotation.y += 0.0008;
+            
+            // subtle stars rotation for immersive parallax
+            stars.rotation.y += 0.0001;
+            stars.rotation.x += 0.00005;
+            stars2.rotation.y -= 0.00007;
+            
+            // pulsating glow light near earth (dynamic)
+            const time = Date.now() * 0.002;
+            warmGlow.intensity = 0.55 + Math.sin(time) * 0.12;
+            
+            // Update controls and render
+            controls.update(); // needed for damping even if no user input
+            renderer.render(scene, camera);
         }
-        /* Keep syntax highlighting readable */
-        .hljs {
-          background: #f5f5f5 !important;
-          color: #000 !important;
+        
+        // --- EVENT LISTENERS ---
+        window.addEventListener('mousemove', onMouseMove, false);
+        window.addEventListener('click', onClick, false);
+        
+        // Handle window resize
+        window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
         }
-      `;
-      pdfContainer.appendChild(style);
-
-      // Set container inline styles to ensure white background and block display
-      pdfContainer.style.background = '#ffffff';
-      pdfContainer.style.color = '#000000';
-      pdfContainer.style.padding = '2rem';
-      pdfContainer.style.fontFamily = "'Inter', 'Noto Sans Devanagari', sans-serif";
-      pdfContainer.style.maxWidth = '800px';
-      pdfContainer.style.margin = '0 auto';
-      pdfContainer.style.boxSizing = 'border-box';
-      pdfContainer.style.position = 'absolute';
-      pdfContainer.style.left = '-9999px';
-      pdfContainer.style.top = '0';
-      pdfContainer.style.width = '800px';          // fixed width for consistent capture
-      pdfContainer.style.overflow = 'visible';      // don't clip content
-
-      document.body.appendChild(pdfContainer);
-
-      // Force a reflow to ensure all styles are applied and fonts loaded
-      pdfContainer.offsetHeight; // read a property to force layout
-
-      // Wait a tiny bit for any async rendering (like math) to settle
-      await new Promise(resolve => setTimeout(resolve, 150));
-
-      // PDF options
-      const opt = {
-        margin: parseFloat(pdfMargin.value) || 0.5,
-        filename: 'converted_document.pdf',
-        image: { type: 'jpeg', quality: 1 },
-        html2canvas: { 
-          scale: parseFloat(pdfScale.value) || 2, 
-          letterRendering: true, 
-          useCORS: true, 
-          logging: false,
-          backgroundColor: '#ffffff',
-          windowWidth: 800,        // help canvas capture at correct width
-        },
-        jsPDF: { unit: 'in', format: pdfSize.value, orientation: pdfOrientation.value },
-        pagebreak: { mode: ['css', 'legacy'] }     // better page breaking
-      };
-
-      try {
-        statusMsg.innerText = '⏳ Generating PDF...';
-        await html2pdf().from(pdfContainer).set(opt).save();
-        statusMsg.innerText = '✅ PDF exported successfully';
-      } catch (err) {
-        statusMsg.innerText = '❌ PDF error: ' + err.message;
-        console.error('PDF error:', err);
-        // fallback: try with lower scale
-        try {
-          opt.html2canvas.scale = 1.5;
-          await html2pdf().from(pdfContainer).set(opt).save();
-          statusMsg.innerText = '✅ PDF exported (fallback scale)';
-        } catch (fallbackErr) {
-          statusMsg.innerText = '❌ PDF failed: ' + fallbackErr.message;
-        }
-      } finally {
-        pdfContainer.remove();
-      }
-    }
-
-    exportPdfBtn.onclick = generatePDF;
-    pdfExportBtn.onclick = generatePDF;
-
-    // Keyboard shortcuts
-    document.addEventListener('keydown', (e) => {
-      if (e.ctrlKey || e.metaKey) {
-        if (e.key === 'b') { e.preventDefault(); boldBtn.click(); }
-        if (e.key === 'i') { e.preventDefault(); italicBtn.click(); }
-        if (e.key === 'k') { e.preventDefault(); linkBtn.click(); }
-        if (e.key === 's') { e.preventDefault(); saveMdBtn.click(); }
-        if (e.key === 'o') { e.preventDefault(); openBtn.click(); }
-        if (e.key === 'Enter') { e.preventDefault(); generatePDF(); }
-        if (e.key === 'Shift' && e.code === 'KeyC') { e.preventDefault(); codeBtn.click(); }
-      }
-    });
-
-    // Theme toggle
-    themeToggle.onclick = () => {
-      document.body.classList.toggle('dark');
-      const icon = themeToggle.querySelector('i');
-      icon.classList.toggle('fa-moon');
-      icon.classList.toggle('fa-sun');
-    };
-
-    // Modals
-    helpBtn.onclick = () => helpModal.classList.add('active');
-    closeHelp.onclick = () => helpModal.classList.remove('active');
-    templatesBtn.onclick = () => templateModal.classList.add('active');
-    closeTemplate.onclick = () => templateModal.classList.remove('active');
-    document.querySelectorAll('[data-template]').forEach(btn => {
-      btn.onclick = (e) => {
-        const t = e.target.getAttribute('data-template');
-        if (t === 'mantra') editor.value = `# ॐ भूर्भुवः स्वः\nतत्सवितुर्वरेण्यं भर्गो देवस्य धीमहि।\nधियो यो नः प्रचोदयात् ॥\n\n**गायत्री मंत्र** हिन्दी में`;
-        if (t === 'report') editor.value = `# Quarterly Report\n\n- Revenue increased **20%**\n- New users: *5,000*`;
-        if (t === 'letter') editor.value = `# Formal Letter\n\nDear Sir/Madam,\n\n...`;
-        if (t === 'resume') editor.value = `# John Doe\n\n## Experience\n- **Company** (2019–present)`;
-        renderPreview();
-        templateModal.classList.remove('active');
-      };
-    });
-
-    window.onclick = (e) => {
-      if (e.target === helpModal) helpModal.classList.remove('active');
-      if (e.target === templateModal) templateModal.classList.remove('active');
-    };
-  })();
-</script>
+        
+        // Optional: add a subtle intro effect: zoom camera
+        camera.position.set(0, 0.2, 7.8);
+        controls.target.set(0, 0, 0);
+        controls.update();
+        
+        // start animation
+        animate();
+        
+        // Small console greeting
+        console.log('🌍 3D Earth ready — click the glowing hotspots to explore continents!');
+        
+        // additional: make sure text panel default shows intro, but not overwritten
+        // we set default fallback, but if clicked it updates.
+    </script>
 </body>
 </html>
