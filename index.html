@@ -1,1278 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Future Sustainable City — Cinematic Experience</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sketchflow Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <style>
+    :root {
+      --bg:#0D0D0D; --text:#EAEAEA; --accent:#4FC3F7; --accent2:#9C27B0;
+      --glass:rgba(255,255,255,.08); --border:rgba(255,255,255,.18);
+    }
+    body.light { --bg:#f5f4f2; --text:#1d1d1d; --glass:rgba(255,255,255,.6); --border:rgba(0,0,0,.15); }
+    *{box-sizing:border-box} body{margin:0; font-family:Inter,system-ui,sans-serif; color:var(--text); background:var(--bg); min-height:100vh; overflow-x:hidden}
+    #bg-gradient{position:fixed; inset:0; background:radial-gradient(circle at 20% 20%, #1d2a4f 0%, #0d0d0d 35%), radial-gradient(circle at 75% 25%, #41206e 0%, transparent 45%), radial-gradient(circle at 50% 80%, #5b2245 0%, transparent 35%); filter:saturate(120%); z-index:-3; transition:.5s}
+    #particles{position:fixed; inset:0; z-index:-2; opacity:.6}
+    #aurora{position:fixed; inset:-30%; background:conic-gradient(from 0deg, transparent, rgba(79,195,247,.15), transparent, rgba(156,39,176,.18), transparent); filter:blur(38px); animation:spin 40s linear infinite; z-index:-1}
+    @keyframes spin { to { transform:rotate(360deg);} }
 
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    .app{max-width:1240px; margin:auto; padding:24px; display:grid; grid-template-columns:350px 1fr; gap:20px}
+    .panel{background:var(--glass); border:1px solid var(--border); backdrop-filter:blur(14px); border-radius:18px; box-shadow:0 20px 40px rgba(0,0,0,.25)}
+    .controls{padding:18px; position:sticky; top:20px; height:max-content}
+    h1{font-size:1.6rem; letter-spacing:.06em; margin:0 0 10px; font-weight:800}
+    .sub{opacity:.8; margin-bottom:14px; font-size:.95rem}
+    .drop{border:2px dashed rgba(79,195,247,.45); border-radius:14px; padding:20px; text-align:center; transition:.25s; animation:pulse 2.2s infinite}
+    @keyframes pulse{50%{border-color:rgba(156,39,176,.75)}}
+    .drop.active{transform:scale(1.01); box-shadow:0 0 32px rgba(79,195,247,.35)}
+    button,.btn{border:none; border-radius:12px; padding:10px 12px; color:var(--text); background:linear-gradient(135deg, rgba(79,195,247,.25), rgba(156,39,176,.3)); cursor:pointer; transition:.2s; font-weight:600}
+    button:hover,.btn:hover{transform:scale(1.05); box-shadow:0 0 24px rgba(79,195,247,.35)}
+    .row{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
+    label{font-size:.82rem; display:block; margin-top:12px; margin-bottom:5px; opacity:.9}
+    input[type="range"],select{width:100%}
+    select,input,button{font:inherit}
 
-<style>
-/* ================= GLOBAL RESET ================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    .stage.panel{padding:14px; position:relative; overflow:hidden; min-height:75vh}
+    .viewport{position:relative; aspect-ratio:4/3; width:100%; border-radius:14px; overflow:hidden; background:#111}
+    #paper{position:absolute; inset:0; width:100%; height:100%; image-rendering:auto}
+    #paperTexture{position:absolute; inset:0; mix-blend-mode:soft-light; opacity:.22; pointer-events:none; background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,.04), rgba(255,255,255,.04) 2px, transparent 2px, transparent 5px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.03), rgba(255,255,255,.03) 1px, transparent 1px, transparent 6px);
+    }
+    #hand{position:absolute; width:88px; height:88px; transform-origin:70% 18%; pointer-events:none; filter:drop-shadow(0 8px 12px rgba(0,0,0,.55));}
+    .spot{position:absolute; width:240px; height:240px; border-radius:50%; pointer-events:none; background:radial-gradient(circle, rgba(255,255,255,.18), rgba(255,255,255,0)); transform:translate(-50%,-50%)}
+    .vignette{position:absolute; inset:0; pointer-events:none; box-shadow:inset 0 0 180px rgba(0,0,0,.55)}
+    .loader{position:absolute; inset:0; display:grid; place-items:center; background:rgba(10,10,14,.62); backdrop-filter:blur(3px); opacity:0; pointer-events:none; transition:.25s}
+    .loader.on{opacity:1; pointer-events:auto}
+    .spinner{width:58px; height:58px; border-radius:50%; border:3px solid rgba(255,255,255,.24); border-top-color:var(--accent); animation:spin 1s linear infinite}
 
-/* ================= BODY ================= */
-body {
-  font-family: 'Orbitron', sans-serif;
-  overflow-x: hidden;
-  background: #000;
-  color: white;
-}
+    .compare-wrap{margin-top:12px}
+    .compare{position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#0f0f12}
+    .compare img,.compare canvas{position:absolute; inset:0; width:100%; height:100%; object-fit:contain}
+    .after-mask{clip-path:inset(0 0 0 50%)}
 
-/* ================= CANVAS ================= */
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  outline: none;
-}
-
-/* ================= SCROLL AREA ================= */
-.scroll-area {
-  height: 600vh;
-}
-
-/* ================= UI OVERLAY ================= */
-.ui {
-  position: fixed;
-  top: 30px;
-  left: 30px;
-  z-index: 10;
-  max-width: 300px;
-}
-
-.card {
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(20px);
-  padding: 20px;
-  border-radius: 16px;
-  margin-bottom: 15px;
-  border: 1px solid rgba(255,255,255,0.1);
-  transition: 0.4s;
-}
-
-.card:hover {
-  transform: scale(1.05);
-  border-color: #00ffcc;
-}
-
-.title {
-  font-size: 22px;
-  font-weight: bold;
-  margin-bottom: 5px;
-}
-
-.subtitle {
-  font-size: 13px;
-  opacity: 0.7;
-}
-
-/* ================= AI ASSISTANT ================= */
-.ai-assistant {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #00ffc3, transparent);
-  box-shadow: 0 0 50px #00ffc3;
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { transform: scale(1); opacity: 0.7; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(1); opacity: 0.7; }
-}
-
-/* ================= TEXT OVERLAY ================= */
-.story-text {
-  position: fixed;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 20px;
-  text-align: center;
-  max-width: 600px;
-  opacity: 0;
-  transition: 0.5s;
-}
-</style>
+    .top-controls{display:flex; justify-content:space-between; gap:8px; margin:10px 0}
+    @media (max-width:950px){ .app{grid-template-columns:1fr} .controls{position:static} }
+  </style>
 </head>
-
 <body>
-
-<div class="ui">
-  <div class="card">
-    <div class="title">🌍 Future City</div>
-    <div class="subtitle">Scroll to evolve the world</div>
+  <div id="bg-gradient"></div><canvas id="particles"></canvas><div id="aurora"></div>
+  <div class="app">
+    <aside class="controls panel">
+      <h1>SKETCHFLOW STUDIO</h1>
+      <div class="sub">Cinematic hand-drawn transformation engine.</div>
+      <div id="drop" class="drop">Drop JPG/PNG/WEBP (max 10MB) or <label class="btn" for="file" style="display:inline-block;margin-top:8px">Choose File</label><input id="file" type="file" accept="image/jpeg,image/png,image/webp" hidden></div>
+      <label>Style</label><select id="mode"><option>pencil</option><option>ink</option><option>charcoal</option></select>
+      <label>Sketch intensity</label><input id="intensity" type="range" min="0.2" max="1.4" step="0.01" value="0.9">
+      <label>Drawing speed</label><input id="speed" type="range" min="0.3" max="3" step="0.05" value="1.2">
+      <label>Volume</label><input id="volume" type="range" min="0" max="1" step="0.01" value="0.45">
+      <div class="row">
+        <button id="toggleHand">Hide hand</button><button id="replay">Replay</button><button id="mute">Mute</button>
+      </div>
+      <div class="row">
+        <button id="dlPng">Download PNG</button><button id="dlSvg">Download SVG</button><button id="dlVideo">Export Timelapse</button>
+      </div>
+      <div class="row">
+        <button id="ai">AI Enhancement: Off</button><button id="share">Share</button><button id="theme">Theme</button>
+      </div>
+    </aside>
+    <main class="stage panel">
+      <div class="top-controls"><strong>Live Draw Stage</strong><small id="fps">-- FPS</small></div>
+      <div class="viewport" id="viewport">
+        <canvas id="paper" width="1280" height="960"></canvas>
+        <div id="paperTexture"></div>
+        <svg id="hand" viewBox="0 0 120 120" aria-hidden="true"><path d="M74 26 109 9l4 8-35 18z" fill="#f5d6ae"/><path d="M15 58c2-10 13-19 24-16l22 6 10-16 9 5-6 16 12 3c8 2 12 10 10 18l-4 18c-2 9-11 15-20 13L20 89C12 87 8 80 10 72z" fill="#f1c89d"/><path d="m77 22 33-17 6 12-33 17z" fill="#f6d4aa"/><path d="m110 5 8 15-7 3-8-15z" fill="#f2d35f"/></svg>
+        <div class="spot" id="spot"></div><div class="vignette"></div><div class="loader" id="loader"><div class="spinner"></div></div>
+      </div>
+      <div class="compare-wrap"><strong>Before vs After</strong>
+        <div class="compare"><img id="before"><canvas id="after" class="after-mask"></canvas></div>
+        <input id="compare" type="range" min="0" max="100" value="50">
+      </div>
+    </main>
   </div>
-</div>
+<script>
+const state={img:null,mode:'pencil',intensity:.9,speed:1.2,showHand:true,ai:false,muted:false,volume:.45,paths:[],frame:0,drawn:0,recording:false,lowMotion:matchMedia('(prefers-reduced-motion: reduce)').matches};
+const el=id=>document.getElementById(id),paper=el('paper'),ctx=paper.getContext('2d'),after=el('after'),actx=after.getContext('2d'),off=document.createElement('canvas'),octx=off.getContext('2d',{willReadFrequently:true});
+off.width=paper.width;off.height=paper.height;after.width=paper.width;after.height=paper.height;
 
-<div class="ai-assistant"></div>
-<div class="story-text" id="storyText"></div>
+function showLoading(v){el('loader').classList.toggle('on',v)}
+function clickSfx(){if(state.muted) return; initAudio(); const o=audioCtx.createOscillator(), g=audioCtx.createGain(); o.type='triangle'; o.frequency.value=420; g.gain.value=.0001; o.connect(g).connect(audioCtx.destination); g.gain.exponentialRampToValueAtTime(.03,audioCtx.currentTime+.01); g.gain.exponentialRampToValueAtTime(.0001,audioCtx.currentTime+.12); o.start(); o.stop(audioCtx.currentTime+.14);}
 
-<div class="scroll-area"></div>
+let audioCtx, noiseNode, noiseGain;
+function initAudio(){ if(audioCtx) return; audioCtx=new (window.AudioContext||window.webkitAudioContext)(); const buffer=audioCtx.createBuffer(1, audioCtx.sampleRate*2, audioCtx.sampleRate); const d=buffer.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=Math.random()*2-1; noiseNode=audioCtx.createBufferSource(); noiseNode.buffer=buffer; noiseNode.loop=true; const hp=audioCtx.createBiquadFilter(); hp.type='highpass'; hp.frequency.value=1000; noiseGain=audioCtx.createGain(); noiseGain.gain.value=0; noiseNode.connect(hp).connect(noiseGain).connect(audioCtx.destination); noiseNode.start(); }
+function setScratch(v){ if(!noiseGain||state.muted) return; noiseGain.gain.setTargetAtTime(Math.min(.08, v*state.volume*.06), audioCtx.currentTime,.03);} 
 
-<script type="module">
-  /* =========================================================
-   PART 2 — LIVING CITY SYSTEM (TREES + ROADS + TRAFFIC)
-   ========================================================= */
+function validateFile(file){ if(!file) return 'No file'; const ok=['image/jpeg','image/png','image/webp']; if(!ok.includes(file.type)) return 'Unsupported format'; if(file.size>10*1024*1024) return 'File exceeds 10MB'; return ''; }
+function loadFile(file){ const err=validateFile(file); if(err) return alert(err); clickSfx(); const img=new Image(); img.onload=()=>{ state.img=img; el('before').src=img.src; process(); gsap.fromTo('#viewport',{scale:.96,opacity:.7},{scale:1,opacity:1,duration:.6,ease:'power2.out'}); }; img.src=URL.createObjectURL(file); }
 
-/* ================= TREE SYSTEM ================= */
-const trees = [];
+function blurGray(data,w,h){ const out=new Uint8ClampedArray(data.length); const k=[1,2,1,2,4,2,1,2,1];
+ for(let y=1;y<h-1;y++) for(let x=1;x<w-1;x++){ let s=0,ki=0; for(let j=-1;j<=1;j++) for(let i=-1;i<=1;i++){ s+=data[((y+j)*w+(x+i))*4]*k[ki++]; } const v=s/16; const p=(y*w+x)*4; out[p]=out[p+1]=out[p+2]=v; out[p+3]=255;} return out; }
+function sobel(data,w,h){ const out=new Uint8ClampedArray(data.length);
+ for(let y=1;y<h-1;y++) for(let x=1;x<w-1;x++){ const g=(xx,yy)=>data[(yy*w+xx)*4]; const gx=-g(x-1,y-1)-2*g(x-1,y)-g(x-1,y+1)+g(x+1,y-1)+2*g(x+1,y)+g(x+1,y+1); const gy=-g(x-1,y-1)-2*g(x,y-1)-g(x+1,y-1)+g(x-1,y+1)+2*g(x,y+1)+g(x+1,y+1); let v=Math.min(255,Math.hypot(gx,gy)*state.intensity); if(state.mode==='ink') v=v>70?255:0; if(state.mode==='charcoal') v=Math.min(255,v*1.3+(Math.random()*40)); const p=(y*w+x)*4; out[p]=out[p+1]=out[p+2]=v; out[p+3]=255;} return out; }
+function postTone(data){ for(let i=0;i<data.length;i+=4){ let v=data[i]; if(state.mode==='pencil') v=255-v*.9; if(state.ai) v=Math.min(255, Math.max(0, (v-120)*1.25+120)); data[i]=data[i+1]=data[i+2]=v; }}
 
-function createTree(x, z) {
-  const trunk = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.1, 0.15, 1),
-    new THREE.MeshStandardMaterial({ color: 0x8b5a2b })
-  );
-
-  const leaves = new THREE.Mesh(
-    new THREE.SphereGeometry(0.6, 16, 16),
-    new THREE.MeshStandardMaterial({
-      color: 0x00ff88,
-      emissive: 0x003322,
-      roughness: 0.6
-    })
-  );
-
-  leaves.position.y = 1;
-
-  const tree = new THREE.Group();
-  tree.add(trunk);
-  tree.add(leaves);
-
-  tree.position.set(x, 0, z);
-  tree.scale.set(0.01, 0.01, 0.01); // start tiny
-
-  scene.add(tree);
-  trees.push(tree);
+function extractPaths(edge,w,h){ const visited=new Uint8Array(w*h), paths=[], dirs=[[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]];
+ const isEdge=(x,y)=>edge[(y*w+x)*4]>140;
+ for(let y=1;y<h-1;y+=2){ for(let x=1;x<w-1;x+=2){ const idx=y*w+x; if(visited[idx]||!isEdge(x,y)) continue; const path=[]; let cx=x,cy=y,safe=0;
+ while(safe++<2400){ visited[cy*w+cx]=1; path.push([cx*paper.width/w,cy*paper.height/h]); let moved=false; for(const [dx,dy] of dirs){ const nx=cx+dx,ny=cy+dy,n=ny*w+nx; if(nx>0&&ny>0&&nx<w-1&&ny<h-1&&!visited[n]&&isEdge(nx,ny)){cx=nx;cy=ny;moved=true;break;} } if(!moved) break; }
+ if(path.length>8) paths.push(path.filter((_,i)=>i%2===0)); }}
+ paths.sort((a,b)=>a.length-b.length); return paths.slice(0,950);
 }
 
-// generate trees
-for (let i = 0; i < 80; i++) {
-  createTree(
-    (Math.random() - 0.5) * 50,
-    (Math.random() - 0.5) * 50
-  );
+async function process(){ if(!state.img) return; showLoading(true); await new Promise(r=>setTimeout(r,30));
+ const scale=Math.min(off.width/state.img.width, off.height/state.img.height); const w=Math.max(240,Math.floor(state.img.width*scale)), h=Math.max(180,Math.floor(state.img.height*scale));
+ octx.fillStyle='#fff'; octx.fillRect(0,0,off.width,off.height); octx.drawImage(state.img,(off.width-w)/2,(off.height-h)/2,w,h);
+ let image=octx.getImageData(0,0,off.width,off.height), d=image.data;
+ for(let i=0;i<d.length;i+=4){ const g=d[i]*.299+d[i+1]*.587+d[i+2]*.114; d[i]=d[i+1]=d[i+2]=g; }
+ let b=blurGray(d,off.width,off.height); let e=sobel(b,off.width,off.height); postTone(e); image.data.set(e); octx.putImageData(image,0,0);
+ state.paths=extractPaths(e,off.width,off.height); state.drawn=0; state.frame=0; drawStill(); animate(); showLoading(false);
 }
 
-/* ================= ROADS ================= */
-const roadMaterial = new THREE.MeshStandardMaterial({
-  color: 0x222222,
-  roughness: 0.9
-});
+function drawStill(){ actx.clearRect(0,0,after.width,after.height); actx.drawImage(off,0,0,after.width,after.height); }
+let last=performance.now(), fpsArr=[];
+function animate(t=0){ requestAnimationFrame(animate); const dt=Math.min(33,t-last||16); last=t; const fps=1000/dt; fpsArr.push(fps); if(fpsArr.length>20) fpsArr.shift(); el('fps').textContent=`${Math.round(fpsArr.reduce((a,b)=>a+b,0)/fpsArr.length)} FPS`;
+ ctx.fillStyle='#f7f4ee'; ctx.fillRect(0,0,paper.width,paper.height);
+ const inc=state.speed*(state.lowMotion?0.35:1); state.drawn=Math.min(state.paths.length,state.drawn+inc);
+ const whole=Math.floor(state.drawn), part=state.drawn-whole;
+ ctx.lineCap='round'; ctx.lineJoin='round'; ctx.strokeStyle= state.mode==='ink' ? '#111' : '#1f1f1f';
+ for(let i=0;i<whole;i++) strokePath(state.paths[i],1,i);
+ if(state.paths[whole]) strokePath(state.paths[whole],part,whole);
+ const p=tipPosition(whole,part); updateHand(p,dt);
+ el('spot').style.left=`${p.x*100}%`; el('spot').style.top=`${p.y*100}%`;
+ if(state.drawn>=state.paths.length) setScratch(0); else setScratch(state.speed);
+ if(state.recording&&state.drawn>=state.paths.length){ recorder.stop(); state.recording=false; }
+ }
 
-for (let i = -50; i <= 50; i += 10) {
-  const road = new THREE.Mesh(
-    new THREE.PlaneGeometry(100, 2),
-    roadMaterial
-  );
-  road.rotation.x = -Math.PI / 2;
-  road.position.z = i;
-  scene.add(road);
+function strokePath(path,ratio,index){ if(path.length<2) return; ctx.beginPath(); const end=Math.max(2,Math.floor(path.length*ratio));
+ ctx.moveTo(path[0][0],path[0][1]); for(let i=1;i<end;i++){ const [x,y]=path[i]; const jitter=state.mode==='charcoal'? (Math.sin(i+index)*.5):0; ctx.lineWidth=1.15+Math.sin((i+index)*.13)*.35; ctx.lineTo(x+jitter,y+jitter);} ctx.stroke(); }
+function tipPosition(i,part){ const path=state.paths[Math.min(i,state.paths.length-1)]||[[paper.width*.5,paper.height*.5]]; const a=path[Math.max(0,Math.floor((path.length-1)*part)-1)]||path[0], b=path[Math.floor((path.length-1)*part)]||path[path.length-1];
+ return {x:b[0]/paper.width,y:b[1]/paper.height,angle:Math.atan2(b[1]-a[1],b[0]-a[0])}; }
+function updateHand(p,dt){ const hand=el('hand'); if(!state.showHand){hand.style.display='none'; return;} hand.style.display='block'; const j=(Math.random()-.5)*1.2; const x=p.x*el('viewport').clientWidth-56, y=p.y*el('viewport').clientHeight-16;
+ hand.style.transform=`translate(${x}px,${y}px) rotate(${p.angle*57.2958+j}deg)`;
+ const zoom=1+Math.sin(performance.now()*0.0008)*0.02, pan=(p.x-.5)*8; el('viewport').style.transform=`scale(${zoom}) translateX(${pan}px)`;
+ }
+
+const drop=el('drop'); ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('active')})); ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('active')})); drop.addEventListener('drop',e=>loadFile(e.dataTransfer.files[0]));
+el('file').addEventListener('change',e=>loadFile(e.target.files[0]));
+el('mode').onchange=e=>{state.mode=e.target.value;process();}; el('intensity').oninput=e=>state.intensity=+e.target.value; el('speed').oninput=e=>state.speed=+e.target.value;
+el('toggleHand').onclick=()=>{state.showHand=!state.showHand; el('toggleHand').textContent=state.showHand?'Hide hand':'Show hand'; clickSfx();};
+el('replay').onclick=()=>{state.drawn=0; clickSfx();}; el('mute').onclick=()=>{state.muted=!state.muted; el('mute').textContent=state.muted?'Unmute':'Mute'; if(noiseGain) noiseGain.gain.value=0;};
+el('volume').oninput=e=>state.volume=+e.target.value;
+el('ai').onclick=()=>{state.ai=!state.ai; el('ai').textContent=`AI Enhancement: ${state.ai?'On':'Off'}`;process(); clickSfx();};
+el('theme').onclick=()=>document.body.classList.toggle('light');
+
+el('dlPng').onclick=()=>{ const a=document.createElement('a'); a.href=paper.toDataURL('image/png'); a.download='sketchflow.png'; a.click(); };
+el('dlSvg').onclick=()=>{ const d=state.paths.map(p=>`M${p.map(([x,y])=>`${x.toFixed(1)} ${y.toFixed(1)}`).join(' L')}`).join(' '); const svg=`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 ${paper.width} ${paper.height}'><path d="${d}" fill='none' stroke='#111' stroke-width='1.2' stroke-linecap='round'/></svg>`; const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([svg],{type:'image/svg+xml'})); a.download='sketchflow.svg'; a.click(); };
+let recorder, chunks=[]; el('dlVideo').onclick=()=>{ if(state.recording) return; state.drawn=0; const stream=paper.captureStream(30); recorder=new MediaRecorder(stream,{mimeType:'video/webm'}); chunks=[]; recorder.ondataavailable=e=>chunks.push(e.data); recorder.onstop=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob(chunks,{type:'video/webm'})); a.download='sketchflow-timelapse.webm'; a.click();}; recorder.start(); state.recording=true; };
+el('share').onclick=async()=>{ const url=location.href; if(navigator.share){ await navigator.share({title:'Sketchflow Studio',text:'Watch this hand-drawn cinematic sketch app.',url}); } else { await navigator.clipboard.writeText(url); alert('Link copied'); } };
+el('compare').oninput=e=>{ const v=+e.target.value; el('after').style.clipPath=`inset(0 0 0 ${v}%)`; };
+
+function bgLoop(){ const c=el('particles'),x=c.getContext('2d'); c.width=innerWidth;c.height=innerHeight; const particles=[...Array(120)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,vx:(Math.random()-.5)*.25,vy:(Math.random()-.5)*.25,o:Math.random()}));
+ let hue=0; const run=()=>{ x.clearRect(0,0,c.width,c.height); hue=(hue+.2)%360; el('bg-gradient').style.filter=`hue-rotate(${hue}deg) saturate(120%)`;
+ particles.forEach(p=>{p.x=(p.x+p.vx+c.width)%c.width;p.y=(p.y+p.vy+c.height)%c.height; p.o+=.01; x.fillStyle=`rgba(255,255,255,${0.2+Math.sin(p.o)*0.15})`; x.beginPath(); x.arc(p.x,p.y,1.2+Math.sin(p.o)*.8,0,Math.PI*2); x.fill();}); requestAnimationFrame(run);}; run();
+ addEventListener('mousemove',e=>{ const ox=(e.clientX/innerWidth-.5)*12, oy=(e.clientY/innerHeight-.5)*10; el('aurora').style.transform=`translate(${ox}px,${oy}px)`;});
+ addEventListener('resize',()=>{c.width=innerWidth;c.height=innerHeight;});
 }
-
-/* ================= TRAFFIC SYSTEM ================= */
-const cars = [];
-
-function createCar() {
-  const car = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 0.5, 2),
-    new THREE.MeshStandardMaterial({
-      color: new THREE.Color(Math.random(), Math.random(), Math.random()),
-      emissive: 0x111111
-    })
-  );
-
-  car.position.set(-50, 0.25, (Math.random() - 0.5) * 50);
-  scene.add(car);
-  cars.push(car);
-}
-
-// generate cars
-for (let i = 0; i < 20; i++) {
-  createCar();
-}
-
-/* ================= DRONES ================= */
-const drones = [];
-
-function createDrone() {
-  const drone = new THREE.Mesh(
-    new THREE.SphereGeometry(0.3, 16, 16),
-    new THREE.MeshStandardMaterial({
-      color: 0x00ffff,
-      emissive: 0x00ffff
-    })
-  );
-
-  drone.position.set(
-    (Math.random() - 0.5) * 40,
-    5 + Math.random() * 5,
-    (Math.random() - 0.5) * 40
-  );
-
-  scene.add(drone);
-  drones.push(drone);
-}
-
-// create drones
-for (let i = 0; i < 15; i++) createDrone();
-
-/* ================= PARTICLE SYSTEM ================= */
-const particleCount = 2000;
-
-const particlesGeometry = new THREE.BufferGeometry();
-const positions = new Float32Array(particleCount * 3);
-
-for (let i = 0; i < particleCount; i++) {
-  positions[i * 3] = (Math.random() - 0.5) * 100;
-  positions[i * 3 + 1] = Math.random() * 10;
-  positions[i * 3 + 2] = (Math.random() - 0.5) * 100;
-}
-
-particlesGeometry.setAttribute(
-  "position",
-  new THREE.BufferAttribute(positions, 3)
-);
-
-const particlesMaterial = new THREE.PointsMaterial({
-  color: 0x888888,
-  size: 0.1,
-  transparent: true
-});
-
-const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-scene.add(particles);
-
-/* ================= ENERGY BEAMS ================= */
-const beams = [];
-
-for (let i = 0; i < 30; i++) {
-  const beam = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.05, 0.05, 5),
-    new THREE.MeshStandardMaterial({
-      color: 0x00ffcc,
-      emissive: 0x00ffcc,
-      transparent: true,
-      opacity: 0.3
-    })
-  );
-
-  beam.position.set(
-    (Math.random() - 0.5) * 40,
-    2.5,
-    (Math.random() - 0.5) * 40
-  );
-
-  scene.add(beam);
-  beams.push(beam);
-}
-
-/* ================= UPDATE EXTENSIONS ================= */
-
-// Extend your existing updateScene()
-const originalUpdateScene = updateScene;
-
-updateScene = function(progress) {
-
-  originalUpdateScene(progress);
-
-  // 🌳 TREE GROWTH
-  trees.forEach((t) => {
-    const scale = Math.max(0.01, progress * 2);
-    t.scale.set(scale, scale, scale);
-  });
-
-  // 🚗 CAR SPEED
-  cars.forEach((c) => {
-    c.position.x += 0.1 + progress * 0.5;
-    if (c.position.x > 50) c.position.x = -50;
-  });
-
-  // 🛸 DRONE MOVEMENT
-  drones.forEach((d, i) => {
-    d.position.x += Math.sin(Date.now() * 0.001 + i) * 0.05;
-    d.position.z += Math.cos(Date.now() * 0.001 + i) * 0.05;
-  });
-
-  // 🌫️ POLLUTION → CLEAN
-  particlesMaterial.color.setRGB(
-    0.5 - progress * 0.5,
-    0.5 + progress * 0.5,
-    0.5 - progress * 0.3
-  );
-
-  particlesMaterial.opacity = 1 - progress;
-
-  // ⚡ ENERGY ACTIVATION
-  beams.forEach((b) => {
-    b.material.opacity = progress * 0.8;
-    b.scale.y = progress * 2;
-  });
-};
-
-/* ================= AI ASSISTANT REACTION ================= */
-const ai = document.querySelector(".ai-assistant");
-
-window.addEventListener("scroll", () => {
-  const glow = 20 + scrollProgress * 80;
-  ai.style.boxShadow = `0 0 ${glow}px #00ffc3`;
-});
-  /* =========================================================
-   PART 3 — CINEMATIC SYSTEM + AI + REALISM CORE
-   ========================================================= */
-
-/* ================= GSAP SCROLL TIMELINE ================= */
-let timeline = gsap.timeline({
-  paused: true
-});
-
-// Camera cinematic path
-timeline.to(camera.position, {
-  x: 5,
-  y: 4,
-  z: 3,
-  duration: 1
-});
-
-timeline.to(camera.position, {
-  x: -4,
-  y: 6,
-  z: 2,
-  duration: 1
-});
-
-timeline.to(camera.position, {
-  x: 0,
-  y: 8,
-  z: 1,
-  duration: 1
-});
-
-// Sync with scroll
-window.addEventListener("scroll", () => {
-  timeline.progress(scrollProgress);
-});
-
-/* ================= SKY + SUN SYSTEM ================= */
-const skyColor = new THREE.Color();
-
-function updateSky(progress) {
-  skyColor.setRGB(
-    0.1 + progress * 0.3,
-    0.1 + progress * 0.6,
-    0.2 + progress * 0.8
-  );
-
-  renderer.setClearColor(skyColor);
-
-  directional.color.setRGB(
-    1,
-    0.8 + progress * 0.2,
-    0.6 + progress * 0.4
-  );
-
-  directional.intensity = 1 + progress * 2;
-}
-
-/* ================= REAL MODEL LOADER (GLTF READY) ================= */
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/loaders/GLTFLoader.js";
-
-const loader = new GLTFLoader();
-
-// Placeholder for future GTA-level models
-function loadCityModel() {
-  loader.load(
-    "https://threejs.org/examples/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
-    (gltf) => {
-      const model = gltf.scene;
-
-      model.scale.set(2, 2, 2);
-      model.position.set(0, 2, 0);
-
-      scene.add(model);
-    }
-  );
-}
-
-loadCityModel();
-
-/* ================= AI ASSISTANT SYSTEM ================= */
-const aiText = document.getElementById("storyText");
-
-const messages = [
-  "Initializing city diagnostics...",
-  "Pollution levels critical...",
-  "Activating green protocols...",
-  "Urban ecosystems regenerating...",
-  "Sustainable future achieved 🌱"
-];
-
-let currentMessage = 0;
-
-function typeText(text, element, speed = 30) {
-  element.innerHTML = "";
-  let i = 0;
-
-  function typing() {
-    if (i < text.length) {
-      element.innerHTML += text.charAt(i);
-      i++;
-      setTimeout(typing, speed);
-    }
-  }
-
-  typing();
-}
-
-// Trigger AI messages based on scroll
-window.addEventListener("scroll", () => {
-  const index = Math.floor(scrollProgress * messages.length);
-
-  if (index !== currentMessage && messages[index]) {
-    currentMessage = index;
-    typeText(messages[index], aiText);
-    aiText.style.opacity = 1;
-  }
-});
-
-/* ================= VOICE SYNTHESIS ================= */
-function speak(text) {
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.rate = 1;
-  speech.pitch = 1.2;
-  speech.volume = 1;
-  speechSynthesis.speak(speech);
-}
-
-// Speak at key moments
-window.addEventListener("scroll", () => {
-  if (scrollProgress > 0.5 && scrollProgress < 0.52) {
-    speak("Sustainable systems activated");
-  }
-});
-
-/* ================= BACKGROUND SOUND ================= */
-const audio = new Audio(
-  "https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7d06.mp3"
-);
-
-audio.loop = true;
-audio.volume = 0.3;
-
-// Play on interaction (browser policy safe)
-window.addEventListener("click", () => {
-  audio.play();
-});
-
-/* ================= ADVANCED ANIMATION LOOP ================= */
-const clock = new THREE.Clock();
-
-function advancedAnimate() {
-  const delta = clock.getDelta();
-
-  // subtle camera breathing
-  camera.position.y += Math.sin(Date.now() * 0.001) * 0.002;
-
-  // energy beam pulse
-  beams.forEach((b, i) => {
-    b.scale.y = 1 + Math.sin(Date.now() * 0.002 + i) * 0.5;
-  });
-
-  // particles drift
-  particles.rotation.y += 0.0005;
-
-  updateSky(scrollProgress);
-}
-
-/* ================= HOOK INTO MAIN LOOP ================= */
-const oldAnimate = animate;
-
-animate = function () {
-  requestAnimationFrame(animate);
-
-  advancedAnimate();
-
-  oldAnimate();
-};
-
-/* ================= INTERACTIVE HOTSPOTS ================= */
-const raycaster = new THREE.Raycaster();
-const mouse = new THREE.Vector2();
-
-window.addEventListener("click", (event) => {
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-  raycaster.setFromCamera(mouse, camera);
-
-  const intersects = raycaster.intersectObjects(buildings);
-
-  if (intersects.length > 0) {
-    const obj = intersects[0].object;
-
-    gsap.to(obj.scale, {
-      y: obj.scale.y + 2,
-      duration: 0.5
-    });
-
-    typeText("Energy upgraded ⚡", aiText);
-  }
-});
-
-/* ================= PERFORMANCE OPTIMIZATION ================= */
-renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-buildings.forEach((b) => {
-  b.castShadow = true;
-  b.receiveShadow = true;
-});
-
-directional.castShadow = true;
-  /* =========================================================
-   PART 4 — FINAL GOD LEVEL SYSTEM
-   ========================================================= */
-
-/* ================= DAY / NIGHT SYSTEM ================= */
-let dayNight = 0;
-
-function updateDayNight(progress) {
-  dayNight = progress;
-
-  // Sky shift to night
-  const nightFactor = Math.max(0, progress - 0.6) * 2.5;
-
-  renderer.setClearColor(
-    new THREE.Color(
-      0.1 - nightFactor * 0.1,
-      0.2 - nightFactor * 0.2,
-      0.4 - nightFactor * 0.3
-    )
-  );
-
-  // Neon lights activate
-  buildings.forEach((b) => {
-    b.material.emissive.setRGB(
-      nightFactor * 0.2,
-      nightFactor * 0.8,
-      nightFactor
-    );
-  });
-}
-
-/* ================= WATER SYSTEM ================= */
-const water = new THREE.Mesh(
-  new THREE.PlaneGeometry(200, 200),
-  new THREE.MeshStandardMaterial({
-    color: 0x001e2f,
-    metalness: 0.8,
-    roughness: 0.2
-  })
-);
-
-water.rotation.x = -Math.PI / 2;
-water.position.y = -0.1;
-scene.add(water);
-
-/* ================= TRAFFIC LANES ================= */
-const lanes = [];
-
-for (let i = -40; i <= 40; i += 8) {
-  const lane = new THREE.Mesh(
-    new THREE.PlaneGeometry(100, 0.2),
-    new THREE.MeshBasicMaterial({ color: 0xffffff })
-  );
-
-  lane.rotation.x = -Math.PI / 2;
-  lane.position.z = i;
-  lane.position.y = 0.01;
-
-  scene.add(lane);
-  lanes.push(lane);
-}
-
-/* ================= TRAFFIC LIGHT SYSTEM ================= */
-const trafficLights = [];
-
-function createTrafficLight(x, z) {
-  const pole = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.1, 0.1, 3),
-    new THREE.MeshStandardMaterial({ color: 0x333333 })
-  );
-
-  const light = new THREE.Mesh(
-    new THREE.SphereGeometry(0.3),
-    new THREE.MeshStandardMaterial({
-      color: 0xff0000,
-      emissive: 0xff0000
-    })
-  );
-
-  light.position.y = 1.5;
-
-  const group = new THREE.Group();
-  group.add(pole);
-  group.add(light);
-
-  group.position.set(x, 0, z);
-
-  scene.add(group);
-  trafficLights.push(light);
-}
-
-// create lights
-for (let i = 0; i < 10; i++) {
-  createTrafficLight(
-    (Math.random() - 0.5) * 40,
-    (Math.random() - 0.5) * 40
-  );
-}
-
-/* ================= SMART TRAFFIC ================= */
-function updateTraffic(progress) {
-  const speed = 0.1 + progress;
-
-  cars.forEach((c, i) => {
-    c.position.x += speed;
-
-    if (c.position.x > 50) c.position.x = -50;
-
-    // stop at lights randomly
-    if (Math.random() < 0.002) {
-      c.position.x -= speed * 5;
-    }
-  });
-
-  // light switching
-  trafficLights.forEach((l, i) => {
-    const t = Math.sin(Date.now() * 0.002 + i);
-
-    if (t > 0) {
-      l.material.color.set(0x00ff00);
-      l.material.emissive.set(0x00ff00);
-    } else {
-      l.material.color.set(0xff0000);
-      l.material.emissive.set(0xff0000);
-    }
-  });
-}
-
-/* ================= MOBILE OPTIMIZATION ================= */
-function optimizeForMobile() {
-  if (window.innerWidth < 768) {
-    renderer.setPixelRatio(1);
-
-    particlesMaterial.size = 0.05;
-
-    drones.forEach(d => d.visible = false);
-  }
-}
-
-optimizeForMobile();
-
-/* ================= AI COMMAND SYSTEM ================= */
-window.addEventListener("keydown", (e) => {
-
-  if (e.key === "g") {
-    typeText("Activating green mode 🌱", aiText);
-
-    trees.forEach(t => t.scale.set(2,2,2));
-  }
-
-  if (e.key === "n") {
-    typeText("Night mode enabled 🌌", aiText);
-
-    scrollProgress = 0.9;
-    updateDayNight(scrollProgress);
-  }
-
-  if (e.key === "e") {
-    typeText("Energy surge activated ⚡", aiText);
-
-    beams.forEach(b => {
-      b.material.opacity = 1;
-      b.scale.y = 5;
-    });
-  }
-});
-
-/* ================= ULTRA EFFECTS ================= */
-function ultraEffects() {
-
-  // water shimmer
-  water.material.opacity = 0.8 + Math.sin(Date.now() * 0.002) * 0.1;
-
-  // neon pulse
-  buildings.forEach((b, i) => {
-    b.material.emissiveIntensity =
-      0.2 + Math.sin(Date.now() * 0.003 + i) * 0.3;
-  });
-
-  // drone glow pulse
-  drones.forEach((d, i) => {
-    d.material.emissiveIntensity =
-      1 + Math.sin(Date.now() * 0.005 + i);
-  });
-}
-
-/* ================= EXTEND MAIN UPDATE ================= */
-const prevUpdateScene = updateScene;
-
-updateScene = function(progress) {
-
-  prevUpdateScene(progress);
-
-  updateDayNight(progress);
-  updateTraffic(progress);
-};
-
-/* ================= FINAL LOOP HOOK ================= */
-const prevAdvanced = advancedAnimate;
-
-advancedAnimate = function() {
-
-  prevAdvanced();
-
-  ultraEffects();
-};
-  /* =========================================================
-   PART 5 — ULTRA PRO MAX SYSTEM
-   ========================================================= */
-
-/* ================= AI CHAT UI ================= */
-const chatUI = document.createElement("div");
-chatUI.style.position = "fixed";
-chatUI.style.bottom = "20px";
-chatUI.style.left = "20px";
-chatUI.style.width = "300px";
-chatUI.style.height = "350px";
-chatUI.style.background = "rgba(0,0,0,0.7)";
-chatUI.style.backdropFilter = "blur(15px)";
-chatUI.style.borderRadius = "12px";
-chatUI.style.padding = "10px";
-chatUI.style.zIndex = "999";
-
-chatUI.innerHTML = `
-  <div style="height:85%; overflow-y:auto;" id="chatBox"></div>
-  <input id="chatInput" placeholder="Ask AI..." style="width:100%; padding:8px; border:none; outline:none; background:#111; color:white;">
-`;
-
-document.body.appendChild(chatUI);
-
-const chatBox = document.getElementById("chatBox");
-const chatInput = document.getElementById("chatInput");
-
-// simple AI logic (expand later with real API)
-function aiRespond(msg) {
-  let response = "Processing...";
-
-  if (msg.includes("energy")) response = "Renewable energy at 78% efficiency ⚡";
-  if (msg.includes("pollution")) response = "Air quality improving rapidly 🌱";
-  if (msg.includes("city")) response = "Smart city systems fully active";
-
-  const div = document.createElement("div");
-  div.innerText = "AI: " + response;
-  chatBox.appendChild(div);
-}
-
-chatInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    const msg = chatInput.value;
-
-    const userMsg = document.createElement("div");
-    userMsg.innerText = "You: " + msg;
-    chatBox.appendChild(userMsg);
-
-    aiRespond(msg);
-    chatInput.value = "";
-  }
-});
-
-/* ================= LIVE DATA SIMULATION ================= */
-const dataPanel = document.createElement("div");
-dataPanel.style.position = "fixed";
-dataPanel.style.top = "20px";
-dataPanel.style.right = "20px";
-dataPanel.style.background = "rgba(0,0,0,0.6)";
-dataPanel.style.padding = "15px";
-dataPanel.style.borderRadius = "10px";
-dataPanel.style.fontSize = "12px";
-
-document.body.appendChild(dataPanel);
-
-function updateData() {
-  const energy = (60 + Math.random() * 40).toFixed(1);
-  const pollution = (100 - scrollProgress * 100).toFixed(1);
-
-  dataPanel.innerHTML = `
-    ⚡ Energy: ${energy}%<br>
-    🌫️ Pollution: ${pollution}%<br>
-    🌱 Sustainability Index: ${(scrollProgress * 100).toFixed(1)}%
-  `;
-}
-
-setInterval(updateData, 1000);
-
-/* ================= WASD CONTROLS ================= */
-const keys = {};
-
-window.addEventListener("keydown", (e) => keys[e.key.toLowerCase()] = true);
-window.addEventListener("keyup", (e) => keys[e.key.toLowerCase()] = false);
-
-function movementControls() {
-  const speed = 0.1;
-
-  if (keys["w"]) camera.position.z -= speed;
-  if (keys["s"]) camera.position.z += speed;
-  if (keys["a"]) camera.position.x -= speed;
-  if (keys["d"]) camera.position.x += speed;
-}
-
-/* ================= VR MODE ================= */
-renderer.xr.enabled = true;
-
-const vrButton = document.createElement("button");
-vrButton.innerText = "ENTER VR";
-vrButton.style.position = "fixed";
-vrButton.style.bottom = "20px";
-vrButton.style.right = "20px";
-vrButton.style.padding = "10px";
-vrButton.style.zIndex = "999";
-
-document.body.appendChild(vrButton);
-
-vrButton.addEventListener("click", async () => {
-  if (navigator.xr) {
-    const session = await navigator.xr.requestSession("immersive-vr");
-    renderer.xr.setSession(session);
-  } else {
-    alert("VR not supported");
-  }
-});
-
-/* ================= WORLD ZONES ================= */
-const zones = [
-  { name: "Industrial", color: 0x444444 },
-  { name: "Green City", color: 0x00ff88 },
-  { name: "Energy Hub", color: 0x00ccff }
-];
-
-function updateZones(progress) {
-  const index = Math.floor(progress * zones.length);
-  if (zones[index]) {
-    scene.fog.color.set(zones[index].color);
-  }
-}
-
-/* ================= COMMAND CONSOLE ================= */
-const consoleInput = document.createElement("input");
-consoleInput.placeholder = "Enter command...";
-consoleInput.style.position = "fixed";
-consoleInput.style.bottom = "0";
-consoleInput.style.left = "50%";
-consoleInput.style.transform = "translateX(-50%)";
-consoleInput.style.width = "400px";
-consoleInput.style.padding = "10px";
-consoleInput.style.background = "#000";
-consoleInput.style.color = "#0f0";
-consoleInput.style.border = "none";
-
-document.body.appendChild(consoleInput);
-
-consoleInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    const cmd = consoleInput.value.toLowerCase();
-
-    if (cmd === "green") {
-      trees.forEach(t => t.scale.set(3,3,3));
-    }
-
-    if (cmd === "night") {
-      updateDayNight(1);
-    }
-
-    if (cmd === "boost") {
-      beams.forEach(b => b.scale.y = 10);
-    }
-
-    consoleInput.value = "";
-  }
-});
-
-/* ================= FINAL LOOP EXTENSION ================= */
-const prevUltra = advancedAnimate;
-
-advancedAnimate = function () {
-
-  prevUltra();
-
-  movementControls();
-  updateZones(scrollProgress);
-  updateData();
-};
-  /* =========================================================
-   FINAL GOD MODE — MISSIONS + NPC + MULTIPLAYER ILLUSION
-   ========================================================= */
-
-/* ================= MISSION SYSTEM ================= */
-const missions = [
-  { text: "Reduce pollution below 50%", done: false },
-  { text: "Activate green energy grid", done: false },
-  { text: "Grow urban forest", done: false }
-];
-
-const missionUI = document.createElement("div");
-missionUI.style.position = "fixed";
-missionUI.style.top = "50%";
-missionUI.style.left = "20px";
-missionUI.style.transform = "translateY(-50%)";
-missionUI.style.background = "rgba(0,0,0,0.6)";
-missionUI.style.padding = "15px";
-missionUI.style.borderRadius = "10px";
-
-document.body.appendChild(missionUI);
-
-function updateMissions() {
-  missionUI.innerHTML = "<b>MISSIONS</b><br>";
-  missions.forEach((m, i) => {
-    missionUI.innerHTML += `${m.done ? "✅" : "⬜"} ${m.text}<br>`;
-  });
-
-  // auto complete based on state
-  if (scrollProgress > 0.5) missions[0].done = true;
-  if (scrollProgress > 0.7) missions[1].done = true;
-  if (scrollProgress > 0.9) missions[2].done = true;
-}
-
-/* ================= NPC SYSTEM ================= */
-const npcs = [];
-
-function createNPC() {
-  const npc = new THREE.Mesh(
-    new THREE.CapsuleGeometry(0.3, 1),
-    new THREE.MeshStandardMaterial({ color: 0xffcc99 })
-  );
-
-  npc.position.set(
-    (Math.random() - 0.5) * 30,
-    1,
-    (Math.random() - 0.5) * 30
-  );
-
-  scene.add(npc);
-  npcs.push(npc);
-}
-
-// spawn NPCs
-for (let i = 0; i < 20; i++) createNPC();
-
-function updateNPCs() {
-  npcs.forEach((npc, i) => {
-    npc.position.x += Math.sin(Date.now() * 0.001 + i) * 0.02;
-    npc.position.z += Math.cos(Date.now() * 0.001 + i) * 0.02;
-  });
-}
-
-/* ================= MULTIPLAYER ILLUSION ================= */
-const ghosts = [];
-
-function createGhostUser() {
-  const ghost = new THREE.Mesh(
-    new THREE.SphereGeometry(0.3),
-    new THREE.MeshStandardMaterial({
-      color: 0x00ffff,
-      transparent: true,
-      opacity: 0.5
-    })
-  );
-
-  ghost.position.set(
-    (Math.random() - 0.5) * 40,
-    2,
-    (Math.random() - 0.5) * 40
-  );
-
-  scene.add(ghost);
-  ghosts.push(ghost);
-}
-
-for (let i = 0; i < 10; i++) createGhostUser();
-
-function updateGhosts() {
-  ghosts.forEach((g, i) => {
-    g.position.y = 2 + Math.sin(Date.now() * 0.002 + i);
-  });
-}
-
-/* ================= ACHIEVEMENT SYSTEM ================= */
-const achievements = [];
-
-function unlockAchievement(text) {
-  if (!achievements.includes(text)) {
-    achievements.push(text);
-
-    const popup = document.createElement("div");
-    popup.innerText = "🏆 " + text;
-    popup.style.position = "fixed";
-    popup.style.top = "20px";
-    popup.style.left = "50%";
-    popup.style.transform = "translateX(-50%)";
-    popup.style.background = "#000";
-    popup.style.padding = "10px";
-    popup.style.border = "1px solid #0f0";
-
-    document.body.appendChild(popup);
-
-    setTimeout(() => popup.remove(), 3000);
-  }
-}
-
-// unlock based on progress
-window.addEventListener("scroll", () => {
-  if (scrollProgress > 0.5) unlockAchievement("Cleaner Air 🌫️");
-  if (scrollProgress > 0.8) unlockAchievement("Green City 🌱");
-});
-
-/* ================= CINEMATIC CUTSCENES ================= */
-function triggerCutscene() {
-  gsap.to(camera.position, {
-    x: 0,
-    y: 15,
-    z: 10,
-    duration: 2
-  });
-
-  gsap.to(camera.rotation, {
-    x: -0.5,
-    duration: 2
-  });
-
-  typeText("Welcome to the future city...", aiText);
-}
-
-// trigger once
-let cutscenePlayed = false;
-
-window.addEventListener("scroll", () => {
-  if (scrollProgress > 0.95 && !cutscenePlayed) {
-    triggerCutscene();
-    cutscenePlayed = true;
-  }
-});
-
-/* ================= AI BRAIN (UPGRADE READY) ================= */
-async function realAI(prompt) {
-  // placeholder for OpenAI API
-  return "Advanced AI response: " + prompt;
-}
-
-/* ================= SCREEN FX ================= */
-const overlayFX = document.createElement("div");
-overlayFX.style.position = "fixed";
-overlayFX.style.top = "0";
-overlayFX.style.left = "0";
-overlayFX.style.width = "100%";
-overlayFX.style.height = "100%";
-overlayFX.style.pointerEvents = "none";
-overlayFX.style.background = "rgba(0,255,200,0.05)";
-document.body.appendChild(overlayFX);
-
-function glitchEffect() {
-  overlayFX.style.background = "rgba(255,0,0,0.2)";
-  setTimeout(() => {
-    overlayFX.style.background = "rgba(0,255,200,0.05)";
-  }, 100);
-}
-
-/* ================= FINAL LOOP EXTENSION ================= */
-const prevFinal = advancedAnimate;
-
-advancedAnimate = function () {
-
-  prevFinal();
-
-  updateNPCs();
-  updateGhosts();
-  updateMissions();
-
-  if (Math.random() < 0.001) glitchEffect();
-};
-
-/* ================= IMPORTS ================= */
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.160/build/three.module.js";
-import { EffectComposer } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/postprocessing/EffectComposer.js";
-import { RenderPass } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/postprocessing/RenderPass.js";
-import { UnrealBloomPass } from "https://cdn.jsdelivr.net/npm/three@0.160/examples/jsm/postprocessing/UnrealBloomPass.js";
-
-import gsap from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js";
-
-/* ================= CORE ================= */
-const scene = new THREE.Scene();
-
-const camera = new THREE.PerspectiveCamera(
-  75,
-  window.innerWidth / window.innerHeight,
-  0.1,
-  1000
-);
-
-camera.position.set(0, 2, 6);
-
-const renderer = new THREE.WebGLRenderer({
-  antialias: true,
-  powerPreference: "high-performance"
-});
-
-renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-renderer.setClearColor(0x000000);
-
-document.body.appendChild(renderer.domElement);
-
-/* ================= POST PROCESSING ================= */
-const composer = new EffectComposer(renderer);
-
-const renderPass = new RenderPass(scene, camera);
-composer.addPass(renderPass);
-
-const bloomPass = new UnrealBloomPass(
-  new THREE.Vector2(window.innerWidth, window.innerHeight),
-  1.2,
-  0.4,
-  0.85
-);
-composer.addPass(bloomPass);
-
-/* ================= LIGHTING ================= */
-const ambient = new THREE.AmbientLight(0xffffff, 0.4);
-scene.add(ambient);
-
-const directional = new THREE.DirectionalLight(0xffffff, 2);
-directional.position.set(5, 10, 5);
-scene.add(directional);
-
-/* ================= FOG ================= */
-scene.fog = new THREE.Fog(0x000000, 10, 40);
-
-/* ================= CITY GENERATION ================= */
-const buildings = [];
-
-for (let i = 0; i < 120; i++) {
-  const geo = new THREE.BoxGeometry(1, 1, 1);
-
-  const mat = new THREE.MeshStandardMaterial({
-    color: 0x222222,
-    roughness: 0.9,
-    metalness: 0.1
-  });
-
-  const mesh = new THREE.Mesh(geo, mat);
-
-  mesh.position.x = (Math.random() - 0.5) * 30;
-  mesh.position.z = (Math.random() - 0.5) * 30;
-  mesh.position.y = Math.random() * 2;
-
-  mesh.scale.y = Math.random() * 6 + 1;
-
-  scene.add(mesh);
-  buildings.push(mesh);
-}
-
-/* ================= GROUND ================= */
-const ground = new THREE.Mesh(
-  new THREE.PlaneGeometry(200, 200),
-  new THREE.MeshStandardMaterial({ color: 0x111111 })
-);
-
-ground.rotation.x = -Math.PI / 2;
-scene.add(ground);
-
-/* ================= SCROLL PROGRESS ================= */
-let scrollProgress = 0;
-
-window.addEventListener("scroll", () => {
-  const maxScroll = document.body.scrollHeight - window.innerHeight;
-  scrollProgress = window.scrollY / maxScroll;
-
-  updateScene(scrollProgress);
-});
-
-/* ================= STORY TEXT ================= */
-const storyText = document.getElementById("storyText");
-
-function updateStory(progress) {
-  if (progress < 0.3) {
-    storyText.innerText = "A world drowning in pollution...";
-    storyText.style.opacity = 1;
-  } else if (progress < 0.6) {
-    storyText.innerText = "Humanity begins to change...";
-  } else {
-    storyText.innerText = "A sustainable future is born 🌱";
-  }
-}
-
-/* ================= ENVIRONMENT EVOLUTION ================= */
-function updateScene(progress) {
-
-  // SKY COLOR
-  const r = 0.05 + progress * 0.2;
-  const g = 0.05 + progress * 0.5;
-  const b = 0.05 + progress * 0.8;
-  renderer.setClearColor(new THREE.Color(r, g, b));
-
-  // FOG TRANSITION
-  scene.fog.color.setRGB(r, g, b);
-
-  // BUILDINGS TRANSFORM
-  buildings.forEach((b) => {
-    b.material.color.setRGB(
-      0.2 + progress * 0.2,
-      0.2 + progress * 0.8,
-      0.2 + progress * 0.3
-    );
-
-    b.scale.y = 1 + progress * 8;
-  });
-
-  // CAMERA CINEMATIC MOVE
-  camera.position.z = 6 - progress * 3;
-  camera.position.y = 2 + progress * 3;
-
-  updateStory(progress);
-}
-
-/* ================= ANIMATION LOOP ================= */
-function animate() {
-  requestAnimationFrame(animate);
-
-  buildings.forEach((b) => {
-    b.rotation.y += 0.001;
-  });
-
-  composer.render();
-}
-animate();
-
-/* ================= RESIZE ================= */
-window.addEventListener("resize", () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  composer.setSize(window.innerWidth, window.innerHeight);
-});
-
+bgLoop();
 </script>
-
 </body>
 </html>
